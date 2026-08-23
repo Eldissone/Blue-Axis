@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "backdrop-filter",
+          "-webkit-font-feature-settings",
+          "scrollbar-width",
+          "scrollbar-width: none",
+          "-webkit-text-size-adjust",
+          "text-wrap"
+        ]
+      }
+    ],
+    "disown-opener": "off",
+    "no-inline-styles": "off",
+    "axe/text-alternatives": [
+      "default",
+      {
+        "image-alt": "off"
+      }
+    ]
+  }
+}

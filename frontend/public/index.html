@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BLUE HORIZON — orientação clara para decisões, rotas e operações." />
+  <title>BLUE HORIZON</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Hanken+Grotesk:wght@400;600;700;800&family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/tailwind.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+
+  <!-- TopNavBar -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- Brand Logo -->
+      <a href="/" aria-label="BLUE HORIZON — início" class="brand">
+        <span class="brand-name">BLUE HORIZON</span>
+      </a>
+
+      <!-- Navigation Links (Desktop) -->
+      <nav class="site-nav hidden md:flex gap-8 items-center h-full">
+        <a class="font-button text-button border-b-2 border-primary text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="/">Home</a>
+        <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="./pages/academia.html">Academia</a>
+        <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="./pages/consultoria.html">Consultoria</a>
+        <a class="font-button text-button text-primary h-full flex items-center pt-[2px] transition-colors duration-200"
+          href="./pages/parceiros.html">Parceiros</a>
+        <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="#">Oportunidades</a>
+        <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="./pages/sobre.html">Sobre nós</a>
+      </nav>
+      <!-- Trailing Action -->
+      <button
+        class="bg-primary hover:bg-primary-container text-on-primary font-button text-button px-6 py-2.5 rounded-[25px] transition-all duration-200 shadow-sm scale-95 active:scale-90 flex items-center gap-2">
+        Contactos
+      </button>
+
+
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- Hero -->
+    <section
+      class="hero relative w-full min-h-[95vh] h-[95vh] flex items-center justify-center overflow-hidden bg-primary">
+      <!-- Background Image with Overlay -->
+      <div class="absolute inset-0 z-0">
+        <div class="w-full h-full bg-cover bg-center bg-no-repeat absolute inset-0 mix-blend-overlay opacity-60"
+          data-alt="Blue Economia." style="background-image: url('./assets/images/porto\ hero.png')">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-transparent"></div>
+      </div>
+      <div
+        class="hero-copy relative z-10 w-full items-center justify-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+        <div class="w-full items-center justify-center lg:col-span-8 flex flex-col gap-6 pt-12 md:pt-0">
+
+          <h1 class="text-display-lg text-center text-white">Conectamos pessoas, instituições e oportunidades para o
+            desenvolvimento da <span class="text-tertiary-fixed">Economia Azul.</span></h1>
+
+          <p class="text-center font-body-lg text-body-lg text-primary-fixed-dim mt-4">
+            Formação marítima avançada, consultoria estratégica e rede global de parceiros para impulsionar
+            a inovação e sustentabilidade nos oceanos.
+          </p>
+
+
+          <!-- CTAs -->
+          <div class="cta flex flex-wrap items-center gap-4 mt-8">
+            <a class="inline-flex items-center justify-center font-button text-button bg-white text-primary px-8 py-4 rounded-[25px] hover:bg-surface-container-low transition-colors duration-200"
+              href="#">
+              Conheça a BLUE HORIZON
+            </a>
+            <a class="inline-flex items-center justify-center font-button text-button bg-transparent border-2 border-secondary text-white px-8 py-4 rounded-[25px] hover:bg-secondary/20 transition-colors duration-200 gap-2"
+              href="#">
+              <span class="material-symbols-outlined text-[18px]" data-icon="school">school</span>
+              Ver Cursos
+            </a>
+            <a class="inline-flex items-center justify-center font-button text-button text-secondary-fixed hover:text-white transition-colors duration-200 group px-4 py-4 gap-2"
+              href="#">
+              Solicitar Consultoria
+              <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform"
+                data-icon="arrow_forward">arrow_forward</span>
+            </a>
+            <a class="inline-flex items-center justify-center font-button text-button text-outline-variant text-secondary-fixed hover:text-white transition-colors duration-200 px-4 py-4 gap-2"
+              href="#">
+              <span class="material-symbols-outlined text-[18px]" data-icon="person">person</span>
+              Seja Parceiro
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Areas -->
+    <section class="py-24 bg-surface w-full">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="mb-16">
+          <h2 class="font-headline-lg text-headline-lg text-primary mb-4">Áreas de Atuação</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">Conhecimento que navega.
+            Competência que transforma. Nossa estrutura é desenhada para abranger todos os pilares
+            essenciais do setor marítimo moderno.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[minmax(300px,_auto)]">
+          <!-- Academia Card (Large) -->
+          <div
+            class="md:col-span-8 bg-white border border-outline-variant rounded-[25px] p-8 relative overflow-hidden group hover:border-secondary transition-colors duration-300 flex flex-col justify-between">
+            <div
+              class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary-fixed/20 to-transparent rounded-[25px] -translate-y-1/2 translate-x-1/4 opacity-50 group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="relative z-10">
+              <div class="w-14 h-14 bg-primary rounded-[25px] flex items-center justify-center mb-6">
+                <span class="material-symbols-outlined text-white text-[28px]" data-icon="school" data-weight="fill"
+                  style="font-variation-settings: 'FILL' 1;">school</span>
+              </div>
+              <h3 class="font-headline-md text-headline-md text-primary mb-3">Academia</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant max-w-lg mb-6">Programas
+                avançados de formação marítima focados em excelência, segurança e competência global.
+                Preparamos profissionais para os desafios tecnológicos e operacionais do amanhã.</p>
+            </div>
+            <a class="relative z-10 inline-flex items-center font-button text-button text-secondary group-hover:text-primary transition-colors gap-2 w-fit"
+              href="#">
+              Explorar Cursos
+              <span class="material-symbols-outlined text-[18px]" data-icon="arrow_outward">arrow_outward</span>
+            </a>
+          </div>
+
+          <!-- consultoria card -->
+          <div
+            class="md:col-span-4 bg-primary rounded-[25px] p-8 relative overflow-hidden group flex flex-col justify-between text-white border-t-4 border-secondary-fixed">
+            <div
+              class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-30">
+            </div>
+            <div class="relative z-10">
+              <div class="w-14 h-14 bg-white/10 rounded-[25px] flex items-center justify-center mb-6 backdrop-blur-md">
+                <span class="material-symbols-outlined text-tertiary-fixed text-[28px]"
+                  data-icon="insights">insights</span>
+              </div>
+              <h3 class="font-headline-md text-headline-md text-white mb-3">Consultoria</h3>
+              <p class="font-body-md text-body-md text-primary-fixed-dim mb-6">Soluções estratégicas,
+                inovação e desenvolvimento para instituições que buscam conformidade e eficiência no
+                setor azul.</p>
+            </div>
+            <a class="relative z-10 w-full text-center py-3 border border-white/20 rounded-[25px] font-button text-button hover:bg-white/10 transition-colors"
+              href="#">
+              Agendar Sessão
+            </a>
+          </div>
+
+          <!-- Parceiros Card -->
+          <div
+            class="md:col-span-6 bg-surface-container-low border border-outline-variant rounded-[25px] p-8 flex items-start gap-6 group hover:bg-white transition-colors duration-300">
+            <div class="w-12 h-12 shrink-0 bg-secondary/10 rounded-[25px] flex items-center justify-center mt-1">
+              <span class="material-symbols-outlined text-secondary text-[24px]" data-icon="handshake">handshake</span>
+            </div>
+            <div>
+              <h3 class="font-headline-md text-headline-md text-primary mb-2">Parceiros</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-4">Construímos uma rede
+                sólida de alianças globais. Junte-se a nós para fortalecer o ecossistema marítimo
+                sustentável.</p>
+              <a class="font-button text-button text-secondary flex items-center gap-1 hover:underline" href="#">
+                Rede de Parceiros <span class="material-symbols-outlined text-[16px]"
+                  data-icon="chevron_right">chevron_right</span>
+              </a>
+            </div>
+          </div>
+          <!-- Oportunidade Card -->
+          <div
+            class="md:col-span-6 bg-surface-container-low border border-outline-variant rounded-[25px] p-8 flex items-start gap-6 group hover:bg-white transition-colors duration-300">
+            <div class="w-12 h-12 shrink-0 bg-secondary/10 rounded-[25px] flex items-center justify-center mt-1">
+              <span class="material-symbols-outlined text-secondary text-[24px]"
+                data-icon="trending_up">trending_up</span>
+            </div>
+            <div>
+              <h3 class="font-headline-md text-headline-md text-primary mb-2">Opportunities</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-4">Conectamos talentos às
+                demandas do mercado. Descubra vagas, estágios e projetos de inovação na Economia Azul.
+              </p>
+              <a class="font-button text-button text-secondary flex items-center gap-1 hover:underline" href="#">
+                Ver Vagas <span class="material-symbols-outlined text-[16px]"
+                  data-icon="chevron_right">chevron_right</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-div">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Entra em contacto e saiba mais sobre a BLUE HORIZON, Lda.
+        </h2>
+        <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 40px;text-align: center;">
+          Ideias ganham força quando são partilhadas. Junta-te à nós.
+        </p>
+
+        <div class="cta-buttons">
+          <a href="https://wa.me/2449" class="cta-button primary" target="_blank">
+            <i class="fab fa-whatsapp"></i> Fale comigo
+          </a>
+          <a href="tel:+2449" class="cta-button1 secondary">
+            <i class="fas fa-phone"></i> Ligar Agora
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer bg-tertiary w-full mt-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter py-12 px-margin-mobile max-w-container-max mx-auto">
+      <!-- Brand / Copyright -->
+      <div class="container footer-inner md:col-span-1 flex flex-col gap-4">
+        <span class="font-headline-md text-headline-md font-bold text-on-tertiary"> BLUE HORIZON, LDA © <span
+            id="ano"></span></span>
+
+      </div>
+
+      <!-- Newsletter -->
+      <div class="md:col-span-1 flex flex-col items-center gap-3">
+        <h4 class="font-label-sm text-label-sm text-on-tertiary uppercase tracking-wider mb-2 opacity-60">
+          Atualização</h4>
+        <a class="font-body-md text-body-md text-on-tertiary opacity-80 hover:opacity-100 hover:text-tertiary-fixed transition-all duration-300 flex items-center gap-2"
+          href="#">
+          Newsletter Signup
+          <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+        </a>
+      </div>
+
+      <!-- Links Column 1 -->
+      <div class="md:col-span-1 flex flex-col items-center gap-3">
+        <h4 class="font-label-sm text-label-sm text-on-tertiary uppercase tracking-wider mb-2 opacity-60">
+          Nossas redes:</h4>
+        <div class="footer-social">
+          <ul>
+            <li><a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i
+                  class="fab fa-linkedin"></i></a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i
+                  class="fab fa-facebook"></i></a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i
+                  class="fab fa-instagram"></i></a></li>
+            <li><a href="https://wa.me/2449" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i
+                  class="fab fa-whatsapp"></i></a></li>
+          </ul>
+        </div>
+      </div>
+
+
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

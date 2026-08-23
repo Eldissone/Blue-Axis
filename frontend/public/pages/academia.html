@@ -1,0 +1,359 @@
+<!-- Academia - BLUE HORIZON -->
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Academia | BLUE HORIZON</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/tailwind.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom scrollbar for horizontal lists */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface font-body-md antialiased selection:bg-primary-fixed selection:text-primary">
+    <!-- TopNavBar -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <!-- Brand Logo -->
+            <a href="/" aria-label="BLUE HORIZON — início" class="brand">
+                <span class="brand-name">BLUE HORIZON</span>
+            </a>
+
+            <!-- Navigation Links (Desktop) -->
+            <nav class="site-nav hidden md:flex gap-8 items-center h-full">
+                <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+                    href="/">Home</a>
+                <a class="font-button text-button border-b-2 border-primary text-on-surface-variant hover:text-primary transition-colors duration-200"
+                    href="academia.html">Academia</a>
+                <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+                    href="consultoria.html">Consultoria</a>
+                <a class="font-button text-button text-primary h-full flex items-center pt-[2px] transition-colors duration-200"
+                    href="parceiros.html">Parceiros</a>
+                <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+                    href="#">Oportunidades</a>
+                <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+                    href="sobre.html">Sobre nós</a>
+            </nav>
+            <!-- Trailing Action -->
+            <button
+                class="bg-primary hover:bg-primary-container text-on-primary font-button text-button px-6 py-2.5 rounded-[25px] transition-all duration-200 shadow-sm scale-95 active:scale-90 flex items-center gap-2">
+                Contactos
+            </button>
+
+
+        </div>
+    </header>
+
+
+    <!-- Main Content -->
+    <main class="w-full pb-24">
+        <!-- Hero Section -->
+        <section class="relative bg-surface-container-low border-b border-outline-variant overflow-hidden">
+            <!-- Decorative background pattern -->
+            <div class="absolute inset-0 opacity-5 pointer-events-none"
+                style="background-image: radial-gradient(#001e40 1px, transparent 1px); background-size: 24px 24px;">
+            </div>
+            <div
+                class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24 relative z-10 flex flex-col md:flex-row items-center gap-gutter">
+                <div class="flex-1 space-y-6">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-[25px] bg-primary-fixed text-primary font-label-sm text-label-sm border border-primary-fixed-dim">
+                        <span class="material-symbols-outlined text-[16px]">school</span>
+                        Programa Avançado de Formação Marítima
+                    </div>
+                    <h1 class="font-display-lg text-display-lg text-primary max-w-2xl">
+                        BLUE HORIZON
+                    </h1>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        Economia Azul e Desenvolvimento Sustentável. Capacitando os líderes marítimos de amanhã através
+                        de conhecimento especializado, tecnologia de ponta e rigor industrial. Conhecimento que navega.
+                        Competência que transforma.
+                    </p>
+                </div>
+                <div class="flex-1 w-full flex justify-center md:justify-end">
+                    <!-- Specific brand image requested by user -->
+                    <img alt="BLUE HORIZON Branding"
+                        class="w-full max-w-md object-contain mix-blend-multiply drop-shadow-xl"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWNJczNgfhYAXves0-s7zkIdseBQD9rXMSsUukukVH5m5yInotvXE1h0SCUdYSnSDZqr3S4LI4z32QpcuzJKkUVkTgW2kcefAZ4tE_4PTdGeVwuaS1nPtxxOhMxTu9uN2XLe21LM1ljzZv4qVLtN7QADJmXnRG7N_rqW3ODBCyHt3JA_DJwdfKatSlospwIxm6tqSrtMuDr5Go7Uxh3GyTnfHmlv_w_P7gzsmMKk-ubCkjXlZyAb4tTmA5Su-N6wbKdA" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Filtros Section -->
+        <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-12 mb-8">
+            <div class="flex items-center gap-4 overflow-x-auto hide-scrollbar pb-4 border-b border-outline-variant">
+                <button
+                    class="shrink-0 px-4 py-2 rounded-[25px] bg-primary text-on-primary font-button text-button border border-primary transition-colors">
+                    Todos os Cursos
+                </button>
+                <button
+                    class="shrink-0 px-4 py-2 rounded-[25px] bg-surface text-on-surface-variant font-button text-button border border-outline-variant hover:border-secondary hover:text-secondary transition-colors">
+                    Gestão Portuária
+                </button>
+                <button
+                    class="shrink-0 px-4 py-2 rounded-[25px] bg-surface text-on-surface-variant font-button text-button border border-outline-variant hover:border-secondary hover:text-secondary transition-colors">
+                    Direito Marítimo
+                </button>
+                <button
+                    class="shrink-0 px-4 py-2 rounded-[25px] bg-surface text-on-surface-variant font-button text-button border border-outline-variant hover:border-secondary hover:text-secondary transition-colors">
+                    Segurança Marítima
+                </button>
+                <button
+                    class="shrink-0 px-4 py-2 rounded-[25px] bg-surface text-on-surface-variant font-button text-button border border-outline-variant hover:border-secondary hover:text-secondary transition-colors">
+                    Ambiente
+                </button>
+                <button
+                    class="shrink-0 px-4 py-2 rounded-[25px] bg-surface text-on-surface-variant font-button text-button border border-outline-variant hover:border-secondary hover:text-secondary transition-colors">
+                    Logística
+                </button>
+                <button
+                    class="shrink-0 px-4 py-2 rounded-[25px] bg-surface text-on-surface-variant font-button text-button border border-outline-variant hover:border-secondary hover:text-secondary transition-colors">
+                    Power BI
+                </button>
+                <button
+                    class="shrink-0 px-4 py-2 rounded-[25px] bg-surface text-on-surface-variant font-button text-button border border-outline-variant hover:border-secondary hover:text-secondary transition-colors">
+                    Petróleo e Gás
+                </button>
+                <button
+                    class="shrink-0 px-4 py-2 rounded-[25px] bg-surface text-on-surface-variant font-button text-button border border-outline-variant hover:border-secondary hover:text-secondary transition-colors">
+                    Gestão da Qualidade
+                </button>
+            </div>
+        </section>
+
+        <!-- Corsos Grid -->
+        <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                <!-- Card 1 -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant rounded-[25px] group hover:border-secondary transition-colors duration-300 flex flex-col h-full overflow-hidden">
+                    <div class="relative h-48 w-full overflow-hidden bg-surface-container">
+                        <div
+                            class="absolute inset-0 bg-primary/10 mix-blend-multiply z-10 group-hover:bg-transparent transition-colors duration-300">
+                        </div>
+                        <img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                            data-alt="A highly detailed, professional photo of a modern container terminal at dawn. Cranes are silhouetted against a bright, clear blue sky. The scene is illuminated by crisp, high-key lighting, emphasizing the geometric structure of the shipping containers and industrial maritime equipment. A sophisticated palette of deep navy blues, steel grays, and pristine whites dominates, reflecting a high-tech Blue Economy aesthetic."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZKLEyR66-4vVlbAUSNY83okrZjMaMh3dZcXkGs13OpaUWugJ_mCLMjBRoIOyJYXRQlSSkCh4eLTZmFqZZ2Ok3j7LrRAtdG_hKDQPUWAwQCULLpxGkNFRUYjrYU1xTZlJXNy9ba1bcSj3u-olSZko0L31N-Nd0Sa7njXTga9tIDMJx0b-X_nflRLNDFjRkzgLbetI2gdXx6xjpseJ8gS_aIYpJPHrXYJ7NGY1dnrfz9fFtzVSNamu2" />
+                        <div class="absolute top-4 left-4 z-20">
+                            <span
+                                class="bg-secondary text-on-secondary px-2 py-1 rounded-[25px] font-label-sm text-label-sm">Gestão
+                                Portuária</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-2 line-clamp-2">Gestão Estratégica
+                            de Terminais Portuários</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3 flex-1">
+                            Aprofunde conhecimentos nas operações logísticas modernas, gestão de frota, eficiência
+                            energética e operações de carga e descarga em ambientes portuários de alta densidade.
+                        </p>
+                        <!-- Metadata Specs -->
+                        <div class="space-y-3 mb-6 pt-4 border-t border-surface-variant">
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[14px]">schedule</span> Carga
+                                    Horária</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">120 Horas</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[14px]">computer</span> Modalidade</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">Híbrido</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[14px]">verified</span> Instituição
+                                    Certificadora</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">BLUE HORIZON
+                                    Academy</span>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full bg-primary text-on-primary font-button text-button py-3 rounded-[25px] hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200">
+                            Inscrever-me
+                        </button>
+                    </div>
+                </article>
+                <!-- Card 2 -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant rounded-[25px] group hover:border-secondary transition-colors duration-300 flex flex-col h-full overflow-hidden">
+                    <div class="relative h-48 w-full overflow-hidden bg-surface-container">
+                        <div
+                            class="absolute inset-0 bg-primary/10 mix-blend-multiply z-10 group-hover:bg-transparent transition-colors duration-300">
+                        </div>
+                        <img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                            data-alt="A professional, modern photography of a glowing data dashboard overlaying a schematic of a commercial vessel. The visual is crisp and technological, highlighting data visualization and Power BI charts specifically for maritime logistics. The color palette features deep abyssal navies, horizon blues, and bright white grid lines. Lighting is moody yet clean, conveying authoritative navigation and tech integration."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuATR1GH2l2MQNmmdUBeYZrHtGrfTli7ky5vTLG1TtcwplBST3kJmhh_0hjjJPuCcZcRyNruwWbFZcaDCFBPoZdsi0wiB6THrAdZ--GO5XHLEYcxDG16MrRE5NrJh2ZzgJVPxqW267xc4FZ78v0r1lMRNfnEF85IHG6Xd8nwjxrZQtRMYBaI2QlgJygaW0-X2K_YGIedFjJmHuQXPrs2ph-1T89Rvd1vpJhP8k5qBm_p1zsVpayc0IJ6" />
+                        <div class="absolute top-4 left-4 z-20">
+                            <span
+                                class="bg-secondary text-on-secondary px-2 py-1 rounded-[25px] font-label-sm text-label-sm">Power
+                                BI</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-2 line-clamp-2">Data Analytics e
+                            Power BI no Setor Marítimo</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3 flex-1">
+                            Capacitação avançada em análise de dados operacionais. Aprenda a construir dashboards
+                            interativos e modelos preditivos para otimização de rotas e consumo de combustível.
+                        </p>
+                        <!-- Metadata Specs -->
+                        <div class="space-y-3 mb-6 pt-4 border-t border-surface-variant">
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[14px]">schedule</span> Carga
+                                    Horária</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">60 Horas</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[14px]">computer</span> Modalidade</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">100% Online</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[14px]">verified</span> Instituição
+                                    Certificadora</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">Tech Ocean Inst.</span>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full bg-primary text-on-primary font-button text-button py-3 rounded-[25px] hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200">
+                            Inscrever-me
+                        </button>
+                    </div>
+                </article>
+                <!-- Card 3 -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant rounded-[25px] group hover:border-secondary transition-colors duration-300 flex flex-col h-full overflow-hidden">
+                    <div class="relative h-48 w-full overflow-hidden bg-surface-container">
+                        <div
+                            class="absolute inset-0 bg-primary/10 mix-blend-multiply z-10 group-hover:bg-transparent transition-colors duration-300">
+                        </div>
+                        <img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                            data-alt="A striking close-up photograph of legal documents alongside a brass maritime compass on a dark mahogany desk. The scene is shot with a shallow depth of field, illuminated by a modern, cool white desk lamp that brings out the tactile textures of the paper and metal. The aesthetic is authoritative, professional, and elegant, matching the Blue Economy consultancy brand."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkhL_jRzl2SD6LTPzvRPYP-SYSbQjPsmYps76UtlnM7T6D_0IWp6MQ9QLeRWD_tNoL9adPPJGUHNXR4J5S5H8xrQXPp2rUWIF_VhYB6vDLF7QvYH2n2Ew8V9EYzNXI4V0-FUeIGjE5kfY8OwHJC1gy7MF3LKe6nCLKGiaxqPu-I7Fh296QKZ6JPTh0ku0pwGV9HbPe62uEEPsJdicBkswKx3hA0kblRmZOA257ZxRORxLuJk4bh8Rm" />
+                        <div class="absolute top-4 left-4 z-20">
+                            <span
+                                class="bg-secondary text-on-secondary px-2 py-1 rounded-[25px] font-label-sm text-label-sm">Direito
+                                Marítimo</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-2 line-clamp-2">Regulação e
+                            Conformidade Internacional</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3 flex-1">
+                            Compreenda o quadro legal complexo que rege o transporte marítimo global, convenções da IMO,
+                            seguros, e resolução de litígios comerciais.
+                        </p>
+                        <!-- Metadata Specs -->
+                        <div class="space-y-3 mb-6 pt-4 border-t border-surface-variant">
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[14px]">schedule</span> Carga
+                                    Horária</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">90 Horas</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[14px]">computer</span> Modalidade</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">Presencial</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-[14px]">verified</span> Instituição
+                                    Certificadora</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">Intl. Maritime
+                                    Org.</span>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full bg-primary text-on-primary font-button text-button py-3 rounded-[25px] hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200">
+                            Inscrever-me
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer bg-tertiary w-full mt-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter py-12 px-margin-mobile max-w-container-max mx-auto">
+            <!-- Brand / Copyright -->
+            <div class="container footer-inner md:col-span-1 flex flex-col gap-4">
+                <span class="font-headline-md text-headline-md font-bold text-on-tertiary"> BLUE HORIZON, LDA © <span
+                        id="ano"></span></span>
+
+            </div>
+
+            <!-- Newsletter -->
+            <div class="md:col-span-1 flex flex-col items-center gap-3">
+                <h4 class="font-label-sm text-label-sm text-on-tertiary uppercase tracking-wider mb-2 opacity-60">
+                    Atualização</h4>
+                <a class="font-body-md text-body-md text-on-tertiary opacity-80 hover:opacity-100 hover:text-tertiary-fixed transition-all duration-300 flex items-center gap-2"
+                    href="#">
+                    Newsletter Signup
+                    <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+                </a>
+            </div>
+
+            <!-- Links Column 1 -->
+            <div class="md:col-span-1 flex flex-col items-center gap-3">
+                <h4 class="font-label-sm text-label-sm text-on-tertiary uppercase tracking-wider mb-2 opacity-60">
+                    Nossas redes:</h4>
+                <div class="footer-social">
+                    <ul>
+                        <li><a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i
+                                    class="fab fa-facebook"></i></a></li>
+                        <li><a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i
+                                    class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://wa.me/2449" target="_blank" rel="noopener noreferrer"
+                                aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+
+</body>
+
+</html>
