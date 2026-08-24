@@ -221,7 +221,7 @@ code {
   color: var(--navy);
   border: 2px solid var(--white);
   cursor: pointer;
-    background:
+  background:
     radial-gradient(1900px 820px at 90% -10%, rgba(61, 139, 255, 0.16), transparent 60%),
     linear-gradient(180deg, #f7f4ee 0%, var(--paper) 40%, #ebe5d8 100%);
 }
@@ -260,11 +260,12 @@ code {
   border: 2px solid var(--white);
 }
 
-.cta-button:hover{
+.cta-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   color: var(--white);
 }
+
 .cta-button1:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
