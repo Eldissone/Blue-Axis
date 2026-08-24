@@ -24,8 +24,8 @@
   <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
 
   <!-- TopNavBar -->
-  <header class="site-header">
-    <div class="container header-inner max-w-container-max">
+  <header class="site-header relative">
+    <div class="container header-inner max-w-container-max flex items-center justify-between">
       <!-- Brand Logo -->
       <a href="/" aria-label="BLUE HORIZON — início" class="brand">
         <span class="brand-name">BLUE HORIZON</span>
@@ -48,7 +48,35 @@
       </nav>
       <!-- Trailing Action -->
       <button
-        class="bg-primary hover:bg-primary-container text-on-primary font-button text-button px-6 py-2.5 rounded-[25px] transition-all duration-200 shadow-sm scale-95 active:scale-90 flex items-center gap-2">
+        class="hidden md:flex bg-primary hover:bg-primary-container text-on-primary font-button text-button px-6 py-2.5 rounded-[25px] transition-all duration-200 shadow-sm scale-95 active:scale-90 items-center gap-2">
+        Contactos
+      </button>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-primary"
+        aria-label="Abrir menu">
+        <span class="material-symbols-outlined text-3xl">menu</span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu"
+      class="hidden md:hidden absolute left-4 right-4 top-full mt-2 bg-white shadow-lg border border-outline-variant rounded-[25px] p-6 flex-col gap-6 z-50">
+      <nav class="flex flex-col gap-4">
+        <a class="font-button text-button text-primary font-bold" href="/">Home</a>
+        <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="./pages/academia.html">Academia</a>
+        <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="./pages/consultoria.html">Consultoria</a>
+        <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="./pages/parceiros.html">Parceiros</a>
+        <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="#">Oportunidades</a>
+        <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
+          href="./pages/sobre.html">Sobre nós</a>
+      </nav>
+      <button
+        class="w-full bg-primary hover:bg-primary-container text-on-primary font-button text-button px-6 py-3 rounded-[25px] transition-all duration-200 shadow-sm flex items-center justify-center gap-2">
         Contactos
       </button>
     </div>
@@ -57,7 +85,7 @@
   <main id="conteudo">
     <!-- Hero -->
     <section
-      class="hero relative w-full min-h-[95vh] h-[100vh] flex items-center justify-center overflow-hidden bg-primary">
+      class="hero relative w-full min-h-[100vh] h-auto flex items-center justify-center overflow-hidden bg-primary">
       <!-- Background Image with Overlay -->
       <div class="absolute inset-0 z-0">
         <div class="w-full h-full bg-cover bg-center bg-no-repeat absolute inset-0 mix-blend-overlay opacity-60"
@@ -67,7 +95,7 @@
       </div>
       <div
         class="hero-copy relative z-10 w-full items-center justify-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter">
-        <div class="w-full items-center justify-center lg:col-span-8 flex flex-col gap-6 pt-12 md:pt-0">
+        <div class="w-full items-center justify-center lg:col-span-8 flex flex-col gap-6 pt-24 md:pt-0">
 
           <h1 class="text-display-lg text-center text-white">Conectamos pessoas, instituições e oportunidades para o
             desenvolvimento da <span class="text-tertiary-fixed">Economia Azul.</span></h1>
@@ -82,7 +110,7 @@
           <div class="cta flex flex-wrap items-center gap-4 mt-8">
             <a class="inline-flex items-center justify-center font-button text-button bg-white text-primary px-8 py-4 rounded-[25px] hover:bg-surface-container-low transition-colors duration-200"
               href="#">
-              Conheça a BLUE HORIZON
+              BLUE HORIZON
             </a>
             <a class="inline-flex items-center justify-center font-button text-button bg-transparent border-2 border-secondary text-white px-8 py-4 rounded-[25px] hover:bg-secondary/20 transition-colors duration-200 gap-2"
               href="#">

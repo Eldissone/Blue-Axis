@@ -110,7 +110,6 @@ code {
 }
 
 .site-nav {
-  display: flex;
   gap: 1.25rem;
   font-size: 0.95rem;
   font-weight: 500;
@@ -207,7 +206,6 @@ code {
 
 
 .cta-section {
-  padding: 0px 100px;
   text-align: center;
   padding: 50px;
   border-radius: 50px;
