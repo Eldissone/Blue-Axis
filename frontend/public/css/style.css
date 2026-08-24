@@ -80,6 +80,8 @@ code {
   backdrop-filter: blur(14px);
   background: rgba(243, 239, 230, 0.78);
   border-bottom: 1px solid var(--line);
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 .header-inner,

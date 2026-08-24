@@ -958,6 +958,10 @@ input:where([type='file']):focus {
   height: 100%;
 }
 
+.h-\[100vh\] {
+  height: 100vh;
+}
+
 .min-h-\[300px\] {
   min-height: 300px;
 }
