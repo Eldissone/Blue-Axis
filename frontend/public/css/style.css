@@ -74,8 +74,9 @@ code {
 }
 
 .site-header {
-  position: sticky;
+  position: absolute;
   top: 0;
+  width: 100%;
   z-index: 100;
   backdrop-filter: blur(14px);
   background: rgba(243, 239, 230, 0.78);
@@ -148,7 +149,7 @@ code {
 
 .hero-copy {
   display: flex;
-  top: 50px;
+  top: 80px;
   padding: 0 100px;
 
   p {
@@ -204,11 +205,73 @@ code {
   padding: 4.5rem 0;
 }
 
+.formSection {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formDiv {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8rem;
+
+  padding: 70px 150px;
+  min-height: 530px;
+  width: 100%;
+
+  border-radius: 50px;
+  background: var(--ink);
+
+}
+
+.textLeft {
+  position: relative; 
+  flex: 1;
+  min-width: 0;
+  z-index: 2;
+
+}
+
+.text {
+  color: var(--paper);
+  max-width: 500px;
+}
+
+.text p {
+  line-height: 1.7;
+  opacity: 0.8;
+}
+
+.imgL {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  left: 0;
+  top: 210px;
+  border-radius: 20px;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.imgR {
+  width: 420px;
+  height: 380px;
+  flex-shrink: 0;
+  margin-right: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+}
 
 .cta-section {
+   display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   padding: 50px;
-  border-radius: 50px;
   text-align: center;
   margin-bottom: 50px;
   width: 100%;
@@ -244,6 +307,7 @@ code {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  color: var(--paper);
   background: var(--verde-light);
 }
 
@@ -325,15 +389,15 @@ code {
   }
 }
 
-  .material-symbols-outlined {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
 
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
