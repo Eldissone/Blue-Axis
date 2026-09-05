@@ -26,7 +26,7 @@ if (mobileMenuBtn && mobileMenu) {
 
 // Keep the home-page header visible once the hero has been scrolled past.
 const siteHeader = document.querySelector('.site-header');
-const pageHero = document.querySelector('.hero-carousel');
+const pageHero = document.querySelector('.hero-carousel, .internal-hero');
 
 if (siteHeader && pageHero && 'IntersectionObserver' in window) {
     const headerObserver = new IntersectionObserver(([entry]) => {

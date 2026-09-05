@@ -12,7 +12,8 @@
           "scrollbar-width",
           "scrollbar-width: none",
           "-webkit-text-size-adjust",
-          "text-wrap"
+          "text-wrap",
+          "user-select"
         ]
       }
     ],
