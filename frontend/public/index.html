@@ -83,29 +83,65 @@
   <main id="conteudo">
     <!-- Hero -->
     <section
-      class="hero relative w-full min-h-[100vh] h-auto flex items-center justify-center overflow-hidden bg-primary">
-      <!-- Background Image with Overlay -->
-      <div class="absolute inset-0 z-0">
-        <div class="w-full h-full bg-cover bg-center bg-no-repeat absolute inset-0 mix-blend-overlay opacity-60"
-          data-alt="Blue Economia." style="background-image: url('./assets/images/porto\ hero.png')">
-        </div>
-        <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-transparent"></div>
+      class="hero hero-carousel relative w-full min-h-[100vh] h-auto flex items-center overflow-hidden bg-primary"
+      aria-roledescription="carrossel" aria-label="Destaques da BLUE HORIZON">
+      
+      <!-- Background carousel -->
+      <div class="hero-slides" aria-live="polite">
+        <div class="hero-slide is-active" role="img" aria-label="Porto marítimo"
+          style="background-image: url('./assets/images/porto hero.png')"></div>
+        <div class="hero-slide" role="img" aria-label="Terminal de contentores"
+          style="background-image: url('./assets/images/Bustling Port Scene.png')"></div>
+        <div class="hero-slide" role="img" aria-label="Profissional em ambiente logístico"
+          style="background-image: url('./assets/images/WomanWarehouse.png')"></div>
       </div>
-      <div
-        class="hero-copy relative z-10 w-full items-center justify-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter">
-        <div class="w-full items-center justify-center lg:col-span-8 flex flex-col gap-6 pt-24 md:pt-0">
 
-          <h1 class="text-display-lg text-center text-white">Conectamos pessoas, instituições e oportunidades para o
-            desenvolvimento da <span class="text-tertiary-fixed">Economia Azul.</span></h1>
+      <div class="hero-overlay" aria-hidden="true"></div>
 
-          <p class="text-center font-body-lg text-body-lg text-primary-fixed-dim mt-4">
-            Formação marítima avançada, consultoria estratégica e rede global de parceiros para impulsionar
-            a inovação e sustentabilidade nos oceanos.
-          </p>
+      <div class="hero-decoration" aria-hidden="true">
+        <span class="hero-decoration-arc"></span>
+      </div>
+
+      <div class="hero-carousel-dots" aria-label="Selecionar imagem do carrossel">
+        <button class="hero-carousel-dot is-active" type="button" aria-label="Mostrar imagem 1"
+          aria-current="true"></button>
+        <button class="hero-carousel-dot" type="button" aria-label="Mostrar imagem 2" aria-current="false"></button>
+        <button class="hero-carousel-dot" type="button" aria-label="Mostrar imagem 3" aria-current="false"></button>
+      </div>
+
+      <div class="hero-copy relative">
+        <div class="hero-copy-container-text">
+
+          <div class="hero-copy-texts" aria-live="polite">
+            <div class="hero-copy-slide is-active">
+              <h1 class="text-display-lg">Conectamos pessoas, instituições e oportunidades para o desenvolvimento da <span
+                  class="text-tertiary-fixed">Economia Azul.</span></h1>
+
+            </div>
+
+            <div class="hero-copy-slide">
+              <h1 class="text-display-lg">Logística que aproxima mercados e
+                cria novas <span class="text-tertiary-fixed">possibilidades.</span></h1>
+              <p>
+                Conectamos estrat&eacute;gia, opera&ccedil;&otilde;es e tecnologia para fazer a sua cadeia de valor
+                avan&ccedil;ar.
+              </p>
+            </div>
+
+            <div class="hero-copy-slide">
+              <h1 class="text-display-lg">Conhecimento especializado para liderar a
+                <span class="text-tertiary-fixed">transforma&ccedil;&atilde;o azul.</span>
+              </h1>
+              <p>
+                Formamos profissionais e desenvolvemos solu&ccedil;&otilde;es sustent&aacute;veis para o futuro dos
+                oceanos.
+              </p>
+            </div>
+          </div>
 
 
           <!-- CTAs -->
-          <div class="cta flex flex-wrap items-center gap-4 mt-8">
+          <div class="cta flex flex-wrap items-center gap-4 mt-2">
             <a class="inline-flex items-center justify-center font-button text-button bg-white text-primary px-8 py-4 rounded-[25px] hover:bg-surface-container-low transition-colors duration-200"
               href="#">
               BLUE HORIZON
@@ -132,10 +168,9 @@
     </section>
 
     <section class="formSection bg-surface w-full">
-      <div >
+      <div>
 
-        <div
-          class="formDiv relative grid grid-cols-1 lg:grid-cols-2">
+        <div class="formDiv relative grid grid-cols-1 lg:grid-cols-2">
 
           <!-- Lado Esquerdo -->
           <div class="textLeft relative z-10 flex flex-col justify-center">
@@ -145,12 +180,12 @@
               </h2>
 
               <p class="font-body-md text-lg leading-relaxed text-white/75 max-w-xl">
-                Acreditamos que capacitando os líderes marítimos de amanhã através de conhecimento especializado, tecnologia de ponta e rigor industrial. Conhecimento que navega.
+                Acreditamos que capacitando os líderes marítimos de amanhã através de conhecimento especializado,
+                tecnologia de ponta e rigor industrial. Conhecimento que navega.
               </p>
 
               <!-- Imagem decorativa inferior esquerda -->
-              <div
-                class="imgL">
+              <div class="imgL">
                 <img src="./assets/images/WomanWork.png" alt="Pessoa trabalhando" class="w-full h-full object-cover">
               </div>
             </div>
@@ -159,7 +194,8 @@
           <!-- Lado Direito -->
           <div class="relative flex items-start justify-center lg:justify-end z-10">
             <div class="imgR">
-              <img src="./assets/images/Bustling Port Scene.png" alt="Equipa trabalhando" class="w-full h-full object-cover">
+              <img src="./assets/images/Bustling Port Scene.png" alt="Equipa trabalhando"
+                class="w-full h-full object-cover">
             </div>
           </div>
 

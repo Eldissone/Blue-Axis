@@ -8,12 +8,12 @@
     <title>Academia | BLUE HORIZON</title>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-     <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Hanken+Grotesk:wght@400;600;700;800&family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
-    rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Hanken+Grotesk:wght@400;600;700;800&family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="/css/tailwind.css" />
@@ -52,18 +52,19 @@
             </button>
 
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-primary" aria-label="Abrir menu">
+            <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-primary"
+                aria-label="Abrir menu">
                 <span class="material-symbols-outlined text-3xl">menu</span>
             </button>
         </div>
 
         <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden absolute left-4 right-4 top-full mt-2 bg-white shadow-lg border border-outline-variant rounded-[25px] p-6 flex-col gap-6 z-50">
+        <div id="mobile-menu"
+            class="hidden md:hidden absolute left-4 right-4 top-full mt-2 bg-white shadow-lg border border-outline-variant rounded-[25px] p-6 flex-col gap-6 z-50">
             <nav class="flex flex-col gap-4">
                 <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
                     href="/">Home</a>
-                <a class="font-button text-button text-primary font-bold"
-                    href="academia.html">Academia</a>
+                <a class="font-button text-button text-primary font-bold" href="academia.html">Academia</a>
                 <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
                     href="consultoria.html">Consultoria</a>
                 <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
@@ -83,34 +84,38 @@
 
     <!-- Main Content -->
     <main class="w-full pb-24">
-        <!-- Hero Section -->
-        <section class="relative bg-surface-container-low border-b border-outline-variant overflow-hidden">
-            <!-- Decorative background pattern -->
-            <div class="absolute inset-0 opacity-5 pointer-events-none"
-                style="background-image: radial-gradient(#001e40 1px, transparent 1px); background-size: 24px 24px;">
+        <!-- Hero -->
+        <section
+            class="hero relative w-full min-h-[100vh] h-auto flex items-center justify-center overflow-hidden bg-primary">
+            <!-- Background Image with Overlay -->
+            <div class="absolute inset-0 z-0">
+                <div class="w-full h-full bg-cover bg-center bg-no-repeat absolute inset-0 mix-blend-overlay opacity-60"
+                    data-alt="Blue Economia." style="background-image: url('../assets/images/porto\ hero.png')">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-transparent"></div>
             </div>
             <div
-                class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24 relative z-10 flex flex-col md:flex-row items-center gap-gutter">
-                <div class="flex-1 space-y-6">
-                    <div
-                        class="inline-flex items-center gap-2 px-3 py-1 rounded-[25px] bg-primary-fixed text-primary font-label-sm text-label-sm border border-primary-fixed-dim">
-                        <span class="material-symbols-outlined text-[16px]">school</span>
-                        Programa Avançado de Formação Marítima
+                class="hero-copy relative z-10 w-full items-center justify-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+                <div class="w-full items-center justify-center lg:col-span-8 flex flex-col gap-6 pt-24 md:pt-0">
+
+                    <h1 class="text-display-lg text-center text-white">Formação marítima avançada, consultoria estratégica e rede global de parceiros para impulsionar
+                        a inovação e sustentabilidade nos oceanos</h1>
+
+                    <!-- CTAs -->
+                    <div class="cta flex flex-wrap items-center gap-4 mt-8">
+                        <a class="inline-flex items-center justify-center font-button text-button bg-white text-primary px-8 py-4 rounded-[25px] hover:bg-surface-container-low transition-colors duration-200 gap-2"
+                            href="#">
+                            <span class="material-symbols-outlined text-[18px]" data-icon="person">person</span>
+                            Seja Parceiro
+                        </a>
+                        <a class="inline-flex items-center justify-center font-button text-button bg-transparent border-2 border-secondary text-white px-8 py-4 rounded-[25px] hover:bg-secondary/20 transition-colors duration-200 gap-2"
+                            href="#">
+                            <span class="material-symbols-outlined text-[18px]" data-icon="school">school</span>
+                            Ver Cursos
+                        </a>
+                       
+                 
                     </div>
-                    <h1 class="font-display-lg text-display-lg text-primary max-w-2xl">
-                        BLUE HORIZON
-                    </h1>
-                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-                        Economia Azul e Desenvolvimento Sustentável. Capacitando os líderes marítimos de amanhã através
-                        de conhecimento especializado, tecnologia de ponta e rigor industrial. Conhecimento que navega.
-                        Competência que transforma.
-                    </p>
-                </div>
-                <div class="flex-1 w-full flex justify-center md:justify-end">
-                    <!-- Specific brand image requested by user -->
-                    <img alt="BLUE HORIZON Branding"
-                        class="w-full max-w-md object-contain mix-blend-multiply drop-shadow-xl"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWNJczNgfhYAXves0-s7zkIdseBQD9rXMSsUukukVH5m5yInotvXE1h0SCUdYSnSDZqr3S4LI4z32QpcuzJKkUVkTgW2kcefAZ4tE_4PTdGeVwuaS1nPtxxOhMxTu9uN2XLe21LM1ljzZv4qVLtN7QADJmXnRG7N_rqW3ODBCyHt3JA_DJwdfKatSlospwIxm6tqSrtMuDr5Go7Uxh3GyTnfHmlv_w_P7gzsmMKk-ubCkjXlZyAb4tTmA5Su-N6wbKdA" />
                 </div>
             </div>
         </section>
