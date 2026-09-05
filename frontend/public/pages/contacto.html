@@ -1,4 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Entre em contacto com a BLUE HORIZON." />
+  <title>Contactos | BLUE HORIZON</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/tailwind.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
 
+<body class="page-contacto">
+  <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+  <header class="site-header">
+    <div class="container header-inner flex items-center justify-between">
+      <a href="/" aria-label="BLUE HORIZON — início" class="brand"><img class="brand-logo"
+          src="/assets/logo/LOGO%20BLUE%20HORIZON%202.png" alt="BLUE HORIZON" /></a>
+      <nav class="site-nav hidden md:flex gap-8 items-center h-full" aria-label="Navegação principal">
+        <a class="font-button text-button" href="/">Home</a><a class="font-button text-button"
+          href="academia.html">Academia</a><a class="font-button text-button" href="consultoria.html">Consultoria</a><a
+          class="font-button text-button" href="parceiros.html">Parceiros</a><a class="font-button text-button"
+          href="#">Oportunidades</a><a class="font-button text-button" href="sobre.html">Sobre nós</a>
+      </nav>
+      <a class="header-contact hidden md:flex bg-primary text-on-primary font-button text-button px-6 py-2.5 rounded-[25px] items-center gap-2"
+        href="#fale-conosco">Contactos</a>
+      <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-primary"
+        aria-label="Abrir menu"><span class="material-symbols-outlined text-3xl">menu</span></button>
+    </div>
+    <div id="mobile-menu"
+      class="hidden md:hidden absolute left-4 right-4 top-full mt-2 bg-white shadow-lg border border-outline-variant rounded-[25px] p-6 flex-col gap-6 z-50">
+      <nav class="flex flex-col gap-4"><a class="font-button text-button" href="/">Home</a><a
+          class="font-button text-button" href="academia.html">Academia</a><a class="font-button text-button"
+          href="consultoria.html">Consultoria</a><a class="font-button text-button"
+          href="parceiros.html">Parceiros</a><a class="font-button text-button" href="#fale-conosco">Contactos</a></nav>
+    </div>
+  </header>
 
+  <main id="conteudo">
 
+    <section class="internal-hero contact-hero" aria-labelledby="contacto-titulo">
+      <div class="contact-hero-inner">
+        <div class="contact-hero-copy">
+          <p class="contact-label">Contactos</p>
+          <h1 id="contacto-titulo">Vamos criar a próxima rota <span>juntos.</span></h1>
+          <p>Fale com a BLUE HORIZON para acelerar projetos, formação e parcerias na Economia Azul.</p><a
+            class="contact-hero-link" href="#fale-conosco">Falar com a equipa <span class="material-symbols-outlined"
+              aria-hidden="true">arrow_downward</span></a>
+        </div>
+        <div class="contact-hero-image"><img src="/assets/images/Bustling%20Port%20Scene.png"
+            alt="Operação num terminal portuário" /></div>
+      </div>
+      <img class="page-logo-watermark" src="/assets/logo/LOGO_FUNDO.png" alt="" aria-hidden="true" />
+    </section>
+
+    <section id="fale-conosco" class="contact-directory" aria-labelledby="contact-directory-title">
+      <div class="contact-directory-heading">
+        <p class="contact-label">BLUE HORIZON, LDA.</p>
+        <h2 id="contact-directory-title">Sede e centro de contacto</h2>
+      </div>
+      <div class="contact-directory-grid">
+        <article class="contact-detail-card"><span class="contact-detail-icon material-symbols-outlined"
+            aria-hidden="true">location_on</span>
+          <h3>Luanda, Angola</h3>
+          <p>Rua Assalto de Moncada, 15<br />Luanda, Angola</p><a
+            href="https://www.google.com/maps/search/?api=1&query=Luanda%2C%20Angola" target="_blank"
+            rel="noopener noreferrer">Ver localização <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="contact-detail-card"><span class="contact-detail-icon material-symbols-outlined"
+            aria-hidden="true">alternate_email</span>
+          <h3>Contacto geral</h3>
+          <p>Para informações, propostas e oportunidades de colaboração.</p><a
+            href="mailto:geral@bluehorizon.co.ao">geral@bluehorizon.co.ao</a><a href="tel:+244222679900">+244 222 679
+            900</a>
+        </article>
+        <article class="contact-detail-card"><span class="contact-detail-icon material-symbols-outlined"
+            aria-hidden="true">support_agent</span>
+          <h3>Apoio e WhatsApp</h3>
+          <p>Fale diretamente com a nossa equipa para orientação rápida.</p><a
+            href="https://wa.me/244900000000" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"
+              aria-hidden="true"></i> Iniciar conversa</a><a href="tel:+244949096381">+244 949 096 381</a>
+        </article>
+      </div>
+    </section>
+    <section class="contact-form-section" aria-labelledby="formulario-titulo">
+      <div class="contact-form-panel">
+        <div class="contact-form-intro">
+          <p class="contact-label">Mensagem direta</p>
+          <h2 id="formulario-titulo">Conte-nos como podemos ajudar.</h2>
+          <p>Partilhe o seu desafio. A nossa equipa entrará em contacto consigo assim que possível.</p>
+        </div>
+        <form class="contact-form" action="#" method="post"><label>Nome<input type="text" name="nome"
+              autocomplete="name" required /></label><label>Email<input type="email" name="email" autocomplete="email"
+              required /></label><label>Assunto<select name="assunto">
+              <option>Formação</option>
+              <option>Consultoria</option>
+              <option>Parcerias</option>
+              <option>Outro assunto</option>
+            </select></label><label class="contact-form-full">Mensagem<textarea name="mensagem" rows="4"
+              required></textarea></label><button type="submit">Enviar mensagem <span class="material-symbols-outlined"
+              aria-hidden="true">arrow_forward</span></button></form>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer footer-modern">
+    <section class="footer-updates" aria-labelledby="footer-atualidade">
+      <div class="footer-container footer-updates-grid">
+        <div class="footer-updates-intro">
+          <p>Mantenha-se informado</p>
+          <h2 id="footer-atualidade">Atualidade</h2>
+          <div class="footer-actions"><a href="#">Ver notícias</a><a href="#">Subscrever newsletter <span
+                aria-hidden="true">&#8594;</span></a></div>
+        </div>
+        <div class="footer-news-list"><a href="#"><strong>Novas rotas para a Economia Azul</strong><span>Atualidade | Em
+              breve</span></a><a href="#"><strong>Formação marítima com
+              impacto</strong><span>Academia | Em breve</span></a><a href="#"><strong>Parcerias que movem o setor
+              azul</strong><span>Parceiros | Em breve</span></a></div>
+      </div>
+    </section>
+    <section class="footer-main">
+      <div class="footer-container footer-main-grid">
+        <div>
+          <h3>BLUE HORIZON</h3>
+          <p>Conhecimento que navega o futuro.</p>
+          <p>Luanda, Angola</p>
+        </div>
+        <nav aria-label="Links úteis">
+          <h3>Links úteis</h3><a href="/">Início</a><a href="academia.html">Academia</a><a
+            href="consultoria.html">Consultoria</a><a href="parceiros.html">Parceiros</a>
+        </nav>
+        <div>
+          <h3>Acompanhe-nos</h3>
+          <div class="footer-social footer-social-modern"><a href="#" aria-label="LinkedIn"><i
+                class="fab fa-linkedin-in" aria-hidden="true"></i></a><a href="#" aria-label="Facebook"><i
+                class="fab fa-facebook-f" aria-hidden="true"></i></a><a href="#" aria-label="Instagram"><i
+                class="fab fa-instagram" aria-hidden="true"></i></a><a href="#" aria-label="WhatsApp"><i
+                class="fab fa-whatsapp" aria-hidden="true"></i></a></div>
+        </div>
+      </div>
+      <div class="footer-container footer-copyright">&copy; <span id="ano-footer"></span> BLUE HORIZON, LDA. Todos os
+        direitos reservados.</div>
+    </section>
+  </footer>
+  <script src="/js/main.js"></script>
+</body>
+
+</html>
