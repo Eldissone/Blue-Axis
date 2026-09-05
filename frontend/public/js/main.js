@@ -24,6 +24,18 @@ if (mobileMenuBtn && mobileMenu) {
     });
 }
 
+// Keep the home-page header visible once the hero has been scrolled past.
+const siteHeader = document.querySelector('.site-header');
+const pageHero = document.querySelector('.hero-carousel');
+
+if (siteHeader && pageHero && 'IntersectionObserver' in window) {
+    const headerObserver = new IntersectionObserver(([entry]) => {
+        siteHeader.classList.toggle('is-pinned', !entry.isIntersecting);
+    }, { threshold: 0 });
+
+    headerObserver.observe(pageHero);
+}
+
 // Hero carousel
 const heroCarousel = document.querySelector('.hero-carousel');
 

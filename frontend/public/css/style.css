@@ -130,11 +130,30 @@ code {
   top: 0;
   width: 100%;
   z-index: 100;
-  backdrop-filter: blur(14px);
-  background: rgba(243, 239, 230, 0.78);
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.84);
   border-bottom: 1px solid var(--line);
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  transition: background-color 250ms ease, box-shadow 250ms ease, border-radius 250ms ease, transform 250ms ease;
+}
+
+.site-header.is-pinned {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 0;
+  box-shadow: 0 0.75rem 2rem rgba(0, 30, 64, 0.14);
+  animation: header-enter 260ms ease-out;
+}
+
+@keyframes header-enter {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 .header-inner,
@@ -143,20 +162,20 @@ code {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 72px;
-  width: 90%;
-  height: 72px;
+  min-height: 74px;
+  width: min(1280px, calc(100% - 4.5rem));
+  height: 74px;
 }
 
 .brand {
-  width: 240px;
+  width: 215px;
   height: auto;
   display: inline-flex;
   align-items: center;
 }
 
 .brand-logo {
-  width: 240px;
+  width: 215px;
   height: auto;
   object-fit: contain;
   object-position: center;
@@ -172,9 +191,9 @@ code {
 }
 
 .site-nav {
-  gap: 2rem;
-  font-size: 1rem;
-  font-weight: 500;
+  gap: clamp(1.25rem, 2vw, 2rem);
+  font-size: 0.92rem;
+  font-weight: 600;
 }
 
 .site-nav a {
@@ -184,6 +203,18 @@ code {
 .site-nav a:hover,
 .site-nav a:focus-visible {
   color: var(--navy);
+}
+
+.header-contact {
+  min-width: 7.4rem;
+  justify-content: center;
+  box-shadow: none;
+}
+
+.header-contact:hover,
+.header-contact:focus-visible {
+  box-shadow: 0 0.6rem 1.2rem rgba(0, 30, 64, 0.2);
+  outline: none;
 }
 
 .hero {
@@ -1177,6 +1208,26 @@ section {
 }
 
 @media (max-width: 820px) {
+
+  .site-header {
+    border-bottom-left-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
+  }
+
+  .site-header.is-pinned {
+    border-radius: 0;
+  }
+
+  .header-inner {
+    width: min(100% - 2rem, 1280px);
+    min-height: 64px;
+    height: 64px;
+  }
+
+  .brand,
+  .brand-logo {
+    width: min(12rem, 58vw);
+  }
 
   .hero-grid,
   .split,
