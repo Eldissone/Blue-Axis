@@ -1,4 +1,7 @@
-document.getElementById("ano").textContent = String(new Date().getFullYear());
+const currentYear = String(new Date().getFullYear());
+document.querySelectorAll('#ano, #ano-footer').forEach((yearElement) => {
+    yearElement.textContent = currentYear;
+});
 
 // Mobile menu toggle
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
