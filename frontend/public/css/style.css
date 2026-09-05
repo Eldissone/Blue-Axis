@@ -1,3 +1,43 @@
+@font-face {
+  font-family: "Prometo Trial";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/assets/fonts/Prometo_Trial_Lt.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Prometo Trial";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/assets/fonts/Prometo_Trial_Rg.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Prometo Trial";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/assets/fonts/Prometo_Trial_Md.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Prometo Trial";
+  font-style: normal;
+  font-weight: 600 700;
+  src: url("/assets/fonts/Prometo_Trial_Bd.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Prometo Trial";
+  font-style: normal;
+  font-weight: 800 900;
+  src: url("/assets/fonts/Prometo_Trial_Blk.woff") format("woff");
+  font-display: swap;
+}
+
 :root {
   --ink: #102033;
   --ink-soft: #3d5166;
@@ -12,7 +52,7 @@
   --shadow: 0 24px 60px rgba(11, 31, 58, 0.16);
   --radius: 18px;
   --serif: "Cormorant Garamond", Georgia, serif;
-  --sans: "Manrope", "Segoe UI", sans-serif;
+  --sans: "Prometo Trial", "Segoe UI", sans-serif;
 
   --verde-light: #6dbe45;
   --verde-dark: #2b8440;
@@ -34,6 +74,18 @@ body {
   font-family: var(--sans);
   color: var(--ink);
 
+}
+
+/* Sobrescreve as utilidades tipogrÃ¡ficas geradas pelo Tailwind. */
+.font-body-md,
+.font-body-lg,
+.font-button,
+.font-display-lg,
+.font-headline-lg,
+.font-headline-lg-mobile,
+.font-headline-md,
+.font-label-sm {
+  font-family: "Prometo Trial", "Segoe UI", sans-serif;
 }
 
 img,
@@ -92,15 +144,24 @@ code {
   justify-content: space-between;
   gap: 1rem;
   min-height: 72px;
+  width: 90%;
+  height: 72px;
 }
 
 .brand {
+  width: 240px;
+  height: auto;
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
 }
+
+.brand-logo {
+  width: 240px;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
 
 .brand-mark {
   width: 14px;
@@ -111,8 +172,8 @@ code {
 }
 
 .site-nav {
-  gap: 1.25rem;
-  font-size: 0.95rem;
+  gap: 2rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
@@ -200,6 +261,10 @@ code {
   border-color: var(--navy);
 }
 
+/* 
+section {
+  min-height: 90vh;
+} */
 
 .section {
   padding: 4.5rem 0;
@@ -251,7 +316,7 @@ code {
   width: 380px;
   height: 380px;
   left: 0;
-  top: 210px;
+  top: 220px;
   border-radius: 20px;
   overflow: hidden;
   z-index: 3;
