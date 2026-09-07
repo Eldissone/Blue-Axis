@@ -488,7 +488,7 @@ section {
 .solutions-showcase-inner {
   position: relative;
   z-index: 1;
-  width: min(1180px, 100%);
+  width: min(90%, 100%);
   margin: 0 auto;
 }
 
@@ -519,9 +519,10 @@ section {
 
 .solutions-cards {
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
-  gap: clamp(1.25rem, 2.5vw, 3rem);
+  gap: clamp(1.5rem, 4vw, 5rem);
 }
 
 .solution-card {
@@ -611,7 +612,7 @@ section {
 .services-showcase-inner {
   position: relative;
   z-index: 1;
-  width: min(1180px, 100%);
+  width: min(90%, 100%);
   margin: 0 auto;
 }
 
@@ -640,7 +641,7 @@ section {
 .services-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 1.7vw, 1.5rem);
+  gap: clamp(1rem, 2vw, 3rem);
 }
 
 .service-card {
@@ -1422,7 +1423,7 @@ section {
   padding: clamp(2.75rem, 6vw, 5.5rem);
   overflow: hidden;
   border-radius: 2rem;
-  width: 100%;
+  width: 90%;
   color: #fff;
   background: linear-gradient(120deg, #001e40 0%, #003d67 58%, #005b85 100%);
   box-shadow: 0 1.5rem 4rem rgba(0, 30, 64, 0.19);
