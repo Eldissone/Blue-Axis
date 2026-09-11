@@ -223,6 +223,7 @@ code {
   padding: 5.5rem 0 4.5rem;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
+  min-height: 100vh !important;
 }
 
 .hero-carousel {
@@ -345,7 +346,7 @@ code {
 
 .hero-copy {
   display: flex;
-  top: 160px;
+  top: 130px !important;
   width: 100%;
   padding: 0 80px;
   z-index: 10;
@@ -872,6 +873,7 @@ section {
   min-height: clamp(34rem, 72vh, 48rem);
   border-bottom-right-radius: 3rem;
   border-bottom-left-radius: 3rem;
+  min-height: 95vh;
 }
 
 .internal-hero::after {
