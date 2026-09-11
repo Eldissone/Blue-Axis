@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .text-display-lg {
+    font-size: 48px !important;
+    line-height: 56px;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+  }
+}

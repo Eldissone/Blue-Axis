@@ -884,16 +884,16 @@ input:where([type='file']):focus {
   margin-top: 0.5rem;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
 
 .mt-auto {
   margin-top: auto;
-}
-
-.mt-4 {
-  margin-top: 1rem;
 }
 
 .line-clamp-2 {
@@ -1230,12 +1230,6 @@ input:where([type='file']):focus {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-primary\/95 {
-  --tw-gradient-from: rgb(0 30 64 / 0.95) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(0 30 64 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .via-primary\/80 {
   --tw-gradient-to: rgb(0 30 64 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), rgb(0 30 64 / 0.8) var(--tw-gradient-via-position), var(--tw-gradient-to);
@@ -1435,7 +1429,7 @@ input:where([type='file']):focus {
 }
 
 .text-display-lg {
-  font-size: 48px !important;
+  font-size: 48px;
   line-height: 56px;
   letter-spacing: -0.02em;
   font-weight: 800;
@@ -1651,6 +1645,13 @@ input:where([type='file']):focus {
 
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-display-lg {
+  font-size: 48px !important;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  font-weight: 800;
 }
 
 .hover\:border-secondary:hover {
