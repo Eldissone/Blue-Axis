@@ -1761,6 +1761,64 @@ section {
   font-size: 0.92rem;
 }
 
+/* Tablets ainda não têm espaço útil para a navegação completa. Mantemos o
+   mesmo comportamento do menu móvel até ao ponto em que os links cabem sem
+   apertar o logótipo ou o botão de contacto. */
+@media (max-width: 1023px) {
+  .site-header .site-nav,
+  .site-header .header-contact {
+    display: none !important;
+  }
+
+  .site-header #mobile-menu-btn {
+    display: flex !important;
+  }
+
+  .site-header #mobile-menu {
+    display: none;
+  }
+
+  .site-header #mobile-menu.flex {
+    display: flex;
+  }
+
+  .header-inner {
+    width: min(100% - 3rem, 1280px);
+  }
+
+  .hero-copy {
+    top: 7rem !important;
+    padding-inline: clamp(2rem, 7vw, 4.5rem);
+  }
+
+  .hero-copy-container-text {
+    width: min(100%, 44rem);
+    min-width: 0;
+  }
+
+  .hero-copy-texts {
+    min-height: 18rem;
+  }
+
+  .cta {
+    gap: 0.6rem;
+  }
+
+  .cta a {
+    padding-inline: 1.15rem;
+  }
+
+  .formDiv {
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 21rem);
+    gap: 2.5rem;
+    padding-inline: clamp(2rem, 6vw, 4rem);
+  }
+
+  .footer-container {
+    width: min(100% - 3rem, 1180px);
+  }
+}
+
 @media (max-width: 820px) {
 
   .site-header {
@@ -1849,14 +1907,14 @@ section {
   }
 
   .formSection {
-    padding: 4rem 1.25rem 14rem;
+    padding: 4rem 1.25rem 5rem;
   }
 
   .formDiv {
     grid-template-columns: 1fr;
     gap: 2.5rem;
     min-height: 0;
-    padding: 3rem 2rem 11rem;
+    padding: 3rem 2rem;
     border-radius: 2rem;
   }
 
@@ -1870,11 +1928,11 @@ section {
   }
 
   .imgL {
-    top: auto;
-    bottom: -9rem;
-    left: 2rem;
+    position: relative;
+    inset: auto;
+    margin-top: 2rem;
     width: min(70vw, 20rem);
-    height: 23rem;
+    height: 18rem;
   }
 
   .internal-hero {
@@ -2016,6 +2074,140 @@ section {
   .site-nav {
     gap: 0.85rem;
     font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 560px) {
+  html {
+    overflow-x: hidden;
+  }
+
+  .header-inner {
+    width: calc(100% - 2rem);
+  }
+
+  .brand,
+  .brand-logo {
+    width: min(10.5rem, 62vw);
+  }
+
+  #mobile-menu {
+    left: 1rem;
+    right: 1rem;
+    padding: 1.25rem;
+  }
+
+  .hero,
+  .hero-carousel {
+    min-height: 43rem !important;
+  }
+
+  /* O hero é um flex container centrado no desktop. No telemóvel essa
+     centralização empurra a segunda linha de CTAs para fora da secção. */
+  .hero-carousel {
+    align-items: flex-start;
+  }
+
+  .hero-copy {
+    top: 5.5rem !important;
+    padding-inline: 1.5rem;
+  }
+
+  .hero-copy-texts {
+    min-height: 22rem;
+    margin-block: 1rem;
+  }
+
+  .hero-copy-slide h1 {
+    /* A utilidade gerada pelo Tailwind usa !important neste projecto. */
+    font-size: clamp(2.15rem, 9.5vw, 2.65rem) !important;
+    line-height: 1.04 !important;
+  }
+
+  .hero-copy-slide p {
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .hero-carousel-dots {
+    left: 1.25rem;
+    top: auto;
+    bottom: 2rem;
+    grid-auto-flow: column;
+  }
+
+  .hero-decoration-arc {
+    right: -13rem;
+    bottom: -9rem;
+    width: 29rem;
+    border-width: 3.5rem;
+  }
+
+  .cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .cta a {
+    min-height: 2.75rem;
+    padding: 0.55rem 0.6rem;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+
+  .cta a:nth-child(n + 3) {
+    justify-content: flex-start;
+  }
+
+  .solutions-showcase,
+  .services-showcase {
+    padding-block: 4rem;
+  }
+
+  .solution-card,
+  .service-card {
+    min-height: 20rem;
+  }
+
+  .service-card-content {
+    padding: 1.5rem;
+  }
+
+  .service-card-icon {
+    width: 3.75rem;
+    height: 3.75rem;
+    font-size: 1.6rem;
+  }
+
+  .formSection {
+    padding: 3.5rem 1rem 4rem;
+  }
+
+  .formDiv {
+    padding: 2.5rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .imgL {
+    width: min(72vw, 18rem);
+  }
+
+  .footer-updates-grid,
+  .footer-main-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-updates-grid {
+    min-height: 0;
+    padding-block: 3.5rem;
+  }
+
+  .footer-main {
+    padding-top: 2.5rem;
   }
 }
 
