@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Backoffice Blue-Axis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/tailwind.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: var(--md-sys-color-surface-container-lowest, #f8fafc);
+    }
+
+    .bg-admin {
+      background-color: var(--md-sys-color-primary, #005A9C);
+      color: white;
+    }
+
+    .btn-sair {
+      background-color: var(--md-sys-color-error, #BA1A1A);
+      color: white;
+      border-radius: 25px;
+      padding: 6px 20px;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+
+    .btn-sair:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <header class="site-header" style="position: relative; border-bottom: 1px solid #e2e8f0; background: white;">
+    <div class="container header-inner flex items-center justify-between">
+      <a href="/" aria-label="BLUE HORIZON — início" class="brand flex items-center gap-3">
+        <img class="brand-logo h-10" src="/assets/logo/LOGO%20BLUE%20HORIZON%202.png" alt="BLUE HORIZON" />
+        <span class="text-primary font-bold text-lg hidden sm:block">Administração</span>
+      </a>
+
+      <div class="flex items-center gap-4">
+        <span id="adminNome" class="text-on-surface-variant font-medium text-sm hidden sm:block"></span>
+        <button id="btnSair" class="btn-sair text-sm shadow-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-sm">logout</span> Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar Menu -->
+    <aside class="w-64 bg-white border-r border-gray-200 flex-shrink-0 hidden md:flex flex-col">
+      <nav class="flex-1 py-6 px-4 space-y-2 overflow-y-auto">
+        <p class="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Principal</p>
+        <a href="/backoffice/dashboard"
+          class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary font-bold rounded-xl transition-colors">
+          <span class="material-symbols-outlined">group</span> Usuários
+        </a>
+
+        <div class="pt-4"></div>
+        <p class="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Formulários</p>
+        <a href="#"
+          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+          <span class="material-symbols-outlined">school</span> Inscrições (Cursos)
+        </a>
+        <a href="#"
+          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+          <span class="material-symbols-outlined">support_agent</span> Consultorias
+        </a>
+        <a href="#"
+          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+          <span class="material-symbols-outlined">handshake</span> Parceiros
+        </a>
+
+        <div class="pt-4"></div>
+        <p class="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Conteúdo Site</p>
+        <a href="#"
+          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+          <span class="material-symbols-outlined">view_carousel</span> Banners
+        </a>
+        <a href="#"
+          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+          <span class="material-symbols-outlined">design_services</span> Serviços
+        </a>
+        <a href="#"
+          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+          <span class="material-symbols-outlined">mail</span> Newsletter
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto bg-slate-50 p-6 sm:p-10">
+      <div class="max-w-7xl mx-auto">
+
+        <div class="bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+
+          <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
+            <h1 class="text-xl font-bold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined">group</span>
+              Gerenciamento de Usuários
+            </h1>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-white">
+                <tr>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Nome / E-mail
+                  </th>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Perfil Atual
+                  </th>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Data de
+                    Criação</th>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tabelaUsuarios" class="bg-white divide-y divide-gray-100">
+                <!-- Linhas inseridas pelo JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </main>
+  </div>
+
+  <script src="../../js/backoffice-dashboard.js"></script>
+</body>
+
+</html>

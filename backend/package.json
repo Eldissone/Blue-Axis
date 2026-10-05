@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "bluehorizon backend",
+  "license": "ISC",
+  "author": "eldissone vilonga",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "postinstall": "prisma skills sync || exit 0"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "nodemon": "^3.1.14",
+    "zod": "^4.6.5"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@prisma/client": "^5.22.0",
+    "jest": "^30.5.2",
+    "prisma": "^5.22.0"
+  }
+}
