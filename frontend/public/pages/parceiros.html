@@ -295,12 +295,28 @@
         </div>
     </footer>
 
+    <section class="py-16 bg-white" id="seja-parceiro">
+      <div class="container mx-auto px-4 max-w-2xl">
+        <form id="formParceiro" class="bg-slate-50 p-8 rounded-[25px] shadow-sm border border-gray-100">
+          <h3 class="text-3xl font-bold text-primary mb-6 text-center">Seja um Parceiro</h3>
+          <div class="space-y-4">
+            <input type="text" id="parcEmpresa" placeholder="Nome da Empresa / Instituição" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+            <input type="email" id="parcEmail" placeholder="E-mail Corporativo" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+            <input type="text" id="parcSetor" placeholder="Setor de Atuação" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+            <textarea id="parcProposta" placeholder="Descreva a proposta de parceria..." required rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none"></textarea>
+            <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded-[25px] hover:bg-blue-800 transition shadow-md">Enviar Proposta</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
     <footer class="site-footer footer-modern">
         <section class="footer-updates" aria-labelledby="footer-atualidade"><div class="footer-container footer-updates-grid"><div class="footer-updates-intro"><p>Mantenha-se informado</p><h2 id="footer-atualidade">Atualidade</h2><div class="footer-actions"><a href="#">Ver not&iacute;cias</a><a href="#">Subscrever newsletter <span aria-hidden="true">&#8594;</span></a></div></div><div class="footer-news-list"><a href="#"><strong>Novas rotas para a Economia Azul</strong><span>Atualidade | Em breve</span></a><a href="#"><strong>Forma&ccedil;&atilde;o mar&iacute;tima com impacto</strong><span>Academia | Em breve</span></a><a href="#"><strong>Parcerias que movem o setor azul</strong><span>Parceiros | Em breve</span></a></div></div></section>
         <section class="footer-main"><div class="footer-container footer-main-grid"><div><h3>BLUE HORIZON</h3><p>Conhecimento que navega o futuro.</p><p>Luanda, Angola</p></div><nav aria-label="Links úteis"><h3>Links úteis</h3><a href="/">In&iacute;cio</a><a href="/academia">Academia</a><a href="/consultoria">Consultoria</a><a href="/parceiros">Parceiros</a></nav><div><h3>Acompanhe-nos</h3><div class="footer-social footer-social-modern"><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a><a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a><a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></div></div></div><div class="footer-container footer-copyright">&copy; <span id="ano-footer"></span> BLUE HORIZON, LDA. Todos os direitos reservados.</div></section>
     </footer>
     <script src="/js/main.js"></script>
 
+    <script src="/js/public-forms.js"></script>
 </body>
 
 </html>

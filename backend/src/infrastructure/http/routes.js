@@ -14,6 +14,24 @@ import { ListarUsuariosController } from '../../adapters/controllers/listar-usua
 
 import { middlewareAutenticacao, middlewarePermissaoAdmin } from './middlewares/autenticacao.middleware.js';
 
+import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '../../../../uploads'))
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname))
+  }
+})
+const upload = multer({ storage: storage })
+
 // --- NOVOS MÓDULOS ---
 import { PrismaInscricaoCursoRepository } from '../../adapters/repositories/prisma-inscricaoCurso.repository.js';
 import { PrismaSolicitacaoConsultoriaRepository } from '../../adapters/repositories/prisma-solicitacaoConsultoria.repository.js';
@@ -116,6 +134,6 @@ routes.get('/backoffice/newsletter', (req, res, next) => newsletterController.li
 
 // Banners e Serviços (CRUD)
 routes.get('/backoffice/banners', (req, res, next) => bannerController.listar(req, res, next));
-routes.post('/backoffice/banners', (req, res, next) => bannerController.criar(req, res, next));
+routes.post('/backoffice/banners', upload.single('imagem'), (req, res, next) => bannerController.criar(req, res, next));
 routes.get('/backoffice/servicos', (req, res, next) => servicoController.listar(req, res, next));
-routes.post('/backoffice/servicos', (req, res, next) => servicoController.criar(req, res, next));
+routes.post('/backoffice/servicos', upload.single('imagem'), (req, res, next) => servicoController.criar(req, res, next));

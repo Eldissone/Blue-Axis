@@ -87,7 +87,7 @@
       aria-roledescription="carrossel" aria-label="Destaques da BLUE HORIZON">
 
       <!-- Background carousel -->
-      <div class="hero-slides" aria-live="polite">
+      <div id="dynamic-banners-bg" class="hero-slides" aria-live="polite">
         <div class="hero-slide is-active" role="img" aria-label="Porto marítimo"
           style="background-image: url('./assets/images/porto hero.png')"></div>
         <div class="hero-slide" role="img" aria-label="Terminal de contentores"
@@ -112,7 +112,7 @@
       <div class="hero-copy relative">
         <div class="hero-copy-container-text">
 
-          <div class="hero-copy-texts" aria-live="polite">
+          <div id="dynamic-banners-text" class="hero-copy-texts" aria-live="polite">
             <div class="hero-copy-slide is-active">
               <h1 class="text-display-lg">Conectamos pessoas, instituições e oportunidades para o desenvolvimento da
                 <span class="text-tertiary-fixed">Economia Azul.</span></h1>
@@ -204,7 +204,7 @@
           <h2 id="servicos-titulo">fazem a diferença.</h2>
         </div>
 
-        <div class="services-cards">
+        <div id="dynamic-services" class="services-cards">
           <article class="service-card service-card-image">
             <img src="./assets/images/blue1.jpg" alt="Profissional a trabalhar" />
             <div class="service-card-content">
@@ -325,7 +325,7 @@
         </div>
         <nav aria-label="Links úteis">
           <h3>Links úteis</h3>
-          <a href="/">Início</a>
+          <a href="/backoffice">Início</a>
           <a href="/academia">Academia</a>
           <a href="/consultoria">Consultoria</a>
           <a href="/parceiros">Parceiros</a>
@@ -346,6 +346,8 @@
   </footer>
 
   <script src="/js/main.js"></script>
+  <script src="/js/public-forms.js"></script>
+  <script src="/js/public-dynamic.js"></script>
 </body>
 
 </html>

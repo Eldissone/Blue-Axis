@@ -6,7 +6,14 @@ export class ServicoController {
 
   async criar(req, res, next) {
     try {
-      const registro = await this.criarUseCase.executar(req.body);
+      const dados = { ...req.body };
+      if (req.file) {
+        dados.iconeUrl = '/uploads/' + req.file.filename;
+      }
+
+      if (dados.ativo !== undefined) dados.ativo = dados.ativo === 'true' || dados.ativo === true;
+
+      const registro = await this.criarUseCase.executar(dados);
       return res.status(201).json(registro);
     } catch (erro) {
       next(erro);

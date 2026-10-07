@@ -66,38 +66,38 @@
     <aside class="w-64 bg-white border-r border-gray-200 flex-shrink-0 hidden md:flex flex-col">
       <nav class="flex-1 py-6 px-4 space-y-2 overflow-y-auto">
         <p class="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Principal</p>
-        <a href="/backoffice/dashboard"
-          class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary font-bold rounded-xl transition-colors">
+        <a href="#" onclick="showPanel('usuarios')"
+          class="nav-link flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary font-bold rounded-xl transition-colors">
           <span class="material-symbols-outlined">group</span> Usuários
         </a>
 
         <div class="pt-4"></div>
         <p class="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Formulários</p>
-        <a href="#"
-          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+        <a href="#" onclick="showPanel('inscricoes')"
+          class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
           <span class="material-symbols-outlined">school</span> Inscrições (Cursos)
         </a>
-        <a href="#"
-          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+        <a href="#" onclick="showPanel('consultorias')"
+          class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
           <span class="material-symbols-outlined">support_agent</span> Consultorias
         </a>
-        <a href="#"
-          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+        <a href="#" onclick="showPanel('parceiros')"
+          class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
           <span class="material-symbols-outlined">handshake</span> Parceiros
         </a>
 
         <div class="pt-4"></div>
         <p class="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Conteúdo Site</p>
-        <a href="#"
-          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+        <a href="#" onclick="showPanel('banners')"
+          class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
           <span class="material-symbols-outlined">view_carousel</span> Banners
         </a>
-        <a href="#"
-          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+        <a href="#" onclick="showPanel('servicos')"
+          class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
           <span class="material-symbols-outlined">design_services</span> Serviços
         </a>
-        <a href="#"
-          class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+        <a href="#" onclick="showPanel('newsletter')"
+          class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
           <span class="material-symbols-outlined">mail</span> Newsletter
         </a>
       </nav>
@@ -107,7 +107,7 @@
     <main class="flex-1 overflow-y-auto bg-slate-50 p-6 sm:p-10">
       <div class="max-w-7xl mx-auto">
 
-        <div class="bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+        <div id="panel-usuarios" class="panel bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
 
           <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
             <h1 class="text-xl font-bold text-primary flex items-center gap-2">
@@ -135,7 +135,163 @@
             </table>
           </div>
         </div>
+
+        <!-- Banners Panel -->
+        <div id="panel-banners" class="panel hidden bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+          <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
+            <h1 class="text-xl font-bold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined">view_carousel</span> Banners
+            </h1>
+            <button onclick="criarBanner()" class="bg-primary text-white px-4 py-2 rounded-[25px] font-bold text-sm hover:bg-blue-800">Novo Banner</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-white">
+                <tr><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Título</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Status</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Ações</th></tr>
+              </thead>
+              <tbody id="tabelaBanners" class="bg-white divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Serviços Panel -->
+        <div id="panel-servicos" class="panel hidden bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+          <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
+            <h1 class="text-xl font-bold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined">design_services</span> Serviços
+            </h1>
+            <button onclick="criarServico()" class="bg-primary text-white px-4 py-2 rounded-[25px] font-bold text-sm hover:bg-blue-800">Novo Serviço</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-white">
+                <tr><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Serviço</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Status</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Ações</th></tr>
+              </thead>
+              <tbody id="tabelaServicos" class="bg-white divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Inscrições Panel -->
+        <div id="panel-inscricoes" class="panel hidden bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+          <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+            <h1 class="text-xl font-bold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined">school</span> Inscrições (Cursos)
+            </h1>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-white">
+                <tr><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Candidato</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Curso</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Status</th></tr>
+              </thead>
+              <tbody id="tabelaInscricoes" class="bg-white divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Consultorias Panel -->
+        <div id="panel-consultorias" class="panel hidden bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+          <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+            <h1 class="text-xl font-bold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined">support_agent</span> Consultorias
+            </h1>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-white">
+                <tr><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Empresa / Contato</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Necessidade</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Status</th></tr>
+              </thead>
+              <tbody id="tabelaConsultorias" class="bg-white divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Parceiros Panel -->
+        <div id="panel-parceiros" class="panel hidden bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+          <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+            <h1 class="text-xl font-bold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined">handshake</span> Solicitações de Parceiros
+            </h1>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-white">
+                <tr><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Empresa / Contato</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Setor</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Status</th></tr>
+              </thead>
+              <tbody id="tabelaParceiros" class="bg-white divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Newsletter Panel -->
+        <div id="panel-newsletter" class="panel hidden bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+          <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+            <h1 class="text-xl font-bold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined">mail</span> Assinantes da Newsletter
+            </h1>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-white">
+                <tr><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">E-mail</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Data de Inscrição</th></tr>
+              </thead>
+              <tbody id="tabelaNewsletter" class="bg-white divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
     </main>
+  </div>
+
+  <!-- Modal Banner -->
+  <div id="modalBanner" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-md p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-primary">Novo Banner</h2>
+        <button onclick="fecharModalBanner()" class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <form id="formBanner" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Título do Banner</label>
+          <input type="text" id="bannerTitulo" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Imagem de Fundo (Upload)</label>
+          <input type="file" id="bannerImagem" accept="image/*" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+        </div>
+        <div class="pt-4 flex justify-end gap-2">
+          <button type="button" onclick="fecharModalBanner()" class="px-4 py-2 rounded-xl text-gray-600 hover:bg-gray-100 font-bold transition">Cancelar</button>
+          <button type="submit" class="bg-primary text-white px-6 py-2 rounded-xl font-bold hover:bg-blue-800 transition shadow-md">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Servico -->
+  <div id="modalServico" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-md p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-primary">Novo Serviço</h2>
+        <button onclick="fecharModalServico()" class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <form id="formServico" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Título do Serviço</label>
+          <input type="text" id="servicoTitulo" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Imagem do Serviço (Opcional)</label>
+          <input type="file" id="servicoImagem" accept="image/*" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Descrição</label>
+          <textarea id="servicoDescricao" required rows="3" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none"></textarea>
+        </div>
+        <div class="pt-4 flex justify-end gap-2">
+          <button type="button" onclick="fecharModalServico()" class="px-4 py-2 rounded-xl text-gray-600 hover:bg-gray-100 font-bold transition">Cancelar</button>
+          <button type="submit" class="bg-primary text-white px-6 py-2 rounded-xl font-bold hover:bg-blue-800 transition shadow-md">Salvar</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script src="../../js/backoffice-dashboard.js"></script>
