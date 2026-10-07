@@ -1,0 +1,1 @@
+export class AtualizarBannerUseCase { constructor(bannerRepository) { this.bannerRepository = bannerRepository; } async executar(id, dados) { return this.bannerRepository.atualizar(id, dados); } }

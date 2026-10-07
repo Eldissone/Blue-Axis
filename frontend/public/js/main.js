@@ -37,81 +37,104 @@ if (siteHeader) {
 }
 
 // Hero carousel
-const heroCarousel = document.querySelector('.hero-carousel');
+window.initCarousel = function() {
+    let heroCarousel = document.querySelector('.hero-carousel');
 
-if (heroCarousel) {
-    const slides = Array.from(heroCarousel.querySelectorAll('.hero-slide'));
-    const textSlides = Array.from(heroCarousel.querySelectorAll('.hero-copy-slide'));
-    const dots = Array.from(heroCarousel.querySelectorAll('.hero-carousel-dot'));
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let activeIndex = 0;
-    let autoplayId;
+    if (heroCarousel) {
+        // Clone to wipe all previous event listeners
+        const newHeroCarousel = heroCarousel.cloneNode(true);
+        heroCarousel.parentNode.replaceChild(newHeroCarousel, heroCarousel);
+        heroCarousel = newHeroCarousel; // Update reference
 
-    const showSlide = (nextIndex) => {
-        if (nextIndex === activeIndex || !slides[nextIndex]) return;
-
-        const previousSlide = slides[activeIndex];
-        const nextSlide = slides[nextIndex];
-
-        previousSlide.classList.remove('is-active');
-        previousSlide.classList.add('is-leaving');
-        window.setTimeout(() => previousSlide.classList.remove('is-leaving'), 1250);
-
-        nextSlide.classList.remove('is-leaving');
-        window.requestAnimationFrame(() => nextSlide.classList.add('is-active'));
-
-        const previousText = textSlides[activeIndex];
-        const nextText = textSlides[nextIndex];
-        if (previousText && nextText) {
-            previousText.classList.remove('is-active');
-            previousText.classList.add('is-leaving');
-            window.setTimeout(() => previousText.classList.remove('is-leaving'), 800);
-
-            nextText.classList.remove('is-leaving');
-            window.requestAnimationFrame(() => nextText.classList.add('is-active'));
+        const slides = Array.from(heroCarousel.querySelectorAll('.hero-slide'));
+        const textSlides = Array.from(heroCarousel.querySelectorAll('.hero-copy-slide'));
+        const dots = Array.from(heroCarousel.querySelectorAll('.hero-carousel-dot'));
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let activeIndex = 0;
+        
+        if (window.heroAutoplayId) {
+            window.clearInterval(window.heroAutoplayId);
         }
 
-        dots[activeIndex].classList.remove('is-active');
-        dots[activeIndex].setAttribute('aria-current', 'false');
-        dots[nextIndex].classList.add('is-active');
-        dots[nextIndex].setAttribute('aria-current', 'true');
-        activeIndex = nextIndex;
-    };
+        const showSlide = (nextIndex) => {
+            if (nextIndex === activeIndex || !slides[nextIndex]) return;
 
-    const stopAutoplay = () => {
-        window.clearInterval(autoplayId);
-        autoplayId = undefined;
-    };
+            const previousSlide = slides[activeIndex];
+            const nextSlide = slides[nextIndex];
 
-    const startAutoplay = () => {
-        if (reduceMotion.matches || autoplayId) return;
-        autoplayId = window.setInterval(() => {
-            showSlide((activeIndex + 1) % slides.length);
-        }, 6500);
-    };
+            if (previousSlide) {
+                previousSlide.classList.remove('is-active');
+                previousSlide.classList.add('is-leaving');
+                window.setTimeout(() => previousSlide.classList.remove('is-leaving'), 1250);
+            }
 
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            showSlide(index);
-            stopAutoplay();
-            startAutoplay();
+            nextSlide.classList.remove('is-leaving');
+            window.requestAnimationFrame(() => nextSlide.classList.add('is-active'));
+
+            const previousText = textSlides[activeIndex];
+            const nextText = textSlides[nextIndex];
+            if (previousText && nextText) {
+                previousText.classList.remove('is-active');
+                previousText.classList.add('is-leaving');
+                window.setTimeout(() => previousText.classList.remove('is-leaving'), 800);
+
+                nextText.classList.remove('is-leaving');
+                window.requestAnimationFrame(() => nextText.classList.add('is-active'));
+            }
+
+            if (dots[activeIndex]) {
+                dots[activeIndex].classList.remove('is-active');
+                dots[activeIndex].setAttribute('aria-current', 'false');
+            }
+            if (dots[nextIndex]) {
+                dots[nextIndex].classList.add('is-active');
+                dots[nextIndex].setAttribute('aria-current', 'true');
+            }
+            activeIndex = nextIndex;
+        };
+
+        const stopAutoplay = () => {
+            window.clearInterval(window.heroAutoplayId);
+            window.heroAutoplayId = undefined;
+        };
+
+        const startAutoplay = () => {
+            if (reduceMotion.matches || window.heroAutoplayId) return;
+            window.heroAutoplayId = window.setInterval(() => {
+                showSlide((activeIndex + 1) % slides.length);
+            }, 6500);
+        };
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                stopAutoplay();
+                startAutoplay();
+            });
         });
-    });
 
-    heroCarousel.addEventListener('mouseenter', stopAutoplay);
-    heroCarousel.addEventListener('mouseleave', startAutoplay);
-    heroCarousel.addEventListener('focusin', stopAutoplay);
-    heroCarousel.addEventListener('focusout', () => {
-        if (!heroCarousel.contains(document.activeElement)) startAutoplay();
-    });
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) stopAutoplay();
-        else startAutoplay();
-    });
-    reduceMotion.addEventListener('change', () => {
-        stopAutoplay();
+        heroCarousel.addEventListener('mouseenter', stopAutoplay);
+        heroCarousel.addEventListener('mouseleave', startAutoplay);
+        heroCarousel.addEventListener('focusin', stopAutoplay);
+        heroCarousel.addEventListener('focusout', () => {
+            if (!heroCarousel.contains(document.activeElement)) startAutoplay();
+        });
+        
+        // We only add global listeners once
+        if (!window.hasHeroGlobalListeners) {
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) stopAutoplay();
+                else startAutoplay();
+            });
+            reduceMotion.addEventListener('change', () => {
+                stopAutoplay();
+                startAutoplay();
+            });
+            window.hasHeroGlobalListeners = true;
+        }
+
         startAutoplay();
-    });
+    }
+};
 
-    startAutoplay();
-}
+window.initCarousel();

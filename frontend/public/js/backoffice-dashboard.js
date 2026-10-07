@@ -91,15 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 2. BANNERS
+  let bannersData = [];
   function carregarBanners() {
     fetchData('/backoffice/banners', 'tabelaBanners', (dados, tbody) => {
+      bannersData = dados;
       tbody.innerHTML = '';
       dados.forEach(item => {
+        const imagemSrc = item.imagemUrl ? `http://localhost:3333${item.imagemUrl}` : '';
+        const imgTag = imagemSrc ? `<img src="${imagemSrc}" alt="Banner" class="h-12 w-24 object-cover rounded shadow-sm border border-gray-200">` : '<span class="text-xs text-gray-400">Sem imagem</span>';
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${item.titulo}</td>
+          <td class="px-6 py-4 whitespace-nowrap">${imgTag}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 max-w-[250px] truncate" title="${item.titulo}">${item.titulo}</td>
           <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs font-semibold rounded-full ${item.ativo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${item.ativo ? 'Ativo' : 'Inativo'}</span></td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 hover:text-blue-900 cursor-pointer">Editar</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 hover:text-blue-900 cursor-pointer" onclick="editarBanner(${item.id})">Editar</td>
         `;
         tbody.appendChild(tr);
       });
@@ -210,40 +215,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- MODAL BANNER ---
   window.criarBanner = function() {
+    document.getElementById('bannerId').value = '';
+    document.getElementById('bannerImagem').required = true;
     document.getElementById('modalBanner').classList.remove('hidden');
   }
+
+  window.editarBanner = function(id) {
+    const banner = bannersData.find(b => b.id === id);
+    if (!banner) return;
+    document.getElementById('bannerId').value = banner.id;
+    document.getElementById('bannerTitulo').value = banner.titulo;
+    document.getElementById('bannerTituloDestaque').value = banner.tituloDestaque || '';
+    document.getElementById('bannerDescricao').value = banner.descricao || '';
+    document.getElementById('bannerImagem').required = false; // Não é obrigatório alterar a imagem
+    document.getElementById('modalBanner').classList.remove('hidden');
+  }
+
   window.fecharModalBanner = function() {
     document.getElementById('modalBanner').classList.add('hidden');
     document.getElementById('formBanner').reset();
+    const previewContainer = document.getElementById('bannerPreviewContainer');
+    if (previewContainer) previewContainer.classList.add('hidden');
   }
 
   document.getElementById('formBanner').addEventListener('submit', async (e) => {
     e.preventDefault();
     const titulo = document.getElementById('bannerTitulo').value;
+    const tituloDestaque = document.getElementById('bannerTituloDestaque').value;
+    const descricao = document.getElementById('bannerDescricao').value;
     const fileInput = document.getElementById('bannerImagem');
     const formData = new FormData();
     
     formData.append('titulo', titulo);
+    if (tituloDestaque) formData.append('tituloDestaque', tituloDestaque);
+    if (descricao) formData.append('descricao', descricao);
     formData.append('ativo', 'true');
     formData.append('ordem', '1');
     if (fileInput.files[0]) {
       formData.append('imagem', fileInput.files[0]);
     }
 
+    const bannerId = document.getElementById('bannerId').value;
+    
     try {
-      const res = await fetch('http://localhost:3333/backoffice/banners', {
-        method: 'POST',
+      let url = 'http://localhost:3333/backoffice/banners';
+      let method = 'POST';
+
+      if (bannerId) {
+        url = `http://localhost:3333/backoffice/banners/${bannerId}`;
+        method = 'PUT';
+      }
+
+      const res = await fetch(url, {
+        method: method,
         headers: { 'Authorization': `Bearer ${token}` }, // NOTA: O FormData define automaticamente o Content-Type para multipart
         body: formData
       });
       if (res.ok) {
-        alert('Banner criado com sucesso!');
+        alert('Banner salvo com sucesso!');
         fecharModalBanner();
         carregarBanners();
       } else {
-        alert('Erro ao criar banner');
+        alert('Erro ao salvar banner');
       }
-    } catch(e) { alert('Erro ao criar: ' + e.message); }
+    } catch(e) { alert('Erro ao salvar: ' + e.message); }
   });
 
   // --- MODAL SERVIÇO ---

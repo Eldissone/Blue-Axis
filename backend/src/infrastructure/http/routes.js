@@ -59,6 +59,7 @@ import { OportunidadeController } from '../../adapters/controllers/oportunidade.
 
 import { CriarBannerUseCase } from '../../use-cases/publico/criar-banner.use-case.js';
 import { ListarBannerUseCase } from '../../use-cases/backoffice/listar-banner.use-case.js';
+import { AtualizarBannerUseCase } from '../../use-cases/backoffice/atualizar-banner.use-case.js';
 import { BannerController } from '../../adapters/controllers/banner.controller.js';
 
 import { CriarServicoUseCase } from '../../use-cases/publico/criar-servico.use-case.js';
@@ -92,7 +93,7 @@ const inscricaoController = new InscricaoCursoController(new CriarInscricaoCurso
 const consultoriaController = new SolicitacaoConsultoriaController(new CriarSolicitacaoConsultoriaUseCase(repoConsultoria), new ListarSolicitacaoConsultoriaUseCase(repoConsultoria));
 const parceiroController = new PerfilParceiroController(new CriarPerfilParceiroUseCase(repoParceiro), new ListarPerfilParceiroUseCase(repoParceiro));
 const oportunidadeController = new OportunidadeController(new CriarOportunidadeUseCase(repoOportunidade), new ListarOportunidadeUseCase(repoOportunidade));
-const bannerController = new BannerController(new CriarBannerUseCase(repoBanner), new ListarBannerUseCase(repoBanner));
+const bannerController = new BannerController(new CriarBannerUseCase(repoBanner), new ListarBannerUseCase(repoBanner), new AtualizarBannerUseCase(repoBanner));
 const servicoController = new ServicoController(new CriarServicoUseCase(repoServico), new ListarServicoUseCase(repoServico));
 const newsletterController = new NewsletterController(new CriarNewsletterUseCase(repoNewsletter), new ListarNewsletterUseCase(repoNewsletter));
 
@@ -135,5 +136,6 @@ routes.get('/backoffice/newsletter', (req, res, next) => newsletterController.li
 // Banners e Serviços (CRUD)
 routes.get('/backoffice/banners', (req, res, next) => bannerController.listar(req, res, next));
 routes.post('/backoffice/banners', upload.single('imagem'), (req, res, next) => bannerController.criar(req, res, next));
+routes.put('/backoffice/banners/:id', upload.single('imagem'), (req, res, next) => bannerController.atualizar(req, res, next));
 routes.get('/backoffice/servicos', (req, res, next) => servicoController.listar(req, res, next));
 routes.post('/backoffice/servicos', upload.single('imagem'), (req, res, next) => servicoController.criar(req, res, next));

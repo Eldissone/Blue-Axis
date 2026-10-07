@@ -10,13 +10,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (activeBanners.length > 0) {
           const bgContainer = document.getElementById('dynamic-banners-bg');
           const textContainer = document.getElementById('dynamic-banners-text');
+          const dotsContainer = document.getElementById('dynamic-banners-dots');
 
-          if (bgContainer && textContainer) {
+          if (bgContainer && textContainer && dotsContainer) {
             bgContainer.innerHTML = '';
             textContainer.innerHTML = '';
+            dotsContainer.innerHTML = '';
 
             activeBanners.forEach((banner, index) => {
               const isActive = index === 0 ? 'is-active' : '';
+              const isAriaCurrent = index === 0 ? 'true' : 'false';
 
               // Render Background Image
               const bannerBgUrl = banner.imagemUrl.startsWith('http') ? banner.imagemUrl : `http://localhost:3333${banner.imagemUrl}`;
@@ -28,13 +31,23 @@ document.addEventListener('DOMContentLoaded', async () => {
               // Render Copy Texts
               textContainer.innerHTML += `
                 <div class="hero-copy-slide ${isActive}">
-                  <h1 class="text-display-lg">${banner.titulo}</h1>
+                  <h1 class="text-display-lg">
+                    ${banner.titulo}
+                    ${banner.tituloDestaque ? `<span class="text-tertiary-fixed">${banner.tituloDestaque}</span>` : ''}
+                  </h1>
+                  ${banner.descricao ? `<p>${banner.descricao}</p>` : ''}
                 </div>
+              `;
+              // Render Dots
+              dotsContainer.innerHTML += `
+                <button class="hero-carousel-dot ${isActive}" type="button" aria-label="Mostrar imagem ${index + 1}"
+                  aria-current="${isAriaCurrent}"></button>
               `;
             });
             
-            // Note: Since the HTML changed dynamically, any existing carousel JS might need to be reinitialized.
-            // For a simple visual update, this proves the integration works.
+            if (window.initCarousel) {
+              window.initCarousel();
+            }
           }
         }
       }

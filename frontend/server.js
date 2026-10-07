@@ -20,6 +20,10 @@ app.get('/backoffice', (_req, res) => {
   res.redirect('/backoffice/dashboard');
 });
 
+app.get('/admin', (_req, res) => {
+  res.redirect('/backoffice');
+});
+
 app.get('/backoffice/dashboard', (_req, res) => {
   res.sendFile(path.join(publicDir, 'pages', 'backoffice', 'dashboard.html'));
 });
