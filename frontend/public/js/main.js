@@ -138,3 +138,56 @@ window.initCarousel = function() {
 };
 
 window.initCarousel();
+
+// Custom Alert/Toast Notification System
+window.showAlert = function(message, type = 'info') {
+    let container = document.getElementById('alert-toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'alert-toast-container';
+        container.style.cssText = 'position: fixed; bottom: 32px; right: 32px; z-index: 99999; display: flex; flex-direction: column; gap: 12px; pointer-events: none;';
+        document.body.appendChild(container);
+    }
+    
+    const isError = message.toLowerCase().includes('erro');
+    const borderColor = isError ? '#BA1A1A' : '#005A9C';
+    const iconName = isError ? 'error' : 'check_circle';
+    const iconColor = isError ? '#BA1A1A' : '#005A9C';
+    
+    const toast = document.createElement('div');
+    toast.style.cssText = `background: white; border-radius: 16px; padding: 16px 24px 16px 20px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15); border-left: 6px solid ${borderColor}; transform: translateY(150%) scale(0.9); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; justify-content: space-between; gap: 16px; pointer-events: auto; min-width: 300px;`;
+    
+    toast.innerHTML = `
+        <div style="display: flex; items-center: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: ${iconColor}; font-size: 24px;" style="font-variation-settings: 'FILL' 1;">${iconName}</span>
+            <span style="color: #1a202c; font-weight: 600; font-family: 'Manrope', sans-serif; font-size: 15px; line-height: 1.4;">${message}</span>
+        </div>
+        <button style="background: none; border: none; cursor: pointer; color: #a0aec0; padding: 4px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'; this.style.color='#4a5568'" onmouseout="this.style.background='transparent'; this.style.color='#a0aec0'">
+            <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+        </button>
+    `;
+    
+    const closeBtn = toast.querySelector('button');
+    const close = () => {
+        toast.style.transform = 'translateY(150%) scale(0.9)';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 400);
+    };
+    closeBtn.onclick = close;
+    
+    container.appendChild(toast);
+    
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            toast.style.transform = 'translateY(0) scale(1)';
+            toast.style.opacity = '1';
+        });
+    });
+    
+    setTimeout(close, 4500);
+};
+
+// Override native alert globally
+window.alert = function(msg) {
+    window.showAlert(msg);
+};

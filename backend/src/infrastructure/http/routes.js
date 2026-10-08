@@ -40,9 +40,11 @@ import { PrismaOportunidadeRepository } from '../../adapters/repositories/prisma
 import { PrismaBannerRepository } from '../../adapters/repositories/prisma-banner.repository.js';
 import { PrismaServicoRepository } from '../../adapters/repositories/prisma-servico.repository.js';
 import { PrismaNewsletterRepository } from '../../adapters/repositories/prisma-newsletter.repository.js';
+import { PrismaCursoRepository } from '../../adapters/repositories/prisma-curso.repository.js';
 
 import { CriarInscricaoCursoUseCase } from '../../use-cases/publico/criar-inscricaoCurso.use-case.js';
 import { ListarInscricaoCursoUseCase } from '../../use-cases/backoffice/listar-inscricaoCurso.use-case.js';
+import { AtualizarStatusInscricaoUseCase } from '../../use-cases/backoffice/atualizar-status-inscricao.use-case.js';
 import { InscricaoCursoController } from '../../adapters/controllers/inscricaoCurso.controller.js';
 
 import { CriarSolicitacaoConsultoriaUseCase } from '../../use-cases/publico/criar-solicitacaoConsultoria.use-case.js';
@@ -70,6 +72,12 @@ import { CriarNewsletterUseCase } from '../../use-cases/publico/criar-newsletter
 import { ListarNewsletterUseCase } from '../../use-cases/backoffice/listar-newsletter.use-case.js';
 import { NewsletterController } from '../../adapters/controllers/newsletter.controller.js';
 
+import { CriarCursoUseCase } from '../../use-cases/backoffice/criar-curso.use-case.js';
+import { ListarCursosUseCase } from '../../use-cases/backoffice/listar-cursos.use-case.js';
+import { AtualizarCursoUseCase } from '../../use-cases/backoffice/atualizar-curso.use-case.js';
+import { ListarCursosAtivosUseCase } from '../../use-cases/publico/listar-cursos-ativos.use-case.js';
+import { CursoController } from '../../adapters/controllers/curso.controller.js';
+
 export const routes = Router();
 
 // 1. Repositórios
@@ -82,6 +90,7 @@ const repoOportunidade = new PrismaOportunidadeRepository();
 const repoBanner = new PrismaBannerRepository();
 const repoServico = new PrismaServicoRepository();
 const repoNewsletter = new PrismaNewsletterRepository();
+const repoCurso = new PrismaCursoRepository();
 
 // 2. Controladores
 const criarUsuarioController = new CriarUsuarioController(new CriarUsuarioUseCase(usuarioRepository));
@@ -89,13 +98,14 @@ const loginController = new LoginController(new LoginUseCase(usuarioRepository))
 const alterarPerfilUsuarioController = new AlterarPerfilUsuarioController(new AlterarPerfilUsuarioUseCase(usuarioRepository, auditoriaRepository));
 const listarUsuariosController = new ListarUsuariosController(new ListarUsuariosUseCase(usuarioRepository));
 
-const inscricaoController = new InscricaoCursoController(new CriarInscricaoCursoUseCase(repoInscricao), new ListarInscricaoCursoUseCase(repoInscricao));
+const inscricaoController = new InscricaoCursoController(new CriarInscricaoCursoUseCase(repoInscricao), new ListarInscricaoCursoUseCase(repoInscricao), new AtualizarStatusInscricaoUseCase(repoInscricao));
 const consultoriaController = new SolicitacaoConsultoriaController(new CriarSolicitacaoConsultoriaUseCase(repoConsultoria), new ListarSolicitacaoConsultoriaUseCase(repoConsultoria));
 const parceiroController = new PerfilParceiroController(new CriarPerfilParceiroUseCase(repoParceiro), new ListarPerfilParceiroUseCase(repoParceiro));
 const oportunidadeController = new OportunidadeController(new CriarOportunidadeUseCase(repoOportunidade), new ListarOportunidadeUseCase(repoOportunidade));
 const bannerController = new BannerController(new CriarBannerUseCase(repoBanner), new ListarBannerUseCase(repoBanner), new AtualizarBannerUseCase(repoBanner));
 const servicoController = new ServicoController(new CriarServicoUseCase(repoServico), new ListarServicoUseCase(repoServico));
 const newsletterController = new NewsletterController(new CriarNewsletterUseCase(repoNewsletter), new ListarNewsletterUseCase(repoNewsletter));
+const cursoController = new CursoController(new CriarCursoUseCase(repoCurso), new ListarCursosUseCase(repoCurso), new AtualizarCursoUseCase(repoCurso), new ListarCursosAtivosUseCase(repoCurso));
 
 routes.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -119,6 +129,7 @@ routes.post('/newsletter', (req, res, next) => newsletterController.criar(req, r
 // Listagem pública
 routes.get('/banners', (req, res, next) => bannerController.listar(req, res, next));
 routes.get('/servicos', (req, res, next) => servicoController.listar(req, res, next));
+routes.get('/cursos', (req, res, next) => cursoController.listarAtivos(req, res, next));
 
 
 // --- ROTAS DE BACKOFFICE (Protegidas) ---
@@ -128,6 +139,7 @@ routes.get('/backoffice/usuarios', (req, res, next) => listarUsuariosController.
 routes.patch('/backoffice/usuarios/:idAlvo/perfil', (req, res, next) => alterarPerfilUsuarioController.lidar(req, res, next));
 
 routes.get('/backoffice/inscricoes', (req, res, next) => inscricaoController.listar(req, res, next));
+routes.patch('/backoffice/inscricoes/:id/status', (req, res, next) => inscricaoController.atualizarStatus(req, res, next));
 routes.get('/backoffice/consultorias', (req, res, next) => consultoriaController.listar(req, res, next));
 routes.get('/backoffice/parceiros', (req, res, next) => parceiroController.listar(req, res, next));
 routes.get('/backoffice/oportunidades', (req, res, next) => oportunidadeController.listar(req, res, next));
@@ -139,3 +151,7 @@ routes.post('/backoffice/banners', upload.single('imagem'), (req, res, next) => 
 routes.put('/backoffice/banners/:id', upload.single('imagem'), (req, res, next) => bannerController.atualizar(req, res, next));
 routes.get('/backoffice/servicos', (req, res, next) => servicoController.listar(req, res, next));
 routes.post('/backoffice/servicos', upload.single('imagem'), (req, res, next) => servicoController.criar(req, res, next));
+
+routes.get('/backoffice/cursos', (req, res, next) => cursoController.listar(req, res, next));
+routes.post('/backoffice/cursos', upload.single('imagemUrl'), (req, res, next) => cursoController.criar(req, res, next));
+routes.put('/backoffice/cursos/:id', upload.single('imagemUrl'), (req, res, next) => cursoController.atualizar(req, res, next));

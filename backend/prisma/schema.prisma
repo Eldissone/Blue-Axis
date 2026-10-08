@@ -130,3 +130,19 @@ model Newsletter {
 
   @@map("newsletters")
 }
+
+model Curso {
+  id              Int      @id @default(autoincrement())
+  titulo          String
+  categoria       String
+  descricao       String
+  cargaHoraria    String
+  modalidade      String
+  certificadora   String
+  imagemUrl       String
+  ativo           Boolean  @default(true)
+  criadoEm        DateTime @default(now())
+  atualizadoEm    DateTime @updatedAt
+
+  @@map("cursos")
+}

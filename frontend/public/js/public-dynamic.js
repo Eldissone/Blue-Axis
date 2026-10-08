@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const res = await fetch('http://localhost:3333/banners');
       if (res.ok) {
         const banners = await res.json();
-        const activeBanners = banners.filter(b => b.ativo);
+        const activeBanners = banners.filter(b => b.ativo).sort((a, b) => a.ordem - b.ordem);
 
         if (activeBanners.length > 0) {
           const bgContainer = document.getElementById('dynamic-banners-bg');
@@ -94,6 +94,67 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
+  const fetchCursos = async () => {
+    try {
+      const res = await fetch('http://localhost:3333/cursos');
+      if (res.ok) {
+        const cursos = await res.json();
+        const activeCursos = cursos.filter(c => c.ativo);
+        const container = document.getElementById('cursosContainer');
+        if (container && activeCursos.length > 0) {
+          container.innerHTML = '';
+          activeCursos.forEach(curso => {
+            const imgHtml = curso.imagemUrl ? `<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out" src="http://localhost:3333${curso.imagemUrl}" />` : '<div class="w-full h-full bg-gray-200"></div>';
+            container.innerHTML += `
+              <article class="bg-surface-container-lowest border border-outline-variant rounded-[25px] group hover:border-secondary transition-colors duration-300 flex flex-col h-full overflow-hidden">
+                  <div class="relative h-48 w-full overflow-hidden bg-surface-container">
+                      <div class="absolute inset-0 bg-primary/10 mix-blend-multiply z-10 group-hover:bg-transparent transition-colors duration-300"></div>
+                      ${imgHtml}
+                      <div class="absolute top-4 left-4 z-20">
+                          <span class="bg-secondary text-on-secondary px-2 py-1 rounded-[25px] font-label-sm text-label-sm">${curso.categoria}</span>
+                      </div>
+                  </div>
+                  <div class="p-6 flex flex-col flex-1">
+                      <h3 class="font-headline-md text-headline-md text-primary mb-2 line-clamp-2">${curso.titulo}</h3>
+                      <p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3 flex-1">${curso.descricao}</p>
+                      
+                      <div class="space-y-3 mb-6 pt-4 border-t border-surface-variant">
+                          <div class="flex items-center justify-between">
+                              <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> Carga Horária</span>
+                              <span class="font-label-sm text-label-sm text-primary font-bold">${curso.cargaHoraria}</span>
+                          </div>
+                          <div class="flex items-center justify-between">
+                              <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">computer</span> Modalidade</span>
+                              <span class="font-label-sm text-label-sm text-primary font-bold">${curso.modalidade}</span>
+                          </div>
+                          <div class="flex items-center justify-between">
+                              <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">verified</span> Certificadora</span>
+                              <span class="font-label-sm text-label-sm text-primary font-bold">${curso.certificadora}</span>
+                          </div>
+                      </div>
+                      <button onclick="abrirModalInscricao('${curso.titulo}')" class="w-full bg-primary text-on-primary font-button text-button py-3 rounded-[25px] hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200">
+                          Inscrever-me
+                      </button>
+                  </div>
+              </article>
+            `;
+          });
+          
+          const selectElement = document.getElementById('acadCurso');
+          if (selectElement) {
+            selectElement.innerHTML = '<option value="">Selecione um Curso...</option>';
+            activeCursos.forEach(c => {
+               selectElement.innerHTML += `<option value="${c.titulo}">${c.titulo}</option>`;
+            });
+          }
+        }
+      }
+    } catch (e) {
+      console.error('Erro ao carregar cursos:', e);
+    }
+  };
+
   await fetchBanners();
   await fetchServicos();
+  await fetchCursos();
 });
