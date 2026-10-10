@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <link rel="stylesheet" href="/css/tailwind.css" />
+  <link rel="stylesheet" href="/css/scroll-effects.css" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 
@@ -168,26 +169,26 @@
 
     <section class="solutions-showcase" aria-labelledby="solucoes-titulo">
       <div class="solutions-showcase-inner">
-        <div class="solutions-heading">
+        <div class="solutions-heading reveal-up">
           <p>Conhecimento, rede e inovação para uma</p>
           <h2 id="solucoes-titulo">Economia Azul que avança.</h2>
         </div>
 
-        <div class="solutions-cards">
-          <a class="solution-card solution-card-academia" href="./pages/academia.html">
+        <div class="solutions-cards reveal-stagger-parent">
+          <a class="solution-card solution-card-academia reveal-stagger-child" href="./pages/academia.html">
             <img src="/assets/images/WomanWork.png" alt="Profissional em formaço marítima" />
             <span class="solution-card-icon material-symbols-outlined" aria-hidden="true">school</span>
             <h3>Academia Marítima</h3>
           </a>
 
-          <a class="solution-card solution-card-consultoria" href="./pages/consultoria.html">
+          <a class="solution-card solution-card-consultoria reveal-stagger-child" href="./pages/consultoria.html">
             <img src="/assets/images/Bustling Port Scene.png"
               alt="Operaço num terminal portuário" />
             <span class="solution-card-icon material-symbols-outlined" aria-hidden="true">trending_up</span>
             <h3>Consultoria Estratégica</h3>
           </a>
 
-          <a class="solution-card solution-card-parceiros" href="./pages/parceiros.html">
+          <a class="solution-card solution-card-parceiros reveal-stagger-child" href="./pages/parceiros.html">
             <img src="/assets/images/WomanWarehouse.png" alt="Profissional num centro logístico" />
             <span class="solution-card-icon material-symbols-outlined" aria-hidden="true">handshake</span>
             <h3>Rede de Parceiros</h3>
@@ -198,13 +199,13 @@
 
     <section class="services-showcase" aria-labelledby="servicos-titulo">
       <div class="services-showcase-inner">
-        <div class="services-heading">
+        <div class="services-heading reveal-up">
           <p>Serviços que</p>
           <h2 id="servicos-titulo">fazem a diferença.</h2>
         </div>
 
-        <div id="dynamic-services" class="services-cards">
-          <article class="service-card service-card-image">
+        <div id="dynamic-services" class="services-cards reveal-stagger-parent">
+          <article class="service-card service-card-image reveal-stagger-child">
             <img src="/assets/images/blue1.jpg" alt="Profissional a trabalhar" />
             <div class="service-card-content">
               <span class="service-card-icon material-symbols-outlined" aria-hidden="true">support_agent</span>
@@ -214,7 +215,7 @@
             </div>
           </article>
 
-          <article class="service-card service-card-solid">
+          <article class="service-card service-card-solid reveal-stagger-child">
             <img class="service-card-hover-image" src="/assets/images/blue3.jpg"
               alt="Terminal de contentores" />
             <div class="service-card-content">
@@ -226,7 +227,7 @@
             </div>
           </article>
 
-          <article class="service-card service-card-solid">
+          <article class="service-card service-card-solid reveal-stagger-child">
             <img class="service-card-hover-image" src="/assets/images/blue4.jpg"
               alt="Profissional num centro logístico" />
             <div class="service-card-content">
@@ -242,7 +243,7 @@
 
     <section class="formSection bg-surface w-full">
       <div>
-        <div class="formDiv relative grid grid-cols-1 lg:grid-cols-2">
+        <div class="formDiv relative grid grid-cols-1 lg:grid-cols-2 reveal-up">
 
           <!-- Lado Esquerdo -->
           <div class="textLeft relative z-10 flex flex-col justify-center">
@@ -288,7 +289,7 @@
 
 
     <section class="cta-section">
-      <div class="cta-div mx-auto">
+      <div class="cta-div mx-auto reveal-up">
         <div class="cta-content">
           <p class="cta-eyebrow"><span class="material-symbols-outlined" aria-hidden="true">waves</span> BLUE HORIZON</p>
           <h2>Vamos transformar o potencial do mar em <span>novas oportunidades.</span></h2>
@@ -358,6 +359,7 @@
   <script src="/js/main.js?v=2.2"></script>
   <script src="/js/public-forms.js?v=2.2"></script>
   <script src="/js/public-dynamic.js?v=2.2"></script>
+  <script src="/js/scroll-effects.js?v=2.2"></script>
 </body>
 
 </html>

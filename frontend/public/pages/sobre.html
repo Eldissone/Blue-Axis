@@ -13,6 +13,7 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="/css/tailwind.css" />
+  <link rel="stylesheet" href="/css/scroll-effects.css" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 
@@ -66,7 +67,7 @@
       <img class="page-logo-watermark" src="/assets/logo/LOGO_FUNDO.png" alt="" aria-hidden="true" />
     </section>
 
-    <section id="proposito" class="about-purpose">
+    <section id="proposito" class="about-purpose reveal-up">
       <div class="about-purpose-copy">
         <p class="contact-label">A nossa direção</p>
         <h2>Construímos pontes entre pessoas, conhecimento e oceano.</h2>
@@ -78,27 +79,27 @@
           mais preparado, inovador e sustentável.</p>
       </div>
     </section>
-    <section class="about-values" aria-labelledby="valores-titulo">
+    <section class="about-values reveal-up" aria-labelledby="valores-titulo">
       <div class="about-values-heading">
         <p class="contact-label">O que nos orienta</p>
         <h2 id="valores-titulo">Valores que movem a nossa rota.</h2>
       </div>
-      <div class="about-values-grid">
-        <article><span class="material-symbols-outlined" aria-hidden="true">school</span>
+      <div class="about-values-grid reveal-stagger-parent">
+        <article class="reveal-stagger-child"><span class="material-symbols-outlined" aria-hidden="true">school</span>
           <h3>Conhecimento aplicado</h3>
           <p>Formação relevante, rigor técnico e aprendizagem orientada para desafios reais.</p>
         </article>
-        <article><span class="material-symbols-outlined" aria-hidden="true">public</span>
+        <article class="reveal-stagger-child"><span class="material-symbols-outlined" aria-hidden="true">public</span>
           <h3>Sustentabilidade</h3>
           <p>Decisões que valorizam o oceano, as comunidades e as próximas gerações.</p>
         </article>
-        <article><span class="material-symbols-outlined" aria-hidden="true">diversity_3</span>
+        <article class="reveal-stagger-child"><span class="material-symbols-outlined" aria-hidden="true">diversity_3</span>
           <h3>Colaboração</h3>
           <p>Uma rede aberta de pessoas e instituições para ampliar possibilidades.</p>
         </article>
       </div>
     </section>
-    <section class="about-statement"><img src="/assets/images/WomanWarehouse.png"
+    <section class="about-statement reveal-up"><img src="/assets/images/WomanWarehouse.png"
         alt="Profissional da cadeia logística" />
       <div>
         <p class="contact-label">Visão BLUE HORIZON</p>
@@ -150,6 +151,7 @@
     </section>
   </footer>
   <script src="/js/main.js"></script>
+  <script src="/js/scroll-effects.js"></script>
 </body>
 
 </html>

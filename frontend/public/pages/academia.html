@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="/css/tailwind.css" />
+    <link rel="stylesheet" href="/css/scroll-effects.css" />
     <link rel="stylesheet" href="/css/style.css" />
 
 </head>
@@ -88,8 +89,8 @@
             class="hero internal-hero internal-hero-academia relative w-full min-h-[100vh] h-auto flex items-center justify-center overflow-hidden bg-primary">
             <!-- Background Image with Overlay -->
             <div class="absolute inset-0 z-0">
-                <div class="w-full h-full bg-cover bg-center bg-no-repeat absolute inset-0 mix-blend-overlay opacity-60"
-                    data-alt="Blue Economia." style="background-image: url('./assets/images/blue4.jpg')">
+                <div class="w-full h-full bg-cover bg-center bg-no-repeat absolute inset-0 mix-blend-overlay opacity-1"
+                    data-alt="Blue Economia." style="background-image: url('/assets/images/blue4.jpg')">
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-r from-primary/9 via-primary/80 to-transparent"></div>
             </div>
@@ -123,7 +124,7 @@
 
         <!-- Filtros Section -->
         <section
-            class="academia-catalogue max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-12 mb-8">
+            class="academia-catalogue reveal-up max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-12 mb-8">
             <div class="flex items-center gap-4 overflow-x-auto hide-scrollbar pb-4 border-b border-outline-variant">
                 <button
                     class="shrink-0 px-4 py-2 rounded-[25px] bg-primary text-on-primary font-button text-button border border-primary transition-colors">
@@ -165,7 +166,7 @@
         </section>
 
         <!-- Corsos Grid -->
-        <section class="academia-courses  mx-auto px-margin-mobile md:px-margin-desktop">
+        <section class="academia-courses reveal-up mx-auto px-margin-mobile md:px-margin-desktop">
             <div id="cursosContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                 <!-- Courses will be loaded dynamically here -->
             </div>
@@ -245,6 +246,7 @@
 
     <script src="/js/main.js"></script>
     <script src="/js/public-dynamic.js"></script>
+    <script src="/js/scroll-effects.js"></script>
 
     <script>
       function abrirModalInscricao(cursoOpcional) {

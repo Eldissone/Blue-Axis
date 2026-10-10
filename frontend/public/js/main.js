@@ -24,12 +24,26 @@ if (mobileMenuBtn && mobileMenu) {
     });
 }
 
-// Keep the header stable while scrolling and restore its original state at the top.
+// Smart Header logic: Hide on scroll down, show on scroll up, glassmorphism
 const siteHeader = document.querySelector('.site-header');
 
 if (siteHeader) {
+    let lastScroll = 0;
     const updateHeaderState = () => {
-        siteHeader.classList.toggle('is-pinned', window.scrollY > 8);
+        const currentScroll = window.scrollY;
+        
+        // Toggle pinned state for glassmorphism and shadow
+        siteHeader.classList.toggle('is-pinned', currentScroll > 8);
+
+        // Hide/Show intelligent
+        if (currentScroll > lastScroll && currentScroll > 150) {
+            // Scrolling down -> hide
+            siteHeader.style.transform = 'translateY(-100%)';
+        } else {
+            // Scrolling up or top -> show
+            siteHeader.style.transform = 'translateY(0)';
+        }
+        lastScroll = currentScroll;
     };
 
     updateHeaderState();

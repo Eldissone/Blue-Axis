@@ -1951,12 +1951,12 @@ section {
   }
 
   .page-academia .internal-hero .hero-copy {
-    padding: 6rem 2rem 3rem;
+    padding: 1rem 1.5rem 5rem;
   }
 
   .page-academia .internal-hero h1,
   .page-consultoria .internal-hero h1 {
-    font-size: clamp(2.25rem, 10vw, 3.2rem);
+    font-size: clamp(2.25rem, 10vw, 3.2rem) !important;
   }
 
   .page-parceiros .internal-hero {
