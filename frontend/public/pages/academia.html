@@ -100,7 +100,7 @@
                 <div class="w-full items-center justify-center lg:col-span-8 flex flex-col gap-6 pt-24 md:pt-0">
 
                     <h1 class="text-display-lg text-center text-white">Formação em Gestão de Projetos Ambientais, uma
-                         dedicada ao reforço de competências técnicas no planeamento, implementação e
+                        dedicada ao reforço de competências técnicas no planeamento, implementação e
                         monitorização de projetos ambientais sustentáveis.</h1>
 
                     <!-- CTAs -->
@@ -125,44 +125,70 @@
         <!-- Filtros Section -->
         <section
             class="academia-catalogue reveal-up max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-12 mb-8">
-            <div id="filterContainer" class="flex items-center gap-4 overflow-x-auto hide-scrollbar pb-4 border-b border-outline-variant">
+            <div id="filterContainer"
+                class="flex items-center gap-4 overflow-x-auto hide-scrollbar pb-4 border-b border-outline-variant">
                 <!-- Filters will be loaded dynamically here -->
             </div>
         </section>
 
         <!-- Corsos Grid -->
         <section class="academia-courses reveal-up mx-auto px-margin-mobile md:px-margin-desktop">
+            <div class="text-center services-heading  mb-12">
+                <p>Catálogo Oficial </p>
+                <h2 class="servicos-titulo">Nossos Cursos</h2>
+            </div>
             <div id="cursosContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                 <!-- Courses will be loaded dynamically here -->
+            </div>
+        </section>
+
+        <!-- Serviços Grid -->
+        <section class="academia-services reveal-up mx-auto px-margin-mobile md:px-margin-desktop mt-24">
+            <div class="text-center services-heading  mb-12">
+                <p>O que fazemos</p>
+                <h2 class="servicos-titulo">Nossos Serviços de Formação</h2>
+            </div>
+
+            <div id="dynamic-services"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter reveal-stagger-parent">
+                <!-- Services will be loaded dynamically here -->
             </div>
         </section>
     </main>
 
     <!-- Modal Inscrição -->
     <div id="modalInscricao" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div class="bg-white rounded-[25px] w-full max-w-lg p-8 relative shadow-xl transform transition-all">
-        <button onclick="fecharModalInscricao()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition">
-          <span class="material-symbols-outlined">close</span>
-        </button>
-        <form id="formAcademia" class="space-y-4">
-          <h3 class="text-3xl font-bold text-primary mb-6 text-center">Ficha de Inscrição</h3>
-          <div class="space-y-4">
-            <input type="text" id="acadNome" placeholder="Nome Completo" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
-            <input type="email" id="acadEmail" placeholder="E-mail" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
-            <input type="text" id="acadTelefone" placeholder="Telefone" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
-            <select id="acadCurso" required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-600 focus:ring-2 focus:ring-primary outline-none transition">
-              <option value="">Selecione um Curso...</option>
-              <option value="Gestao Portuaria">Gestão Portuária</option>
-              <option value="Logistica Maritima">Logística Marítima</option>
-              <option value="Direito Maritimo">Direito Marítimo</option>
-            </select>
-            <div class="pt-4 flex justify-end gap-3">
-              <button type="button" onclick="fecharModalInscricao()" class="px-6 py-3 rounded-[25px] text-gray-600 hover:bg-gray-100 font-bold transition">Cancelar</button>
-              <button type="submit" class="flex-1 bg-primary text-white font-bold py-3 rounded-[25px] hover:bg-blue-800 transition shadow-md">Confirmar Inscrição</button>
-            </div>
-          </div>
-        </form>
-      </div>
+        <div class="bg-white rounded-[25px] w-full max-w-lg p-8 relative shadow-xl transform transition-all">
+            <button onclick="fecharModalInscricao()"
+                class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <form id="formAcademia" class="space-y-4">
+                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Ficha de Inscrição</h3>
+                <div class="space-y-4">
+                    <input type="text" id="acadNome" placeholder="Nome Completo" required
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
+                    <input type="email" id="acadEmail" placeholder="E-mail" required
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
+                    <input type="text" id="acadTelefone" placeholder="Telefone"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
+                    <select id="acadCurso" required
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-600 focus:ring-2 focus:ring-primary outline-none transition">
+                        <option value="">Selecione um Curso...</option>
+                        <option value="Gestao Portuaria">Gestão Portuária</option>
+                        <option value="Logistica Maritima">Logística Marítima</option>
+                        <option value="Direito Maritimo">Direito Marítimo</option>
+                    </select>
+                    <div class="pt-4 flex justify-end gap-3">
+                        <button type="button" onclick="fecharModalInscricao()"
+                            class="px-6 py-3 rounded-[25px] text-gray-600 hover:bg-gray-100 font-bold transition">Cancelar</button>
+                        <button type="submit"
+                            class="flex-1 bg-primary text-white font-bold py-3 rounded-[25px] hover:bg-blue-800 transition shadow-md">Confirmar
+                            Inscrição</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <footer class="site-footer footer-modern">
@@ -214,15 +240,15 @@
     <script src="/js/scroll-effects.js"></script>
 
     <script>
-      function abrirModalInscricao(cursoOpcional) {
-        document.getElementById('modalInscricao').classList.remove('hidden');
-        if (cursoOpcional) {
-          document.getElementById('acadCurso').value = cursoOpcional;
+        function abrirModalInscricao(cursoOpcional) {
+            document.getElementById('modalInscricao').classList.remove('hidden');
+            if (cursoOpcional) {
+                document.getElementById('acadCurso').value = cursoOpcional;
+            }
         }
-      }
-      function fecharModalInscricao() {
-        document.getElementById('modalInscricao').classList.add('hidden');
-      }
+        function fecharModalInscricao() {
+            document.getElementById('modalInscricao').classList.add('hidden');
+        }
     </script>
     <script src="/js/public-forms.js"></script>
 </body>

@@ -1050,6 +1050,14 @@ input:where([type='file']):focus {
   margin-top: 4rem;
 }
 
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
+.mt-24 {
+  margin-top: 6rem;
+}
+
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -1953,6 +1961,10 @@ input:where([type='file']):focus {
   text-transform: uppercase;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .leading-5 {
   line-height: 1.25rem;
 }
@@ -2473,6 +2485,10 @@ input:where([type='file']):focus {
     display: block;
   }
 
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .sm\:p-10 {
     padding: 2.5rem;
   }
@@ -2587,6 +2603,10 @@ input:where([type='file']):focus {
 
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .lg\:justify-end {

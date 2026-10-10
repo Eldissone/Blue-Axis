@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               const imageHtml = servico.iconeUrl ? `<img class="service-card-hover-image" src="http://localhost:3333${servico.iconeUrl}" alt="${servico.titulo}" style="opacity: 0.8; object-fit: cover; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0; transition: transform 0.3s ease;" />` : '';
               
               srvContainer.innerHTML += `
-                <article class="service-card service-card-solid" style="position: relative; overflow: hidden;">
+                <article class="service-card service-card-solid reveal-stagger-child" style="position: relative; overflow: hidden;">
                   ${imageHtml}
                   <div class="service-card-content" style="position: relative; z-index: 10;">
                     <span class="service-card-icon material-symbols-outlined" aria-hidden="true">${icon}</span>
