@@ -113,6 +113,7 @@ model Banner {
 model Servico {
   id           Int      @id @default(autoincrement())
   titulo       String
+  area         String?  @default("Outras Áreas")
   descricao    String
   iconeUrl     String?
   ativo        Boolean  @default(true)

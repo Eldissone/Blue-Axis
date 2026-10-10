@@ -67,25 +67,50 @@ document.addEventListener('DOMContentLoaded', async () => {
           const srvContainer = document.getElementById('dynamic-services');
           if (srvContainer) {
             srvContainer.innerHTML = '';
+            srvContainer.className = 'flex flex-col gap-12 w-full';
+
+            const grouped = {};
+            activeServicos.forEach(s => {
+              const area = s.area || 'Outras Áreas';
+              if(!grouped[area]) grouped[area] = [];
+              grouped[area].push(s);
+            });
 
             const icons = ['support_agent', 'trending_up', 'school', 'handshake'];
 
-              activeServicos.forEach((servico, index) => {
-              const icon = icons[index % icons.length];
-              const imageHtml = servico.iconeUrl ? `<img class="service-card-hover-image" src="http://localhost:3333${servico.iconeUrl}" alt="${servico.titulo}" style="opacity: 0.8; object-fit: cover; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0; transition: transform 0.3s ease;" />` : '';
-              
-              srvContainer.innerHTML += `
-                <article class="service-card service-card-solid reveal-stagger-child" style="position: relative; overflow: hidden;">
-                  ${imageHtml}
-                  <div class="service-card-content" style="position: relative; z-index: 10;">
-                    <span class="service-card-icon material-symbols-outlined" aria-hidden="true">${icon}</span>
-                    <h3>${servico.titulo}</h3>
-                    <p>${servico.descricao || 'Serviço oferecido pela Blue Horizon.'}</p>
-                    <a href="./pages/contacto.html">Saber mais</a>
-                  </div>
-                </article>
+            for (const [area, srvs] of Object.entries(grouped)) {
+              let areaHtml = `
+                <div class="service-area-group w-full">
+                  <h3 class="font-headline-sm text-headline-sm text-primary mb-6 border-b border-outline-variant pb-2">${area}</h3>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter reveal-stagger-parent w-full">
               `;
-            });
+              
+              srvs.forEach((servico, index) => {
+                const icon = icons[index % icons.length];
+                const hasImage = !!servico.iconeUrl;
+                const cardClass = hasImage ? 'service-card-image' : 'service-card-solid';
+                const imageHtml = hasImage ? `<img src="http://localhost:3333${servico.iconeUrl}" alt="${servico.titulo}" />` : '';
+                
+                areaHtml += `
+                  <article class="service-card ${cardClass} reveal-stagger-child">
+                    ${imageHtml}
+                    <div class="service-card-content">
+                      <span class="service-card-icon material-symbols-outlined" aria-hidden="true">${icon}</span>
+                      <h3>${servico.titulo}</h3>
+                      <p>${servico.descricao || 'Serviço oferecido pela Blue Horizon.'}</p>
+                      <a href="./pages/contacto.html">Saber mais</a>
+                    </div>
+                  </article>
+                `;
+              });
+
+              areaHtml += `
+                  </div>
+                </div>
+              `;
+              srvContainer.innerHTML += areaHtml;
+            }
+            if (window.observeScrollElements) window.observeScrollElements();
           }
         }
       }
@@ -146,6 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           };
 
           renderCursos(activeCursos);
+          if (window.observeScrollElements) window.observeScrollElements();
 
           if (filterContainer) {
             const categorias = [...new Set(activeCursos.map(c => c.categoria))];
@@ -184,6 +210,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 } else {
                   renderCursos(activeCursos.filter(c => c.categoria === filterValue));
                 }
+                if (window.observeScrollElements) window.observeScrollElements();
               });
             });
           }

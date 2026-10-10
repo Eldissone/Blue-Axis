@@ -129,15 +129,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 3. SERVIÇOS
+  let servicosData = [];
   function carregarServicos() {
     fetchData('/backoffice/servicos', 'tabelaServicos', (dados, tbody) => {
+      servicosData = dados;
       tbody.innerHTML = '';
       dados.forEach(item => {
+        const imgTag = item.iconeUrl ? `<img src="http://localhost:3333${item.iconeUrl}" class="h-12 w-16 object-cover rounded shadow-sm border border-gray-200">` : '<span class="text-xs text-gray-400">S/ Imagem</span>';
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${item.titulo}</td>
+          <td class="px-6 py-4 whitespace-nowrap">${imgTag}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="text-sm font-bold text-gray-900">${item.titulo}</div>
+            <div class="text-xs text-gray-500">${item.area || 'Outras Áreas'}</div>
+          </td>
           <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs font-semibold rounded-full ${item.ativo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${item.ativo ? 'Ativo' : 'Inativo'}</span></td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 hover:text-blue-900 cursor-pointer">Editar</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 hover:text-blue-900 cursor-pointer" onclick="editarServico(${item.id})">Editar</td>
         `;
         tbody.appendChild(tr);
       });
@@ -364,6 +371,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- MODAL SERVIÇO ---
   window.criarServico = function() {
+    document.getElementById('servicoId').value = '';
+    document.getElementById('servicoImagem').required = true;
+    document.getElementById('modalServico').classList.remove('hidden');
+    document.getElementById('servicoPreviewContainer').classList.add('hidden');
+    document.getElementById('formServico').reset();
+  }
+  
+  window.editarServico = function(id) {
+    const servico = servicosData.find(s => s.id === id);
+    if (!servico) return;
+    document.getElementById('servicoId').value = servico.id;
+    document.getElementById('servicoTitulo').value = servico.titulo;
+    document.getElementById('servicoArea').value = servico.area || '';
+    document.getElementById('servicoDescricao').value = servico.descricao;
+    document.getElementById('servicoAtivo').checked = servico.ativo;
+    document.getElementById('servicoImagem').required = false;
+
+    if (servico.iconeUrl) {
+      document.getElementById('servicoPreview').src = `http://localhost:3333${servico.iconeUrl}`;
+      document.getElementById('servicoPreviewContainer').classList.remove('hidden');
+    }
     document.getElementById('modalServico').classList.remove('hidden');
   }
   window.fecharModalServico = function() {
@@ -373,33 +401,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('formServico').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const id = document.getElementById('servicoId').value;
     const titulo = document.getElementById('servicoTitulo').value;
+    const area = document.getElementById('servicoArea').value;
     const descricao = document.getElementById('servicoDescricao').value;
+    const ativo = document.getElementById('servicoAtivo').checked;
     const fileInput = document.getElementById('servicoImagem');
     
     const formData = new FormData();
     formData.append('titulo', titulo);
+    formData.append('area', area);
     formData.append('descricao', descricao);
-    formData.append('ativo', 'true');
+    formData.append('ativo', ativo);
     if (fileInput.files[0]) {
       formData.append('imagem', fileInput.files[0]);
     }
 
+    let url = 'http://localhost:3333/backoffice/servicos';
+    let method = 'POST';
+    if (id) {
+      url = `${url}/${id}`;
+      method = 'PUT';
+    }
+
     setButtonLoading(document.getElementById('formServico'), true);
     try {
-      const res = await fetch('http://localhost:3333/backoffice/servicos', {
-        method: 'POST',
+      const res = await fetch(url, {
+        method: method,
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData
       });
       if (res.ok) {
-        alert('Serviço criado com sucesso!');
+        alert(`Serviço ${id ? 'atualizado' : 'criado'} com sucesso!`);
         fecharModalServico();
         carregarServicos();
       } else {
-        alert('Erro ao criar serviço');
+        alert('Erro ao salvar serviço');
       }
-    } catch(e) { alert('Erro ao criar: ' + e.message); }
+    } catch(e) { alert('Erro ao salvar: ' + e.message); }
     finally { setButtonLoading(document.getElementById('formServico'), false); }
   });
 

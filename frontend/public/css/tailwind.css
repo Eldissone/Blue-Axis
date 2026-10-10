@@ -1356,6 +1356,10 @@ input:where([type='file']):focus {
   gap: 24px;
 }
 
+.gap-12 {
+  gap: 3rem;
+}
+
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1810,6 +1814,10 @@ input:where([type='file']):focus {
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 
 .text-left {

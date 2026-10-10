@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Intersection Observer for Reveals
-    const revealElements = document.querySelectorAll('.reveal-up, .reveal-stagger-parent, .reveal-text');
+    // 1. Intersection Observer for Reveals
     
     const observerOptions = {
         root: null,
@@ -18,7 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    revealElements.forEach(el => observer.observe(el));
+    window.observeScrollElements = () => {
+        const revealElements = document.querySelectorAll('.reveal-up:not(.is-revealed), .reveal-stagger-parent:not(.is-revealed), .reveal-text:not(.is-revealed)');
+        revealElements.forEach(el => observer.observe(el));
+    };
+
+    window.observeScrollElements();
 
     // 2. Scroll Progress Bar
     const progressContainer = document.createElement('div');
