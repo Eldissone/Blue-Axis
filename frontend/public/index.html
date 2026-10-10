@@ -265,9 +265,20 @@
 
           <!-- Lado Direito -->
           <div class="relative flex items-start justify-center lg:justify-end z-10">
-            <div class="imgR">
+            <div class="imgR group relative overflow-hidden rounded-2xl w-full h-full max-h-[500px]">
               <img src="/assets/images/Bustling Port Scene.png" alt="Equipa trabalhando"
                 class="w-full h-full object-cover">
+              <div class="imgR-overlay rounded-2xl absolute bottom-0 left-0 w-full h-[30%] group-hover:h-[70%] bg-primary/90 backdrop-blur-md text-white p-6 transition-all duration-500 ease-in-out flex flex-col items-center justify-center">
+                <div class="absolute top-0 left-0 w-full text-center group-hover:opacity-0 transition-opacity duration-500">
+                  <span class="material-symbols-outlined text-4xl">expand_less</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-2 mt-16 text-center transition-transform duration-500 transform group-hover:-translate-y-2">
+                  Inovação Marítima
+                </h3>
+                <p class="text-center font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150 transform translate-y-4 group-hover:translate-y-0 text-lg">
+                  Explorando novas rotas e oportunidades no setor marítimo com inovação e sustentabilidade.
+                </p>
+              </div>
             </div>
           </div>
 
