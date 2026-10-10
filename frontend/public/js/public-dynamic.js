@@ -101,44 +101,92 @@ document.addEventListener('DOMContentLoaded', async () => {
         const cursos = await res.json();
         const activeCursos = cursos.filter(c => c.ativo);
         const container = document.getElementById('cursosContainer');
+        const filterContainer = document.getElementById('filterContainer');
+        
         if (container && activeCursos.length > 0) {
-          container.innerHTML = '';
-          activeCursos.forEach(curso => {
-            const imgHtml = curso.imagemUrl ? `<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out" src="http://localhost:3333${curso.imagemUrl}" />` : '<div class="w-full h-full bg-gray-200"></div>';
-            container.innerHTML += `
-              <article class="bg-surface-container-lowest border border-outline-variant rounded-[25px] group hover:border-secondary transition-colors duration-300 flex flex-col h-full overflow-hidden">
-                  <div class="relative h-48 w-full overflow-hidden bg-surface-container">
-                      <div class="absolute inset-0 bg-primary/10 mix-blend-multiply z-10 group-hover:bg-transparent transition-colors duration-300"></div>
-                      ${imgHtml}
-                      <div class="absolute top-4 left-4 z-20">
-                          <span class="bg-secondary text-on-secondary px-2 py-1 rounded-[25px] font-label-sm text-label-sm">${curso.categoria}</span>
-                      </div>
-                  </div>
-                  <div class="p-6 flex flex-col flex-1">
-                      <h3 class="font-headline-md text-headline-md text-primary mb-2 line-clamp-2">${curso.titulo}</h3>
-                      <p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3 flex-1">${curso.descricao}</p>
-                      
-                      <div class="space-y-3 mb-6 pt-4 border-t border-surface-variant">
-                          <div class="flex items-center justify-between">
-                              <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> Carga Horária</span>
-                              <span class="font-label-sm text-label-sm text-primary font-bold">${curso.cargaHoraria}</span>
-                          </div>
-                          <div class="flex items-center justify-between">
-                              <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">computer</span> Modalidade</span>
-                              <span class="font-label-sm text-label-sm text-primary font-bold">${curso.modalidade}</span>
-                          </div>
-                          <div class="flex items-center justify-between">
-                              <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">verified</span> Certificadora</span>
-                              <span class="font-label-sm text-label-sm text-primary font-bold">${curso.certificadora}</span>
-                          </div>
-                      </div>
-                      <button onclick="abrirModalInscricao('${curso.titulo}')" class="w-full bg-primary text-on-primary font-button text-button py-3 rounded-[25px] hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200">
-                          Inscrever-me
-                      </button>
-                  </div>
-              </article>
+          
+          const renderCursos = (cursosToRender) => {
+            container.innerHTML = '';
+            cursosToRender.forEach(curso => {
+              const imgHtml = curso.imagemUrl ? `<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out" src="http://localhost:3333${curso.imagemUrl}" />` : '<div class="w-full h-full bg-gray-200"></div>';
+              container.innerHTML += `
+                <article class="bg-surface-container-lowest border border-outline-variant rounded-[25px] group hover:border-secondary transition-colors duration-300 flex flex-col h-full overflow-hidden" data-categoria="${curso.categoria}">
+                    <div class="relative h-48 w-full overflow-hidden bg-surface-container">
+                        <div class="absolute inset-0 bg-primary/10 mix-blend-multiply z-10 group-hover:bg-transparent transition-colors duration-300"></div>
+                        ${imgHtml}
+                        <div class="absolute top-4 left-4 z-20">
+                            <span class="bg-secondary text-on-secondary px-2 py-1 rounded-[25px] font-label-sm text-label-sm">${curso.categoria}</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-2 line-clamp-2">${curso.titulo}</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3 flex-1">${curso.descricao}</p>
+                        
+                        <div class="space-y-3 mb-6 pt-4 border-t border-surface-variant">
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> Carga Horária</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">${curso.cargaHoraria}</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">computer</span> Modalidade</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">${curso.modalidade}</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">verified</span> Certificadora</span>
+                                <span class="font-label-sm text-label-sm text-primary font-bold">${curso.certificadora}</span>
+                            </div>
+                        </div>
+                        <button onclick="abrirModalInscricao('${curso.titulo}')" class="w-full bg-primary text-on-primary font-button text-button py-3 rounded-[25px] hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200">
+                            Inscrever-me
+                        </button>
+                    </div>
+                </article>
+              `;
+            });
+          };
+
+          renderCursos(activeCursos);
+
+          if (filterContainer) {
+            const categorias = [...new Set(activeCursos.map(c => c.categoria))];
+            
+            let filterHtml = `
+              <button data-filter="all" class="filter-btn shrink-0 px-4 py-2 rounded-[25px] bg-primary text-on-primary font-button text-button border border-primary transition-colors">
+                Todos os Cursos
+              </button>
             `;
-          });
+            
+            categorias.forEach(cat => {
+              filterHtml += `
+                <button data-filter="${cat}" class="filter-btn shrink-0 px-4 py-2 rounded-[25px] bg-surface text-on-surface-variant font-button text-button border border-outline-variant hover:border-secondary hover:text-secondary transition-colors">
+                  ${cat}
+                </button>
+              `;
+            });
+            
+            filterContainer.innerHTML = filterHtml;
+
+            const filterBtns = filterContainer.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+              btn.addEventListener('click', (e) => {
+                filterBtns.forEach(b => {
+                  b.classList.remove('bg-primary', 'text-on-primary', 'border-primary');
+                  b.classList.add('bg-surface', 'text-on-surface-variant', 'border-outline-variant', 'hover:border-secondary', 'hover:text-secondary');
+                });
+                
+                const targetBtn = e.target;
+                targetBtn.classList.remove('bg-surface', 'text-on-surface-variant', 'border-outline-variant', 'hover:border-secondary', 'hover:text-secondary');
+                targetBtn.classList.add('bg-primary', 'text-on-primary', 'border-primary');
+                
+                const filterValue = targetBtn.getAttribute('data-filter');
+                if (filterValue === 'all') {
+                  renderCursos(activeCursos);
+                } else {
+                  renderCursos(activeCursos.filter(c => c.categoria === filterValue));
+                }
+              });
+            });
+          }
           
           const selectElement = document.getElementById('acadCurso');
           if (selectElement) {
