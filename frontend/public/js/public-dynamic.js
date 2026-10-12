@@ -56,6 +56,47 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
+  const initServiceCarousels = (scope) => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    scope.querySelectorAll('[data-service-carousel]').forEach((carousel) => {
+      const viewport = carousel.querySelector('.service-carousel-viewport');
+      const track = carousel.querySelector('.service-carousel-track');
+      const previous = carousel.querySelector('[data-carousel-prev]');
+      const next = carousel.querySelector('[data-carousel-next]');
+      const firstCard = track && track.querySelector('.service-card');
+      if (!viewport || !track || !firstCard) return;
+
+      const getStep = () => {
+        const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 0;
+        return firstCard.getBoundingClientRect().width + gap;
+      };
+
+      const move = (direction) => {
+        const atEnd = viewport.scrollLeft + viewport.clientWidth >= viewport.scrollWidth - 4;
+        if (direction > 0 && atEnd) {
+          viewport.scrollTo({ left: 0, behavior: 'smooth' });
+          return;
+        }
+        viewport.scrollBy({ left: direction * getStep(), behavior: 'smooth' });
+      };
+
+      previous.addEventListener('click', () => move(-1));
+      next.addEventListener('click', () => move(1));
+
+      if (reducedMotion) return;
+      let autoplay = window.setInterval(() => move(1), 4800);
+      const stopAutoplay = () => { window.clearInterval(autoplay); autoplay = undefined; };
+      const startAutoplay = () => { if (!autoplay) autoplay = window.setInterval(() => move(1), 4800); };
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+      carousel.addEventListener('focusin', stopAutoplay);
+      carousel.addEventListener('focusout', () => {
+        if (!carousel.contains(document.activeElement)) startAutoplay();
+      });
+    });
+  };
+
   const fetchServicos = async () => {
     try {
       const res = await fetch('http://localhost:3333/servicos');
@@ -79,10 +120,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             const icons = ['support_agent', 'trending_up', 'school', 'handshake'];
 
             for (const [area, srvs] of Object.entries(grouped)) {
+              const shouldUseCarousel = srvs.length > 4;
+              const cardsContainerOpen = shouldUseCarousel
+                ? `
+                  <div class="service-carousel" data-service-carousel>
+                    <button class="service-carousel-control service-carousel-prev" type="button" data-carousel-prev aria-label="Serviços anteriores">
+                      <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+                    </button>
+                    <div class="service-carousel-viewport">
+                      <div class="service-carousel-track reveal-stagger-parent">
+                `
+                : `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter reveal-stagger-parent w-full">`;
               let areaHtml = `
                 <div class="service-area-group w-full">
                   <h3 class="font-headline-sm text-headline-sm text-primary mb-6 border-b border-outline-variant pb-2">${area}</h3>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter reveal-stagger-parent w-full">
+                  ${cardsContainerOpen}
               `;
               
               srvs.forEach((servico, index) => {
@@ -104,12 +156,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
               });
 
-              areaHtml += `
+              areaHtml += shouldUseCarousel
+                ? `
+                      </div>
+                    </div>
+                    <button class="service-carousel-control service-carousel-next" type="button" data-carousel-next aria-label="Próximos serviços">
+                      <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                    </button>
                   </div>
-                </div>
-              `;
+                </div>`
+                : `</div></div>`;
               srvContainer.innerHTML += areaHtml;
             }
+            initServiceCarousels(srvContainer);
             if (window.observeScrollElements) window.observeScrollElements();
           }
         }

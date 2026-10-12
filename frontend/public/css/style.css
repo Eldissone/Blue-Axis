@@ -654,6 +654,70 @@ section {
   isolation: isolate;
 }
 
+/* Carrossel usado apenas quando uma área de serviços excede quatro cartões. */
+.service-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.service-carousel-viewport {
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.service-carousel-viewport::-webkit-scrollbar { display: none; }
+
+.service-carousel-track {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  padding: 0.35rem 0;
+}
+
+.service-carousel-track .service-card {
+  flex: 0 0 calc((100% - 4.5rem) / 4);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.service-carousel-control {
+  display: grid;
+  flex: 0 0 auto;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(0, 30, 64, 0.2);
+  border-radius: 50%;
+  color: #fff;
+  background: var(--navy);
+  box-shadow: 0 0.7rem 1.5rem rgba(0, 30, 64, 0.18);
+  cursor: pointer;
+  transition: transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
+}
+
+.service-carousel-control:hover,
+.service-carousel-control:focus-visible {
+  background: var(--cyan);
+  transform: scale(1.08);
+  box-shadow: 0 0.95rem 1.8rem rgba(0, 30, 64, 0.26);
+  outline: none;
+}
+
+@media (max-width: 1023px) {
+  .service-carousel-track .service-card { flex-basis: calc((100% - 1.5rem) / 2); }
+}
+
+@media (max-width: 560px) {
+  .service-carousel { gap: 0.55rem; }
+  .service-carousel-track .service-card { flex-basis: 100%; }
+  .service-carousel-control { width: 2.65rem; height: 2.65rem; }
+}
+
 .service-card-content {
   position: relative;
   z-index: 2;
