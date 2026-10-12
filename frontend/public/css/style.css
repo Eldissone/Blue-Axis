@@ -679,7 +679,7 @@ section {
 }
 
 .service-carousel-track .service-card {
-  flex: 0 0 calc((100% - 4.5rem) / 4);
+  flex: 0 0 calc((100% - 3.75rem) / 3.5);
   min-width: 0;
   scroll-snap-align: start;
 }
