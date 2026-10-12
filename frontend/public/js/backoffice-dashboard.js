@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (panelId === 'banners') carregarBanners();
     if (panelId === 'servicos') carregarServicos();
     if (panelId === 'cursos') carregarCursos();
+    if (panelId === 'parceiros-institucionais') carregarParceirosInstitucionais();
     if (panelId === 'newsletter') carregarNewsletter();
   }
 
@@ -172,6 +173,49 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
           <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs font-semibold rounded-full ${item.ativo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${item.ativo ? 'Ativo' : 'Inativo'}</span></td>
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 hover:text-blue-900 cursor-pointer" onclick="editarCurso(${item.id})">Editar</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    });
+  }
+
+  // 3.8 PARCEIROS INSTITUCIONAIS
+  let parceirosInstitucionaisData = [];
+  function carregarParceirosInstitucionais() {
+    fetchData('/backoffice/parceiros-institucionais', 'tabelaParceirosInstitucionais', (dados, tbody) => {
+      parceirosInstitucionaisData = dados;
+      tbody.innerHTML = '';
+      if (!dados || dados.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-8 text-center text-gray-400">Nenhum parceiro registado ainda.</td></tr>';
+        return;
+      }
+      dados.forEach(item => {
+        let imgTag = '<span class="text-xs text-gray-400">S/ Imagem</span>';
+        if (item.imagemUrl) {
+          const src = item.imagemUrl.startsWith('http') ? item.imagemUrl : `http://localhost:3333${item.imagemUrl}`;
+          imgTag = `<img src="${src}" class="h-12 w-12 object-cover rounded-[12px] shadow-sm border border-gray-200">`;
+        }
+        
+        const tagsHtml = (item.tags || '')
+          .split(',')
+          .map(t => t.trim())
+          .filter(Boolean)
+          .map(t => `<span class="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-full font-semibold mr-1">${t}</span>`)
+          .join('') || '<span class="text-xs text-gray-400">-</span>';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="px-6 py-4 whitespace-nowrap">${imgTag}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="text-sm font-bold text-gray-900">${item.nome}</div>
+            <div class="text-xs text-gray-500">${item.categoria || 'Universidades & Academia'}</div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">${tagsHtml}</td>
+          <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs font-semibold rounded-full ${item.ativo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${item.ativo ? 'Ativo' : 'Inativo'}</span></td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
+            <span class="text-blue-600 hover:text-blue-900 cursor-pointer font-bold" onclick="editarParceiroInstitucional(${item.id})">Editar</span>
+            <span class="text-red-600 hover:text-red-900 cursor-pointer font-bold" onclick="deletarParceiroInstitucional(${item.id})">Excluir</span>
+          </td>
         `;
         tbody.appendChild(tr);
       });
@@ -508,6 +552,106 @@ document.addEventListener('DOMContentLoaded', () => {
       } else alert('Erro ao salvar curso');
     } catch(e) { alert('Erro: ' + e.message); }
     finally { setButtonLoading(document.getElementById('formCurso'), false); }
+  });
+
+  // --- PARCEIROS INSTITUCIONAIS MODAL HANDLERS ---
+  window.criarParceiroInstitucional = function() {
+    document.getElementById('modalParceiroInstitucionalTitulo').textContent = 'Novo Parceiro Institucional';
+    document.getElementById('parceiroInstitucionalId').value = '';
+    document.getElementById('formParceiroInstitucional').reset();
+    document.getElementById('parceiroAtivo').checked = true;
+    document.getElementById('parceiroOrdem').value = 0;
+    document.getElementById('parceiroPreview').src = '';
+    document.getElementById('parceiroPreviewContainer').classList.add('hidden');
+    document.getElementById('modalParceiroInstitucional').classList.remove('hidden');
+  };
+
+  window.editarParceiroInstitucional = function(id) {
+    const parceiro = parceirosInstitucionaisData.find(p => p.id === id);
+    if (!parceiro) return;
+    document.getElementById('modalParceiroInstitucionalTitulo').textContent = 'Editar Parceiro Institucional';
+    document.getElementById('parceiroInstitucionalId').value = parceiro.id;
+    document.getElementById('parceiroNome').value = parceiro.nome || '';
+    document.getElementById('parceiroCategoria').value = parceiro.categoria || 'Universidades & Academia';
+    document.getElementById('parceiroTags').value = parceiro.tags || '';
+    document.getElementById('parceiroOrdem').value = parceiro.ordem !== undefined ? parceiro.ordem : 0;
+    document.getElementById('parceiroDescricao').value = parceiro.descricao || '';
+    document.getElementById('parceiroAtivo').checked = parceiro.ativo !== false;
+
+    if (parceiro.imagemUrl) {
+      const src = parceiro.imagemUrl.startsWith('http') ? parceiro.imagemUrl : `http://localhost:3333${parceiro.imagemUrl}`;
+      document.getElementById('parceiroPreview').src = src;
+      document.getElementById('parceiroPreviewContainer').classList.remove('hidden');
+    } else {
+      document.getElementById('parceiroPreview').src = '';
+      document.getElementById('parceiroPreviewContainer').classList.add('hidden');
+    }
+    document.getElementById('modalParceiroInstitucional').classList.remove('hidden');
+  };
+
+  window.fecharModalParceiroInstitucional = function() {
+    document.getElementById('modalParceiroInstitucional').classList.add('hidden');
+    document.getElementById('formParceiroInstitucional').reset();
+  };
+
+  window.deletarParceiroInstitucional = async function(id) {
+    if (!confirm('Tem a certeza que deseja excluir este parceiro institucional?')) return;
+    try {
+      const res = await fetch(`http://localhost:3333/backoffice/parceiros-institucionais/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        alert('Parceiro excluído com sucesso!');
+        carregarParceirosInstitucionais();
+      } else {
+        alert('Erro ao excluir parceiro.');
+      }
+    } catch(e) {
+      alert('Erro: ' + e.message);
+    }
+  };
+
+  document.getElementById('formParceiroInstitucional').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('parceiroInstitucionalId').value;
+    const formData = new FormData();
+    formData.append('nome', document.getElementById('parceiroNome').value);
+    formData.append('categoria', document.getElementById('parceiroCategoria').value);
+    formData.append('tags', document.getElementById('parceiroTags').value);
+    formData.append('ordem', document.getElementById('parceiroOrdem').value);
+    formData.append('descricao', document.getElementById('parceiroDescricao').value);
+    formData.append('ativo', document.getElementById('parceiroAtivo').checked);
+
+    const fileInput = document.getElementById('parceiroImagem');
+    if (fileInput.files[0]) formData.append('imagem', fileInput.files[0]);
+
+    let url = 'http://localhost:3333/backoffice/parceiros-institucionais';
+    let method = 'POST';
+    if (id) {
+      url = `${url}/${id}`;
+      method = 'PUT';
+    }
+
+    setButtonLoading(document.getElementById('formParceiroInstitucional'), true);
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData
+      });
+      if (res.ok) {
+        alert(`Parceiro ${id ? 'atualizado' : 'criado'} com sucesso!`);
+        fecharModalParceiroInstitucional();
+        carregarParceirosInstitucionais();
+      } else {
+        alert('Erro ao salvar parceiro institucional.');
+      }
+    } catch (err) {
+      alert('Erro: ' + err.message);
+    } finally {
+      setButtonLoading(document.getElementById('formParceiroInstitucional'), false);
+    }
   });
 
   // --- START ---

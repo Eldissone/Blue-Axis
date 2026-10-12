@@ -100,6 +100,10 @@
           class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
           <span class="material-symbols-outlined">design_services</span> Serviços
         </a>
+        <a href="#" onclick="showPanel('parceiros-institucionais')"
+          class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+          <span class="material-symbols-outlined">school</span> Parceiros (Academia)
+        </a>
         <a href="#" onclick="showPanel('newsletter')"
           class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
           <span class="material-symbols-outlined">mail</span> Newsletter
@@ -278,6 +282,33 @@
             </table>
           </div>
         </div>
+
+        <!-- Parceiros Institucionais Panel -->
+        <div id="panel-parceiros-institucionais" class="panel hidden bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+          <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
+            <h1 class="text-xl font-bold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined">school</span> Parceiros (Universidades & Academia)
+            </h1>
+            <button onclick="criarParceiroInstitucional()" class="bg-primary text-white px-4 py-2 rounded-[25px] font-bold text-sm hover:bg-blue-800 transition shadow-sm flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-sm">add</span> Novo Parceiro
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-white">
+                <tr>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Imagem</th>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Instituição & Categoria</th>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Acordos / Tags</th>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Status</th>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tabelaParceirosInstitucionais" class="bg-white divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 
@@ -338,12 +369,12 @@
           <label class="block text-sm font-semibold text-gray-700 mb-1">Área do Serviço</label>
           <select id="servicoArea" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none">
             <option value="">Selecione uma Área...</option>
-            <option value="Área Marítima e Portuária">Área Marítima e Portuária</option>
-            <option value="Pescas, Aquicultura e Recursos Aquáticos">Pescas, Aquicultura e Recursos Aquáticos</option>
-            <option value="Economia Azul e Liderança">Economia Azul e Liderança</option>
-            <option value="Legislação e Governança Marítima">Legislação e Governança Marítima</option>
-            <option value="Gestão Pública e Desenvolvimento Institucional">Gestão Pública e Desenvolvimento Institucional</option>
-            <option value="Formação Corporativa">Formação Corporativa</option>
+            <option value="Área I – Economia Azul, Gestão Marítima e Portuária">Área I – Economia Azul, Gestão Marítima e Portuária</option>
+            <option value="Área II – Pescas, Recursos Marinhos e Ecossistemas">Área II – Pescas, Recursos Marinhos e Ecossistemas</option>
+            <option value="Área III – Ambiente, Sustentabilidade e ESG">Área III – Ambiente, Sustentabilidade e ESG</option>
+            <option value="Área IV – Gestão, Qualidade e Desenvolvimento Institucional">Área IV – Gestão, Qualidade e Desenvolvimento Institucional</option>
+            <option value="Área V – Saúde, Segurança e Bem-Estar">Área V – Saúde, Segurança e Bem-Estar</option>
+      
           </select>
         </div>
         <div>
@@ -441,6 +472,61 @@
         </div>
         <div class="pt-4 flex justify-end gap-2">
           <button type="button" onclick="fecharModalCurso()" class="px-4 py-2 rounded-xl text-gray-600 hover:bg-gray-100 font-bold transition">Cancelar</button>
+          <button type="submit" class="bg-primary text-white px-6 py-2 rounded-xl font-bold hover:bg-blue-800 transition shadow-md">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Parceiro Institucional -->
+  <div id="modalParceiroInstitucional" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="modalParceiroInstitucionalTitulo" class="text-xl font-bold text-primary">Novo Parceiro Institucional</h2>
+        <button onclick="fecharModalParceiroInstitucional()" class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <form id="formParceiroInstitucional" class="space-y-4">
+        <input type="hidden" id="parceiroInstitucionalId">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Nome da Instituição</label>
+            <input type="text" id="parceiroNome" placeholder="Ex: UNIVERSIDADE DO NAMIBE" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Secção / Categoria</label>
+            <select id="parceiroCategoria" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+              <option value="Universidades & Academia">Universidades & Academia</option>
+              <option value="Indústria & Certificação">Indústria & Certificação</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Áreas de Acordo / Tags (separar por vírgula)</label>
+            <input type="text" id="parceiroTags" placeholder="Ex: Cursos, Investigação" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Ordem de Exibição</label>
+            <input type="number" id="parceiroOrdem" value="0" min="0" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Descrição do Parceiro / Acordo</label>
+          <textarea id="parceiroDescricao" required rows="3" placeholder="Descreva o propósito da parceria, linhas de pesquisa ou cooperação..." class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Logotipo / Imagem</label>
+          <input type="file" id="parceiroImagem" accept="image/*" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none" onchange="previewImage(event, 'parceiroPreview')">
+          <div class="mt-2 hidden" id="parceiroPreviewContainer">
+            <img id="parceiroPreview" class="w-full h-32 object-cover rounded-xl border border-gray-200" src="" alt="Preview">
+          </div>
+        </div>
+        <div>
+           <label class="inline-flex items-center gap-2">
+              <input type="checkbox" id="parceiroAtivo" checked class="form-checkbox h-5 w-5 text-primary rounded border-gray-300">
+              <span class="text-sm font-semibold text-gray-700">Ativo no site</span>
+           </label>
+        </div>
+        <div class="pt-4 flex justify-end gap-2">
+          <button type="button" onclick="fecharModalParceiroInstitucional()" class="px-4 py-2 rounded-xl text-gray-600 hover:bg-gray-100 font-bold transition">Cancelar</button>
           <button type="submit" class="bg-primary text-white px-6 py-2 rounded-xl font-bold hover:bg-blue-800 transition shadow-md">Salvar</button>
         </div>
       </form>

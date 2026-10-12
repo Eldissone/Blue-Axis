@@ -229,7 +229,60 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
+  const fetchAcademicPartners = async () => {
+    try {
+      const container = document.getElementById('dynamic-academic-partners');
+      if (!container) return;
+
+      const res = await fetch('http://localhost:3333/parceiros-institucionais');
+      if (res.ok) {
+        const parceiros = await res.json();
+        const activePartners = parceiros.filter(p => p.ativo && (p.categoria === 'Universidades & Academia' || !p.categoria));
+
+        if (activePartners.length > 0) {
+          container.innerHTML = '';
+          activePartners.forEach(partner => {
+            let imgStyle = '';
+            if (partner.imagemUrl) {
+              const src = partner.imagemUrl.startsWith('http') || partner.imagemUrl.startsWith('/assets') 
+                ? partner.imagemUrl 
+                : `http://localhost:3333${partner.imagemUrl}`;
+              imgStyle = `style="background-image: url('${src}')"`;
+            }
+
+            const tagsArray = (partner.tags || '')
+              .split(',')
+              .map(t => t.trim())
+              .filter(Boolean);
+
+            const tagsHtml = tagsArray.map(tag => `
+              <span class="bg-tertiary/10 text-tertiary font-label-sm text-label-sm px-2 py-0.5 rounded-[25px]">${tag}</span>
+            `).join('');
+
+            container.innerHTML += `
+              <div class="bg-surface-container-lowest border border-outline-variant rounded-[25px] p-6 flex gap-6 hover:shadow-sm transition-shadow reveal-stagger-child">
+                <div class="hidden sm:block w-32 h-32 rounded-[25px] bg-surface-container overflow-hidden flex-shrink-0 border border-outline-variant">
+                  <div class="bg-cover bg-center w-full h-full grayscale opacity-80 mix-blend-multiply" ${imgStyle}></div>
+                </div>
+                <div class="flex flex-col justify-center">
+                  ${tagsHtml ? `<div class="flex flex-wrap gap-2 mb-2">${tagsHtml}</div>` : ''}
+                  <h3 class="font-headline-md text-headline-md text-primary mb-2">${partner.nome}</h3>
+                  <p class="font-body-md text-body-md text-on-surface-variant">${partner.descricao}</p>
+                </div>
+              </div>
+            `;
+          });
+          if (window.observeScrollElements) window.observeScrollElements();
+        }
+      }
+    } catch (e) {
+      console.error('Erro ao carregar parceiros institucionais:', e);
+    }
+  };
+
   await fetchBanners();
   await fetchServicos();
   await fetchCursos();
+  await fetchAcademicPartners();
 });
+

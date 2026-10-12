@@ -79,6 +79,14 @@ import { AtualizarCursoUseCase } from '../../use-cases/backoffice/atualizar-curs
 import { ListarCursosAtivosUseCase } from '../../use-cases/publico/listar-cursos-ativos.use-case.js';
 import { CursoController } from '../../adapters/controllers/curso.controller.js';
 
+import { PrismaParceiroInstitucionalRepository } from '../../adapters/repositories/prisma-parceiroInstitucional.repository.js';
+import { CriarParceiroInstitucionalUseCase } from '../../use-cases/backoffice/criar-parceiroInstitucional.use-case.js';
+import { ListarParceiroInstitucionalUseCase } from '../../use-cases/backoffice/listar-parceiroInstitucional.use-case.js';
+import { AtualizarParceiroInstitucionalUseCase } from '../../use-cases/backoffice/atualizar-parceiroInstitucional.use-case.js';
+import { DeletarParceiroInstitucionalUseCase } from '../../use-cases/backoffice/deletar-parceiroInstitucional.use-case.js';
+import { ListarParceiroInstitucionalAtivosUseCase } from '../../use-cases/publico/listar-parceiroInstitucional-ativos.use-case.js';
+import { ParceiroInstitucionalController } from '../../adapters/controllers/parceiroInstitucional.controller.js';
+
 export const routes = Router();
 
 // 1. Repositórios
@@ -92,6 +100,7 @@ const repoBanner = new PrismaBannerRepository();
 const repoServico = new PrismaServicoRepository();
 const repoNewsletter = new PrismaNewsletterRepository();
 const repoCurso = new PrismaCursoRepository();
+const repoParceiroInstitucional = new PrismaParceiroInstitucionalRepository();
 
 // 2. Controladores
 const criarUsuarioController = new CriarUsuarioController(new CriarUsuarioUseCase(usuarioRepository));
@@ -107,6 +116,13 @@ const bannerController = new BannerController(new CriarBannerUseCase(repoBanner)
 const servicoController = new ServicoController(new CriarServicoUseCase(repoServico), new ListarServicoUseCase(repoServico), new AtualizarServicoUseCase(repoServico));
 const newsletterController = new NewsletterController(new CriarNewsletterUseCase(repoNewsletter), new ListarNewsletterUseCase(repoNewsletter));
 const cursoController = new CursoController(new CriarCursoUseCase(repoCurso), new ListarCursosUseCase(repoCurso), new AtualizarCursoUseCase(repoCurso), new ListarCursosAtivosUseCase(repoCurso));
+const parceiroInstitucionalController = new ParceiroInstitucionalController(
+  new CriarParceiroInstitucionalUseCase(repoParceiroInstitucional),
+  new ListarParceiroInstitucionalUseCase(repoParceiroInstitucional),
+  new AtualizarParceiroInstitucionalUseCase(repoParceiroInstitucional),
+  new DeletarParceiroInstitucionalUseCase(repoParceiroInstitucional),
+  new ListarParceiroInstitucionalAtivosUseCase(repoParceiroInstitucional)
+);
 
 routes.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -131,6 +147,7 @@ routes.post('/newsletter', (req, res, next) => newsletterController.criar(req, r
 routes.get('/banners', (req, res, next) => bannerController.listar(req, res, next));
 routes.get('/servicos', (req, res, next) => servicoController.listar(req, res, next));
 routes.get('/cursos', (req, res, next) => cursoController.listarAtivos(req, res, next));
+routes.get('/parceiros-institucionais', (req, res, next) => parceiroInstitucionalController.listarAtivos(req, res, next));
 
 
 // --- ROTAS DE BACKOFFICE (Protegidas) ---
@@ -157,3 +174,10 @@ routes.put('/backoffice/servicos/:id', upload.single('imagem'), (req, res, next)
 routes.get('/backoffice/cursos', (req, res, next) => cursoController.listar(req, res, next));
 routes.post('/backoffice/cursos', upload.single('imagemUrl'), (req, res, next) => cursoController.criar(req, res, next));
 routes.put('/backoffice/cursos/:id', upload.single('imagemUrl'), (req, res, next) => cursoController.atualizar(req, res, next));
+
+// Parceiros Institucionais (Universidades & Academia / Indústria)
+routes.get('/backoffice/parceiros-institucionais', (req, res, next) => parceiroInstitucionalController.listar(req, res, next));
+routes.post('/backoffice/parceiros-institucionais', upload.single('imagem'), (req, res, next) => parceiroInstitucionalController.criar(req, res, next));
+routes.put('/backoffice/parceiros-institucionais/:id', upload.single('imagem'), (req, res, next) => parceiroInstitucionalController.atualizar(req, res, next));
+routes.delete('/backoffice/parceiros-institucionais/:id', (req, res, next) => parceiroInstitucionalController.deletar(req, res, next));
+
