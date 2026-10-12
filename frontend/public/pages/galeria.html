@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Actividades & Eventos — Blue Horizon</title>
+    <meta name="description" content="Explore os registos visuais das nossas actividades, formações, missões técnicas, conferências e iniciativas de sustentabilidade da Blue Horizon.">
+    
+    <!-- Design System Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/tailwind.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/scroll-effects.css">
+
+    <style>
+        :root {
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --color-primary: #002B49;
+            --color-primary-light: #0A3D62;
+            --color-accent: #00A896;
+            --color-gold: #D4AF37;
+            --color-surface-card: rgba(255, 255, 255, 0.85);
+            --color-glass: rgba(255, 255, 255, 0.65);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: #F8FAFC;
+            color: #1E293B;
+            overflow-x: hidden;
+        }
+
+        .page-galeria .site-header,
+        .page-galeria .footer-modern {
+            font-family: var(--sans);
+        }
+
+        .font-editorial {
+            font-family: var(--font-display);
+        }
+
+        /* Hero Banner */
+        .gallery-hero-bg {
+            background: linear-gradient(135deg, rgba(0, 43, 73, 0.94) 0%, rgba(10, 61, 98, 0.88) 100%),
+                        url('/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.05.jpeg') center/cover no-repeat;
+        }
+
+        /* Filter pill buttons */
+        .filter-btn {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+        .filter-btn:hover:not(.active) {
+            background-color: #F1F5F9;
+            color: #002B49;
+            border-color: #CBD5E1;
+            transform: translateY(-1px);
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, #002B49 0%, #0A3D62 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 20px -4px rgba(0, 43, 73, 0.35);
+            border-color: #002B49;
+            transform: translateY(-1px);
+        }
+        .filter-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Button utilities */
+        .btn-primary-blue {
+            background-color: #002B49;
+            color: #ffffff !important;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0, 43, 73, 0.2);
+        }
+        .btn-primary-blue:hover {
+            background-color: #0A3D62;
+            color: #ffffff !important;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 43, 73, 0.3);
+        }
+
+        /* Gallery Card Styles */
+        .gallery-item {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+        .gallery-card {
+            border-radius: 22px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 43, 73, 0.08);
+            transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px -10px rgba(0, 43, 73, 0.2);
+        }
+
+        /* Image Media Container */
+        .card-media-wrapper {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background-color: #0F172A;
+        }
+        .card-media-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gallery-card:hover .card-media-wrapper img {
+            transform: scale(1.08);
+        }
+
+        /* Overlay with frosted glass */
+        .card-overlay {
+            background: linear-gradient(to top, rgba(0, 24, 43, 0.95) 0%, rgba(0, 43, 73, 0.5) 55%, transparent 100%);
+            opacity: 0.96;
+            transition: opacity 0.35s ease;
+        }
+
+        /* Badge pill */
+        .category-badge {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.92);
+            color: #002B49;
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* CTA Section Card */
+        .gallery-cta-card {
+            background: linear-gradient(135deg, #00223A 0%, #002B49 50%, #00424A 100%) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 43, 73, 0.4);
+        }
+        .gallery-cta-btn-primary {
+            background-color: #00A896 !important;
+            color: #ffffff !important;
+            box-shadow: 0 8px 20px rgba(0, 168, 150, 0.35);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
+        }
+        .gallery-cta-btn-primary:hover {
+            background-color: #028090 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0, 168, 150, 0.5);
+        }
+        .gallery-cta-btn-secondary {
+            background-color: rgba(255, 255, 255, 0.12) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.35) !important;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
+        }
+        .gallery-cta-btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.25) !important;
+            border-color: #ffffff !important;
+            transform: translateY(-2px);
+        }
+
+        /* Lightbox modal */
+        #lightboxModal {
+            z-index: 1000;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(16px);
+        }
+        #lightboxModal.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        #lightboxModal:not(.active) {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #lightboxModal > button {
+            position: fixed !important;
+            top: 1.5rem !important;
+            right: 1.5rem !important;
+            z-index: 1010 !important;
+            min-height: 3.25rem;
+            padding: .75rem 1.1rem !important;
+            border: 1px solid rgba(255, 255, 255, .45) !important;
+            border-radius: 999px !important;
+            color: #fff !important;
+            background: rgba(0, 30, 64, .86) !important;
+            box-shadow: 0 .75rem 2rem rgba(0, 14, 34, .32);
+        }
+        #lightboxModal > button:hover { background: #ba1a1a !important; transform: translateY(-2px); }
+        #lightboxModal > div { width: min(1100px, calc(100vw - 7rem)) !important; max-height: calc(100vh - 7rem); }
+        /* Mantemos apenas o controlo flutuante de saída; o botão repetido no
+           cabeçalho do modal criava dois caminhos visuais para a mesma ação. */
+        #lightboxModal > div > div:first-child > button { display: none !important; }
+        #lightboxModal > div > div:first-child,
+        #lightboxModal > div > div:nth-child(3) { background: #071b33 !important; color: #fff !important; }
+        #lightboxModal #modalCategory { color: #baf3ff !important; background: rgba(0, 101, 141, .5) !important; border-color: rgba(163, 238, 255, .45) !important; }
+        #lightboxModal #modalCounter { color: #fff !important; }
+        #lightboxModal #modalTitle { color: #fff !important; font-family: var(--sans); font-weight: 700; }
+        #lightboxModal #modalDesc { color: rgba(255, 255, 255, .88) !important; font-size: .95rem; line-height: 1.55; }
+        #lightboxModal > div > div:nth-child(2) { position: relative; min-height: 0 !important; height: min(68vh, 46rem); max-height: 68vh !important; padding: 1rem 5.25rem; }
+        #lightboxModal > div > div:nth-child(2) img { width: 100%; height: 100%; max-height: 100% !important; object-fit: contain; }
+        #lightboxModal button[onclick^="navigateLightbox"] {
+            position: absolute !important;
+            top: 50% !important;
+            z-index: 2;
+            display: grid !important;
+            width: 3.25rem;
+            height: 3.25rem;
+            padding: 0 !important;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .8) !important;
+            border-radius: 50% !important;
+            color: #fff !important;
+            background: rgba(0, 30, 64, .84) !important;
+            box-shadow: 0 .65rem 1.5rem rgba(0, 14, 34, .28);
+            transform: translateY(-50%);
+        }
+        #lightboxModal button[onclick^="navigateLightbox"]:hover { background: var(--cyan) !important; transform: translateY(-50%) scale(1.08); }
+        #lightboxModal button[onclick="navigateLightbox(-1)"] { left: 1rem !important; }
+        #lightboxModal button[onclick="navigateLightbox(1)"] { right: 1rem !important; }
+        @media (max-width: 640px) {
+            #lightboxModal > button { top: .75rem !important; right: .75rem !important; min-height: 2.8rem; padding-inline: .9rem !important; }
+            #lightboxModal > div { width: calc(100vw - 1.5rem) !important; max-height: calc(100vh - 5rem); }
+            #lightboxModal > div > div:nth-child(2) { height: min(64vh, 34rem); padding-inline: 3.5rem; }
+            #lightboxModal button[onclick^="navigateLightbox"] { width: 2.7rem; height: 2.7rem; }#lightboxModal button[onclick="navigateLightbox(-1)"] { left: .45rem !important; }#lightboxModal button[onclick="navigateLightbox(1)"] { right: .45rem !important; }
+        }
+
+        /* Counter badge */
+        .stats-badge {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Galeria alinhada à largura, tipografia e ritmo visual BLUE HORIZON. */
+        .page-galeria main { background: #f5f8fb; }
+        .gallery-hero-bg {
+            min-height: 34rem;
+            display: flex;
+            align-items: center;
+            padding: 6.5rem 1.5rem 7rem !important;
+            border-bottom-right-radius: 3rem;
+            border-bottom-left-radius: 3rem;
+        }
+        .gallery-hero-content { width: min(1180px, 100%); margin: 0 auto; }
+        .gallery-hero-content h1,
+        .gallery-section-title,
+        .gallery-cta-card h2 { font-family: var(--sans); letter-spacing: -0.04em; }
+        .gallery-hero-content h1 { font-size: clamp(2.6rem, 5vw, 4.8rem) !important; line-height: 1.02; }
+        .gallery-hero-content > p { max-width: 44rem; margin-inline: auto; }
+        .gallery-hero-bg > div:nth-child(2) { animation: gallery-drift 9s ease-in-out infinite alternate; }
+        .gallery-hero-bg > div:nth-child(3) { animation: gallery-drift 12s ease-in-out -3s infinite alternate-reverse; }
+        .gallery-stats { display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; max-width: 56rem; margin-inline: auto; }
+        .gallery-stats > div { padding: 1rem; border-left: 1px solid rgba(255, 255, 255, .22); }
+        .gallery-stats > div:first-child { border-left: 0; }
+        .gallery-controls, .gallery-section, .gallery-cta-wrap { width: min(1180px, calc(100% - 3rem)); margin-inline: auto; }
+        .gallery-controls { margin-top: -2.5rem; padding-inline: 0 !important; }
+        .gallery-controls > div {
+            padding: .7rem !important;
+            border: 1px solid rgba(0, 30, 64, .1) !important;
+            border-radius: 1.25rem !important;
+            background: rgba(255, 255, 255, .96) !important;
+            box-shadow: 0 1rem 2.5rem rgba(0, 30, 64, .14) !important;
+        }
+        #categoryFilters { gap: .55rem !important; }
+        .filter-btn {
+            min-height: 2.7rem;
+            padding: .55rem 1rem !important;
+            border: 1px solid #d7e0e8 !important;
+            border-radius: 999px !important;
+            color: #18334f !important;
+            background: #f8fafc !important;
+            font-family: var(--sans);
+        }
+        .filter-btn.active { color: #fff !important; background: var(--navy) !important; border-color: var(--navy) !important; box-shadow: 0 .5rem 1.25rem rgba(0, 30, 64, .2) !important; }
+        .filter-btn:hover:not(.active) { color: var(--navy) !important; background: #e8f5fb !important; border-color: #72c8eb !important; }
+        .gallery-section { padding-inline: 0 !important; padding-block: 5.5rem !important; }
+        #galleryGrid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 1.5rem !important; }
+        .card-media-wrapper { height: auto; aspect-ratio: 4 / 4.25; }
+        .gallery-card { border-radius: 1.25rem; }
+        .card-overlay {
+            padding: 1.5rem !important;
+            background: linear-gradient(180deg, rgba(0, 30, 64, 0) 22%, rgba(0, 30, 64, .5) 53%, rgba(0, 24, 50, .96) 100%) !important;
+        }
+        .card-overlay h3 { margin-top: .25rem; font-family: var(--sans); font-size: 1.12rem !important; line-height: 1.18; }
+        .card-overlay p { margin-top: .5rem !important; color: rgba(255, 255, 255, .84) !important; line-height: 1.45; }
+        .card-overlay > span { padding-top: .35rem; }
+        .gallery-item { animation: gallery-card-enter 620ms both cubic-bezier(.22, 1, .36, 1); }
+        .gallery-item:nth-child(2) { animation-delay: 70ms; }.gallery-item:nth-child(3) { animation-delay: 140ms; }.gallery-item:nth-child(4) { animation-delay: 210ms; }
+        .gallery-cta-wrap { padding-inline: 0 !important; margin-bottom: 7rem !important; }
+        .gallery-cta-card { display: grid !important; grid-template-columns: minmax(0, 1.35fr) auto; min-height: 20rem; padding: clamp(2.25rem, 5vw, 4.5rem) !important; border-radius: 2rem !important; gap: 2.5rem !important; }
+        .gallery-cta-card h2 { font-size: clamp(2rem, 3.4vw, 3.5rem) !important; line-height: 1.05; }
+        .gallery-cta-actions { display: grid !important; grid-template-columns: 1fr; width: min(100%, 18rem) !important; }
+        .gallery-cta-card a { min-width: 16rem; }
+        @keyframes gallery-card-enter { from { opacity: 0; transform: translateY(1.25rem); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gallery-drift { from { transform: translate3d(-1rem, -1rem, 0) scale(.95); } to { transform: translate3d(2rem, 1.5rem, 0) scale(1.1); } }
+        @media (max-width: 820px) {
+            .gallery-hero-bg { min-height: 0; padding: 5.5rem 1.25rem 5rem !important; border-radius: 0 0 1.75rem 1.75rem; }
+            .gallery-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }.gallery-stats > div:nth-child(3) { border-left: 0; }
+            .gallery-controls, .gallery-section, .gallery-cta-wrap { width: min(100% - 2.5rem, 1180px); }
+            #categoryFilters { flex-wrap: nowrap; padding-bottom: .15rem !important; }
+            #galleryGrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+            .gallery-cta-card { grid-template-columns: 1fr; }.gallery-cta-actions { width: 100% !important; max-width: 25rem; }.gallery-cta-card a { min-width: 0; }
+        }
+        @media (max-width: 560px) { #galleryGrid { grid-template-columns: 1fr !important; }.gallery-stats { gap: .5rem; }.gallery-stats > div { padding: .75rem .4rem; }.gallery-hero-content h1 { font-size: clamp(2.3rem, 11vw, 3.2rem) !important; }.gallery-controls { margin-top: -1.5rem; }.filter-btn { min-height: 2.5rem; padding-inline: .8rem !important; font-size: .72rem !important; }.card-overlay { padding: 1.25rem !important; } }
+        @media (prefers-reduced-motion: reduce) { .gallery-hero-bg > div:nth-child(2), .gallery-hero-bg > div:nth-child(3), .gallery-item { animation: none; } }
+    </style>
+</head>
+<body class="page-galeria flex flex-col min-h-screen">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="site-header relative">
+        <div class="container header-inner flex items-center justify-between">
+            <a href="/" aria-label="BLUE HORIZON" class="brand"><img class="brand-logo" src="/assets/logo/LOGO%20BLUE%20HORIZON%202.png" alt="BLUE HORIZON" /></a>
+            <nav class="site-nav hidden md:flex gap-8 items-center h-full">
+                <a class="font-button text-button text-on-surface-variant" href="/">Home</a>
+                <a class="font-button text-button text-on-surface-variant" href="/academia">Academia</a>
+                <a class="font-button text-button text-on-surface-variant" href="/consultoria">Consultoria</a>
+                <a class="font-button text-button text-on-surface-variant" href="/parceiros">Parceiros</a>
+                <a class="font-button text-button border-b-2 border-primary text-on-surface-variant" href="/galeria">Galeria</a>
+                <a class="font-button text-button text-on-surface-variant" href="/sobre">Sobre nós</a>
+            </nav>
+            <a href="/contacto" class="header-contact hidden md:flex bg-primary hover:bg-primary-container text-on-primary font-button text-button px-6 py-2.5 rounded-[25px] items-center">Contactos</a>
+            <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-primary" aria-label="Abrir menu"><span class="material-symbols-outlined text-3xl">menu</span></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden absolute left-4 right-4 top-full mt-2 bg-white shadow-lg border border-outline-variant rounded-[25px] p-6 flex-col gap-6 z-50">
+            <nav class="flex flex-col gap-4"><a class="font-button text-button" href="/">Home</a><a class="font-button text-button" href="/academia">Academia</a><a class="font-button text-button" href="/consultoria">Consultoria</a><a class="font-button text-button" href="/parceiros">Parceiros</a><a class="font-button text-button text-primary font-bold" href="/galeria">Galeria</a><a class="font-button text-button" href="/sobre">Sobre nós</a></nav>
+            <a href="/contacto" class="w-full bg-primary text-on-primary font-button text-button px-6 py-3 rounded-[25px] flex items-center justify-center">Contactos</a>
+        </div>
+    </header>
+    <header class="hidden">
+        <div class="header-inner max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="/" class="flex items-center gap-3 group">
+                <img src="/assets/images/logo.png" alt="Blue Horizon Logo" class="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="/" class="nav-link text-sm font-medium hover:text-blue-500 transition-colors">Início</a>
+                <a href="/sobre" class="nav-link text-sm font-medium hover:text-blue-500 transition-colors">Sobre</a>
+                <a href="/academia" class="nav-link text-sm font-medium hover:text-blue-500 transition-colors">Academia</a>
+                <a href="/consultoria" class="nav-link text-sm font-medium hover:text-blue-500 transition-colors">Consultoria</a>
+                <a href="/parceiros" class="nav-link text-sm font-medium hover:text-blue-500 transition-colors">Parceiros</a>
+                <a href="/galeria" class="nav-link text-sm font-bold text-blue-600 transition-colors relative after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-blue-600 after:rounded-full">Galeria</a>
+                <a href="/contacto" class="nav-link text-sm font-medium hover:text-blue-500 transition-colors">Contacto</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="/contacto" class="btn-primary-blue text-xs uppercase tracking-wider px-5 py-2.5 rounded-full font-semibold shadow-md hover:shadow-lg transition-all duration-300">
+                    Fale Connosco
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button id="mobileMenuBtn" aria-label="Abrir menu" class="md:hidden text-slate-800 p-2 rounded-lg hover:bg-slate-100 transition-colors">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-b border-slate-200 px-6 py-6 shadow-xl">
+            <div class="flex flex-col gap-4">
+                <a href="/" class="text-base font-medium py-2 border-b border-slate-100 text-slate-700">Início</a>
+                <a href="/sobre" class="text-base font-medium py-2 border-b border-slate-100 text-slate-700">Sobre</a>
+                <a href="/academia" class="text-base font-medium py-2 border-b border-slate-100 text-slate-700">Academia</a>
+                <a href="/consultoria" class="text-base font-medium py-2 border-b border-slate-100 text-slate-700">Consultoria</a>
+                <a href="/parceiros" class="text-base font-medium py-2 border-b border-slate-100 text-slate-700">Parceiros</a>
+                <a href="/galeria" class="text-base font-semibold py-2 border-b border-slate-100 text-blue-600">Galeria</a>
+                <a href="/contacto" class="text-base font-medium py-2 border-b border-slate-100 text-slate-700">Contacto</a>
+                <a href="/contacto" class="btn-primary-blue text-center text-xs uppercase tracking-wider px-5 py-3 rounded-full font-semibold mt-2">Fale Connosco</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- HERO SECTION -->
+        <section class="gallery-hero-bg text-white relative py-20 md:py-28 px-6 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-sky-950/80 to-teal-950/70 z-0"></div>
+            
+            <!-- Animated background glow spheres -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="gallery-hero-content max-w-6xl mx-auto relative z-10 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full stats-badge text-teal-300 text-xs font-semibold uppercase tracking-wider mb-6 animate-pulse">
+                    <span class="material-symbols-outlined text-sm">photo_camera</span>
+                    <span>Registos & Memória Institucional</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-editorial font-bold mb-6 tracking-tight leading-tight">
+                    Nossas Actividades em Acção
+                </h1>
+                
+                <p class="text-lg md:text-xl text-slate-200 max-w-3xl mx-auto font-light leading-relaxed mb-10">
+                    Testemunhe a jornada da Blue Horizon através de fóruns estratégicos, missões técnicas de campo, capacitações especializadas e acções de impacto ambiental ao serviço do Mar angolano.
+                </p>
+
+                <!-- Key Stat Badges -->
+                <div class="gallery-stats grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto pt-4 border-t border-white/10">
+                    <div class="p-3">
+                        <span class="block text-2xl md:text-3xl font-bold font-editorial text-teal-300">30+</span>
+                        <span class="text-xs uppercase tracking-wider text-slate-300">Actividades Registadas</span>
+                    </div>
+                    <div class="p-3">
+                        <span class="block text-2xl md:text-3xl font-bold font-editorial text-teal-300">100%</span>
+                        <span class="text-xs uppercase tracking-wider text-slate-300">Presença no Terreno</span>
+                    </div>
+                    <div class="p-3">
+                        <span class="block text-2xl md:text-3xl font-bold font-editorial text-teal-300">4</span>
+                        <span class="text-xs uppercase tracking-wider text-slate-300">Eixos Estratégicos</span>
+                    </div>
+                    <div class="p-3">
+                        <span class="block text-2xl md:text-3xl font-bold font-editorial text-teal-300">OMI & AMN</span>
+                        <span class="text-xs uppercase tracking-wider text-slate-300">Alinhamento Global</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY CONTROLS & FILTER SECTION -->
+        <section class="gallery-controls max-w-7xl mx-auto px-6 -mt-8 relative z-20">
+            <div class="bg-white/90 backdrop-blur-md p-3 md:p-4 rounded-3xl shadow-xl border border-slate-100 flex flex-wrap items-center justify-between gap-4">
+                
+                <!-- Category Tabs -->
+                <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none" id="categoryFilters">
+                    <button class="filter-btn active text-xs md:text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 whitespace-nowrap" data-filter="all">
+                        <i class="fa-solid fa-shapes mr-1.5"></i> Todas as Fotos (<span id="countAll">0</span>)
+                    </button>
+                    <button class="filter-btn text-xs md:text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 whitespace-nowrap hover:border-slate-400" data-filter="conferencias">
+                        <i class="fa-solid fa-microphone-lines mr-1.5"></i> Conferências & Governança
+                    </button>
+                    <button class="filter-btn text-xs md:text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 whitespace-nowrap hover:border-slate-400" data-filter="capacitacao">
+                        <i class="fa-solid fa-graduation-cap mr-1.5"></i> Academia & Formação
+                    </button>
+                    <button class="filter-btn text-xs md:text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 whitespace-nowrap hover:border-slate-400" data-filter="operacoes">
+                        <i class="fa-solid fa-ship mr-1.5"></i> Vistorias & Missões Técnicas
+                    </button>
+                    <button class="filter-btn text-xs md:text-sm font-semibold px-5 py-2.5 rounded-full border border-slate-200 text-slate-700 whitespace-nowrap hover:border-slate-400" data-filter="sustentabilidade">
+                        <i class="fa-solid fa-leaf mr-1.5"></i> Sustentabilidade & Impacto
+                    </button>
+                </div>
+
+                <!-- Info indicator -->
+                <div class="hidden lg:flex items-center gap-2 text-xs text-slate-500 font-medium pr-2">
+                    <span class="material-symbols-outlined text-base text-blue-600">touch_app</span>
+                    Clique em qualquer foto para ampliar
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY GRID SECTION -->
+        <section class="gallery-section max-w-7xl mx-auto px-6 py-14">
+            
+            <!-- Section Subheader -->
+            <div class="mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-teal-600 uppercase">Portfólio Fotográfico</span>
+                    <h2 class="gallery-section-title text-2xl md:text-4xl font-editorial font-bold text-slate-900 mt-1" id="sectionHeading">
+                        Registos de Actividades Realizadas
+                    </h2>
+                </div>
+                <p class="text-sm text-slate-500 max-w-md">
+                    Momentos emblemáticos de trabalho no terreno, capacitação de quadros, reuniões governamentais e preservação dos ecossistemas marinhos.
+                </p>
+            </div>
+
+            <!-- Grid Items Container -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="galleryGrid">
+                
+                <!-- 1: Conferência OMI / AMN -->
+                <div class="gallery-item" data-category="conferencias">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.10.jpeg"
+                         data-title="Conferência Nacional OMI & Mintrans"
+                         data-category="Conferências & Governança"
+                         data-desc="Participação e condução de debates na Preparação de Angola para a Auditoria da Organização Marítima Internacional (OMI), promovida pela Agência Marítima Nacional.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.10.jpeg" alt="Conferência OMI" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Governança</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-location-dot text-[10px]"></i> Luanda, Angola
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Conferência Nacional OMI & Mintrans</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Preparação nacional para a auditoria internacional da OMI.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2: Protocolo & Parceria Institucional -->
+                <div class="gallery-item" data-category="conferencias">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.05%20(1).jpeg"
+                         data-title="Assinatura de Acordo Institucional"
+                         data-category="Conferências & Governança"
+                         data-desc="Formalização de aliança estratégica com lideranças do sector público e privado para impulsionar a Economia Azul em Angola.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.05%20(1).jpeg" alt="Acordo Institucional" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Parcerias</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-handshake text-[10px]"></i> Protocolo de Cooperação
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Assinatura de Acordo Institucional</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Aliança estratégica para desenvolvimento marítimo conjunto.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3: Cooperação Universitária ISPI -->
+                <div class="gallery-item" data-category="capacitacao">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.05%20(2).jpeg"
+                         data-title="Parceria Universitária — ISPI"
+                         data-category="Academia & Formação"
+                         data-desc="Encontro oficial com o Instituto Superior Politécnico da Huíla (ISPI) no âmbito dos 14 anos de inovação e pesquisa marinho-costeira.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.05%20(2).jpeg" alt="ISPI Parceria" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Academia</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-building-columns text-[10px]"></i> ISPI Huíla
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Cooperação Académica & Científica</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Comitiva técnica e assinatura de protocolo para investigação.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4: Vistoria Capitania do Porto e Embarcações -->
+                <div class="gallery-item" data-category="operacoes">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.08.jpeg"
+                         data-title="Vistoria Técnica da Capitania do Porto"
+                         data-category="Vistorias & Missões Técnicas"
+                         data-desc="Missão de inspecção e auditoria de segurança marítima em embarcações de apoio portuário em coordenação com a Capitania.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.08.jpeg" alt="Vistoria Técnica Capitania" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Vistoria</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-anchor text-[10px]"></i> Porto & Capitania
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Vistoria Técnica de Embarcação</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Auditoria de conformidade com padrões e normas de navegabilidade.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5: Operação em Pontão & Mar Aberto -->
+                <div class="gallery-item" data-category="operacoes">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.11%20(1).jpeg"
+                         data-title="Atracação e Inspecção no Pontão"
+                         data-category="Vistorias & Missões Técnicas"
+                         data-desc="Perícia operacional náutica e avaliação de casco em pontão marítimo para embarcações rápidas e de serviço offshore.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.11%20(1).jpeg" alt="Operação no Pontão" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Operações</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-water text-[10px]"></i> Terminal Flutuante
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Perícia Técnica e Inspecção Flutuante</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Avaliação de condições de operabilidade em pontão costeiro.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6: Agrimensura & Topografia Costeira -->
+                <div class="gallery-item" data-category="operacoes">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.05%20(3).jpeg"
+                         data-title="Agrimensura e Levantamento Costeiro"
+                         data-category="Vistorias & Missões Técnicas"
+                         data-desc="Levantamento geodésico e topográfico com estação total e equipamentos de alta precisão para infraestruturas portuárias.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.05%20(3).jpeg" alt="Agrimensura Costeira" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Engenharia</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-compass text-[10px]"></i> Georreferenciamento
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Engenharia e Topografia de Campo</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Levantamento técnico de limites e linhas de costa para projectos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7: Expedição Costeira e Análise de Terreno -->
+                <div class="gallery-item" data-category="operacoes">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.05.jpeg"
+                         data-title="Expedição de Investigação Litoral"
+                         data-category="Vistorias & Missões Técnicas"
+                         data-desc="Trabalho de campo da equipa técnica em falésias e orla costeira para estudo de viabilidade e impacto ambiental.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.05.jpeg" alt="Expedição Costeira" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Campo</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-binoculars text-[10px]"></i> Litoral Angolano
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Expedição de Investigação Litoral</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Avaliação in loco de condições geográficas e recursos litorais.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8: Capacitação Academia Blue Horizon - Sessão Presencial -->
+                <div class="gallery-item" data-category="capacitacao">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.06%20(1).jpeg"
+                         data-title="Formação Executiva Marítima"
+                         data-category="Academia & Formação"
+                         data-desc="Módulo avançado ministrado a quadros técnicos e operacionais sobre legislação marítima e procedimentos de segurança.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.06%20(1).jpeg" alt="Formação Executiva" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Formação</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-chalkboard-user text-[10px]"></i> Academia Blue Horizon
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Formação Executiva Marítima</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Capacitação presencial com corpo docente de renome internacional.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9: Workshop Prático em Sala -->
+                <div class="gallery-item" data-category="capacitacao">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.06%20(2).jpeg"
+                         data-title="Workshop de Auditoria & Gestão Portuária"
+                         data-category="Academia & Formação"
+                         data-desc="Turma activa em dinâmicas de grupo e resolução de estudos de caso para optimização portuária.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.06%20(2).jpeg" alt="Workshop Gestão Portuária" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Workshop</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-users-gear text-[10px]"></i> Dinâmica Prática
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Auditoria & Gestão Portuária</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Discussão intensiva de procedimentos e casos práticos de portos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10: Turma de Profissionais Marítimos -->
+                <div class="gallery-item" data-category="capacitacao">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.06%20(4).jpeg"
+                         data-title="Capacitação de Quadros Nacionais"
+                         data-category="Academia & Formação"
+                         data-desc="Participantes de diferentes instituições em sessão formativa com foco na sustentabilidade e compliance náutico.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.06%20(4).jpeg" alt="Capacitação de Quadros" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Formação</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-user-tie text-[10px]"></i> Sessão Formativa
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Capacitação de Quadros Nacionais</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Fortalecimento das competências de gestão dos recursos aquáticos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11: Cerimónia de Entrega de Certificados -->
+                <div class="gallery-item" data-category="capacitacao">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.07.jpeg"
+                         data-title="Cerimónia de Certificação Profissional"
+                         data-category="Academia & Formação"
+                         data-desc="Momento solene de outorga de certificados de aproveitamento aos formandos qualificados pelo programa da Blue Horizon.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.07.jpeg" alt="Entrega de Certificados" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Certificação</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-award text-[10px]"></i> Graduação
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Entrega de Certificados Profissionais</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Reconhecimento oficial das competências técnicas desenvolvidas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12: Graduação de Formandos da Academia -->
+                <div class="gallery-item" data-category="capacitacao">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.07%20(1).jpeg"
+                         data-title="Encerramento de Módulo com Formandos"
+                         data-category="Academia & Formação"
+                         data-desc="Homenagem e entrega individual de diplomas aos participantes com presença dos instrutores seniores.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.07%20(1).jpeg" alt="Graduação Formandos" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Graduação</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-certificate text-[10px]"></i> Diploma de Mérito
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Conclusão de Módulo com Sucesso</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Novos técnicos capacitados prontos a elevar o padrão no mercado.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 13: Green Conference - Feira da Reciclagem -->
+                <div class="gallery-item" data-category="sustentabilidade">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.09%20(1).jpeg"
+                         data-title="Green Conference & Feira da Reciclagem"
+                         data-category="Sustentabilidade & Impacto"
+                         data-desc="Iniciativa ecossistémica 'Verde nos une, o Futuro nos Conecta' promovendo reciclagem, economia circular e preservação dos oceanos.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.09%20(1).jpeg" alt="Green Conference" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Eco & Mar</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-recycle text-[10px]"></i> Economia Circular
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Green Conference: Feira de Sustentabilidade</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Fomento à preservação do habitat marinho e gestão de resíduos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 14: Workshop de Sensibilização Ambiental com Jovens -->
+                <div class="gallery-item" data-category="sustentabilidade">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.08%20(1).jpeg"
+                         data-title="Educação e Consciencialização Marinha"
+                         data-category="Sustentabilidade & Impacto"
+                         data-desc="Oficina prática de separação de resíduos e educação ecológica com novas gerações e comunidade escolar.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.08%20(1).jpeg" alt="Oficina de Reciclagem" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Comunidade</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-seedling text-[10px]"></i> Consciência Ecológica
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Educação e Consciencialização Litoral</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Construção de hábitos sustentáveis para a protecção do mar angolano.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 15: Campanha Hands Off / Shark Project -->
+                <div class="gallery-item" data-category="sustentabilidade">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.10%20(4).jpeg"
+                         data-title="Hands Off — Preservação da Vida Marinha"
+                         data-category="Sustentabilidade & Impacto"
+                         data-desc="Campanha de alerta e protecção dos predadores de topo e ecossistemas oceânicos ameaçados.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.10%20(4).jpeg" alt="Campanha Hands Off" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Biodiversidade</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-fish text-[10px]"></i> Conservação
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Hands Off: Campanha de Protecção Oceânica</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Sensibilização contra práticas predatórias e defesa das espécies marinhas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 16: Diálogo com Stakeholders e Comunidade Náutica -->
+                <div class="gallery-item" data-category="conferencias">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.09%20(2).jpeg"
+                         data-title="Fórum de Liderança Marítima"
+                         data-category="Conferências & Governança"
+                         data-desc="Mesa-redonda com especialistas e tomadores de decisão em políticas costeiras e investimento náutico.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.09%20(2).jpeg" alt="Fórum de Liderança" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Liderança</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-comments text-[10px]"></i> Painel de Especialistas
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Fórum de Liderança & Economia Azul</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Debates estratégicos sobre governança dos mares e portos nacionais.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 17: Inspecção Operacional em Embarcações -->
+                <div class="gallery-item" data-category="operacoes">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.11.jpeg"
+                         data-title="Auditoria de Conformidade a Bordo"
+                         data-category="Vistorias & Missões Técnicas"
+                         data-desc="Verificação rigorosa de equipamentos salva-vidas, comunicações e segurança a bordo de navios e rebocadores.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.11.jpeg" alt="Auditoria a Bordo" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Inspecção</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-life-ring text-[10px]"></i> Segurança Náutica
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Auditoria e Segurança Náutica</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Inspecção rigorosa de instrumentos de salvamento e normas SOLAS.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 18: Sessão de Aula Teórica e Legislação -->
+                <div class="gallery-item" data-category="capacitacao">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.06%20(3).jpeg"
+                         data-title="Direito do Mar & Legislação Portuária"
+                         data-category="Academia & Formação"
+                         data-desc="Transmissão de conhecimentos jurídicos internacionais e regulamentos marítimos em vigor no ordenamento jurídico angolano.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.06%20(3).jpeg" alt="Direito do Mar" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Legislação</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-scale-balanced text-[10px]"></i> Quadro Regulatório
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Direito do Mar & Governança</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Formação em conformidade com as directrizes OMI e regulamentos nacionais.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 19: Formação Prática de Operações e Vistoria -->
+                <div class="gallery-item" data-category="capacitacao">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.07%20(3).jpeg"
+                         data-title="Prática de Peritagem Naval"
+                         data-category="Academia & Formação"
+                         data-desc="Capacitação aplicada de peritos e inspetores para o diagnóstico de avarias e relatórios de conformidade.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.07%20(3).jpeg" alt="Peritagem Naval" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Capacitação</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-graduation-cap text-[10px]"></i> Ensino Aplicado
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Prática de Peritagem Naval</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Metodologias práticas para inspecções de casco e maquinaria.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 20: Reconhecimento e Fecho de Formações -->
+                <div class="gallery-item" data-category="capacitacao">
+                    <div class="gallery-card group cursor-pointer" onclick="openLightbox(this)" 
+                         data-img="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.07%20(4).jpeg"
+                         data-title="Quadro de Honra — Academia Blue Horizon"
+                         data-category="Academia & Formação"
+                         data-desc="Celebração dos formandos graduados com mérito na conclusão das jornadas de capacitação técnica marítima.">
+                        <div class="card-media-wrapper">
+                            <img src="/assets/images/WhatsApp%20Image%202026-10-11%20at%2007.08.07%20(4).jpeg" alt="Quadro de Honra" class="w-full h-full object-cover object-center" loading="lazy">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="category-badge px-3 py-1 rounded-full shadow-sm">Reconhecimento</span>
+                            </div>
+                            <div class="absolute inset-0 card-overlay flex flex-col justify-end p-5 text-white">
+                                <span class="text-xs text-teal-300 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-trophy text-[10px]"></i> Mérito Técnico
+                                </span>
+                                <h3 class="text-base font-semibold leading-snug line-clamp-2">Quadro de Honra da Academia</h3>
+                                <p class="text-xs text-slate-200 mt-1 line-clamp-2 opacity-90 font-light">Formandos prontos para integrar os quadros mais exigentes do sector.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Empty State for Filters -->
+            <div id="noResults" class="hidden text-center py-20">
+                <span class="material-symbols-outlined text-6xl text-slate-300 mb-3">image_not_supported</span>
+                <h3 class="text-lg font-semibold text-slate-700">Nenhuma foto encontrada nesta categoria</h3>
+                <p class="text-sm text-slate-500 mt-1">Experimente seleccionar a opção "Todas as Fotos" para ver todos os registos.</p>
+            </div>
+
+        </section>
+
+        <!-- CTA SECTION: PARTILHA DE ACTIVIDADE / EVENTO -->
+        <section class="gallery-cta-wrap max-w-7xl mx-auto px-6 mb-24">
+            <div class="gallery-cta-card rounded-3xl p-8 md:p-14 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="text-teal-300 font-semibold tracking-wider text-xs uppercase">Participe nas Próximas Acções</span>
+                    <h2 class="text-3xl md:text-4xl font-editorial font-bold mt-2 mb-4 leading-tight text-white">
+                        Quer que a sua instituição faça parte da nossa próxima acção ou formação?
+                    </h2>
+                    <p class="text-slate-200 text-sm md:text-base leading-relaxed font-light">
+                        Conecte-se com os especialistas da Blue Horizon para desenhar programas à medida, conferências setoriais ou missões técnicas especializadas.
+                    </p>
+                </div>
+                <div class="gallery-cta-actions relative z-10 flex-shrink-0 flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                    <a href="/contacto" class="gallery-cta-btn-primary text-center text-xs uppercase tracking-wider px-8 py-4 rounded-full font-bold shadow-lg">
+                        Agendar Reunião
+                    </a>
+                    <a href="/academia" class="gallery-cta-btn-secondary text-center text-xs uppercase tracking-wider px-8 py-4 rounded-full font-bold">
+                        Ver Cursos da Academia
+                    </a>
+                </div>
+                <!-- Background decoration -->
+                <div class="absolute -right-20 -top-20 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl pointer-events-none"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-10 bg-slate-950/90">
+        
+        <!-- Botão Flutuante Superior de Sair / Fechar -->
+        <button onclick="closeLightbox()" aria-label="Sair da visualização" class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-900/90 hover:bg-red-600 text-slate-100 hover:text-white transition-all duration-200 backdrop-blur-md border border-white/20 shadow-2xl text-xs font-bold tracking-wider uppercase cursor-pointer hover:scale-105 active:scale-95">
+            <span class="material-symbols-outlined text-lg">close</span>
+            <span>Sair</span>
+        </button>
+
+        <div class="relative max-w-5xl w-full bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-white/15 flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="p-4 md:px-6 flex items-center justify-between border-b border-white/10 bg-slate-900/95 backdrop-blur-md">
+                <div class="flex items-center gap-3">
+                    <span id="modalCategory" class="text-xs uppercase tracking-wider font-bold text-teal-300 bg-teal-950/90 px-3.5 py-1.5 rounded-full border border-teal-700/60 shadow-inner">
+                        Categoria
+                    </span>
+                    <span id="modalCounter" class="text-xs text-slate-300 font-mono bg-white/5 px-2.5 py-1 rounded-md border border-white/10">1 / 20</span>
+                </div>
+
+                <!-- Botão de Sair do Header -->
+                <button onclick="closeLightbox()" aria-label="Sair da foto" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-red-600 text-slate-200 hover:text-white transition-all duration-200 text-xs font-semibold border border-white/15 cursor-pointer shadow-sm">
+                    <span class="material-symbols-outlined text-base">close</span>
+                    <span>Sair</span>
+                </button>
+            </div>
+
+            <!-- Modal Image Content -->
+            <div class="relative flex items-center justify-center bg-black/60 min-h-[300px] max-h-[68vh] overflow-hidden select-none">
+                <img id="modalImg" src="" alt="" class="max-h-[68vh] w-auto max-w-full object-contain mx-auto transition-transform duration-300">
+                
+                <!-- Nav Prev Button -->
+                <button onclick="navigateLightbox(-1)" aria-label="Foto anterior" class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 p-3 sm:p-4 rounded-full bg-slate-900/85 hover:bg-teal-600 text-white transition-all duration-200 backdrop-blur-md border border-white/20 shadow-2xl hover:scale-110 active:scale-95 group cursor-pointer">
+                    <span class="material-symbols-outlined text-2xl sm:text-3xl transition-transform group-hover:-translate-x-0.5">chevron_left</span>
+                </button>
+
+                <!-- Nav Next Button -->
+                <button onclick="navigateLightbox(1)" aria-label="Próxima foto" class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 p-3 sm:p-4 rounded-full bg-slate-900/85 hover:bg-teal-600 text-white transition-all duration-200 backdrop-blur-md border border-white/20 shadow-2xl hover:scale-110 active:scale-95 group cursor-pointer">
+                    <span class="material-symbols-outlined text-2xl sm:text-3xl transition-transform group-hover:translate-x-0.5">chevron_right</span>
+                </button>
+            </div>
+
+            <!-- Modal Caption Footer -->
+            <div class="p-4 md:p-6 bg-slate-900 text-white border-t border-white/10">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="flex-grow">
+                        <h3 id="modalTitle" class="text-lg md:text-xl font-editorial font-bold text-slate-100">Título da Foto</h3>
+                        <p id="modalDesc" class="text-xs md:text-sm text-slate-300 mt-1 font-light leading-relaxed max-w-3xl">Descrição detalhada do momento registado.</p>
+                    </div>
+
+                    <!-- Botão de Sair / Voltar Inferior -->
+                    <button onclick="closeLightbox()" class="self-start md:self-auto shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-800 hover:bg-red-600 text-slate-200 hover:text-white transition-all duration-200 text-xs font-semibold border border-white/15 cursor-pointer shadow-md">
+                        <span class="material-symbols-outlined text-base">arrow_back</span>
+                        <span>Sair da foto</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SITE FOOTER -->
+    <footer class="site-footer footer-modern">
+        <section class="footer-updates" aria-labelledby="footer-atualidade">
+            <div class="footer-container footer-updates-grid">
+                <div class="footer-updates-intro"><p>Mantenha-se informado</p><h2 id="footer-atualidade">Atualidade</h2><div class="footer-actions"><a href="#">Ver notícias</a><a href="#">Subscrever newsletter <span aria-hidden="true">→</span></a></div></div>
+                <div class="footer-news-list"><a href="#"><strong>Novas rotas para a Economia Azul</strong><span>Atualidade | Em breve</span></a><a href="#"><strong>Formação marítima com impacto</strong><span>Academia | Em breve</span></a><a href="#"><strong>Parcerias que movem o setor azul</strong><span>Parceiros | Em breve</span></a></div>
+            </div>
+        </section>
+        <section class="footer-main">
+            <div class="footer-container footer-main-grid">
+                <div><h3>BLUE HORIZON</h3><p>Conhecimento que navega o futuro.</p><p>Luanda, Angola</p></div>
+                <nav aria-label="Links úteis"><h3>Links úteis</h3><a href="/">Início</a><a href="/academia">Academia</a><a href="/consultoria">Consultoria</a><a href="/parceiros">Parceiros</a><a href="/galeria">Galeria</a></nav>
+                <div><h3>Acompanhe-nos</h3><div class="footer-social footer-social-modern"><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a><a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a><a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></div></div>
+            </div>
+            <div class="footer-container footer-copyright">&copy; <span id="ano-footer"></span> BLUE HORIZON, LDA. Todos os direitos reservados.</div>
+        </section>
+    </footer>
+    <script src="/js/main.js"></script>
+
+    <!-- INTERACTION LOGIC -->
+    <script>
+        // Mobile Menu Toggle
+        const galleryLegacyMobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const galleryLegacyMobileMenu = document.getElementById('mobileMenu');
+        if (galleryLegacyMobileMenuBtn && galleryLegacyMobileMenu) {
+            galleryLegacyMobileMenuBtn.addEventListener('click', () => {
+                galleryLegacyMobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Header Background on Scroll
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-md', 'border-b', 'border-slate-100');
+            } else {
+                header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-md', 'border-b', 'border-slate-100');
+            }
+        });
+
+        // Filter Logic
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const countAll = document.getElementById('countAll');
+        const noResults = document.getElementById('noResults');
+
+        if (countAll) {
+            countAll.textContent = galleryItems.length;
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+                let visibleCount = 0;
+
+                galleryItems.forEach(item => {
+                    const itemCat = item.getAttribute('data-category');
+                    if (filter === 'all' || itemCat === filter) {
+                        item.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+
+                if (noResults) {
+                    if (visibleCount === 0) {
+                        noResults.classList.remove('hidden');
+                    } else {
+                        noResults.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Check URL query parameters for active filter
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryFilter = urlParams.get('filter');
+        if (queryFilter) {
+            const targetBtn = document.querySelector(`.filter-btn[data-filter="${queryFilter}"]`);
+            if (targetBtn) {
+                targetBtn.click();
+            }
+        }
+
+        // Lightbox Logic
+        let activeGalleryList = [];
+        let currentLightboxIndex = 0;
+
+        function updateActiveList() {
+            activeGalleryList = Array.from(document.querySelectorAll('.gallery-item:not(.hidden) .gallery-card'));
+        }
+
+        function openLightbox(cardElement) {
+            updateActiveList();
+            currentLightboxIndex = activeGalleryList.indexOf(cardElement);
+            if (currentLightboxIndex === -1) currentLightboxIndex = 0;
+
+            showModalData(cardElement);
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        window.openLightbox = openLightbox;
+
+        function showModalData(cardElement) {
+            const img = cardElement.getAttribute('data-img');
+            const title = cardElement.getAttribute('data-title');
+            const cat = cardElement.getAttribute('data-category');
+            const desc = cardElement.getAttribute('data-desc');
+
+            document.getElementById('modalImg').src = img;
+            document.getElementById('modalTitle').textContent = title || '';
+            document.getElementById('modalCategory').textContent = cat || 'Registo';
+            document.getElementById('modalDesc').textContent = desc || '';
+            document.getElementById('modalCounter').textContent = `${currentLightboxIndex + 1} / ${activeGalleryList.length}`;
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        window.closeLightbox = closeLightbox;
+
+        function navigateLightbox(step) {
+            if (activeGalleryList.length === 0) return;
+            currentLightboxIndex = (currentLightboxIndex + step + activeGalleryList.length) % activeGalleryList.length;
+            showModalData(activeGalleryList[currentLightboxIndex]);
+        }
+        window.navigateLightbox = navigateLightbox;
+
+        // Não depende de atributos onclick: torna cada cartão acessível ao clique
+        // mesmo que outros scripts do layout sejam alterados.
+        galleryItems.forEach((item) => {
+            const card = item.querySelector('.gallery-card');
+            if (card) card.addEventListener('click', () => openLightbox(card));
+        });
+
+        // Keyboard controls
+        window.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('lightboxModal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            }
+        });
+
+        // Close on background click
+        const lightboxModal = document.getElementById('lightboxModal');
+        if (lightboxModal) {
+            lightboxModal.addEventListener('click', (e) => {
+                if (e.target === lightboxModal) {
+                    closeLightbox();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

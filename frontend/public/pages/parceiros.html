@@ -40,7 +40,7 @@
                 <a class="font-button text-button border-b-2 border-primary text-on-surface-variant hover:text-primary transition-colors duration-200"
                     href="/parceiros">Parceiros</a>
                 <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
-                    href="#">Oportunidades</a>
+                    href="/galeria">Galeria</a>
                 <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
                     href="/sobre">Sobre nós</a>
             </nav>
@@ -67,7 +67,7 @@
                 <a class="font-button text-button text-primary font-bold"
                     href="/parceiros">Parceiros</a>
                 <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
-                    href="#">Oportunidades</a>
+                    href="/galeria">Galeria</a>
                 <a class="font-button text-button text-on-surface-variant hover:text-primary transition-colors duration-200"
                     href="/sobre">Sobre nós</a>
             </nav>
@@ -101,15 +101,35 @@
 
         <!-- Parceiros Directorio -->
         <section
-            class="partners-directory reveal-up pb-24 px-margin-mobile md:px-margin-desktop mx-auto w-full flex flex-col gap-16">
-            <!-- Categoria: Empresa (Indústria) -->
-            <div>
-                <div class="flex items-center gap-3 mb-8 mt-8 border-b border-outline-variant pb-4">
+            class="partners-directory reveal-up pb-24 px-margin-mobile md:px-margin-desktop mx-auto w-full flex flex-col gap-14">
+            
+            <!-- Category Tabs / Filter Bar -->
+            <div class="partner-filter-bar flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none border-b border-outline-variant pt-2" id="partnerCategoryTabs">
+                <button class="partner-filter-btn px-5 py-2.5 rounded-[25px] font-button text-xs md:text-sm font-semibold transition-all duration-200 bg-primary text-on-primary border border-primary shadow-sm" data-category="all">
+                    Todos os Parceiros
+                </button>
+                <button class="partner-filter-btn px-5 py-2.5 rounded-[25px] font-button text-xs md:text-sm font-semibold transition-all duration-200 bg-surface text-on-surface-variant border border-outline-variant hover:border-secondary hover:text-secondary" data-category="Universidades & Academia">
+                    Universidades & Academia
+                </button>
+                <button class="partner-filter-btn px-5 py-2.5 rounded-[25px] font-button text-xs md:text-sm font-semibold transition-all duration-200 bg-surface text-on-surface-variant border border-outline-variant hover:border-secondary hover:text-secondary" data-category="Indústria & Certificação">
+                    Indústria & Certificação
+                </button>
+                <button class="partner-filter-btn px-5 py-2.5 rounded-[25px] font-button text-xs md:text-sm font-semibold transition-all duration-200 bg-surface text-on-surface-variant border border-outline-variant hover:border-secondary hover:text-secondary" data-category="Governo & Instituições Públicas">
+                    Governo & Instituições Públicas
+                </button>
+                <button class="partner-filter-btn px-5 py-2.5 rounded-[25px] font-button text-xs md:text-sm font-semibold transition-all duration-200 bg-surface text-on-surface-variant border border-outline-variant hover:border-secondary hover:text-secondary" data-category="Sustentabilidade & Ambiente">
+                    Sustentabilidade & Ambiente
+                </button>
+            </div>
+
+            <!-- Categoria: Indústria & Certificação -->
+            <div class="partner-category-block" data-category-section="Indústria & Certificação">
+                <div class="flex items-center gap-3 mb-8 border-b border-outline-variant pb-4">
                     <span class="material-symbols-outlined text-secondary"
                         style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
                     <h2 class="font-headline-md text-headline-md text-primary">Indústria & Certificação</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter reveal-stagger-parent">
+                <div id="dynamic-industry-partners" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter reveal-stagger-parent">
                     <!-- Specific Example Requested -->
                     <div
                         class="bg-surface-container-lowest border border-outline-variant rounded-[25px] p-6 flex flex-col h-full hover:border-secondary transition-colors duration-300 relative overflow-hidden group reveal-stagger-child">
@@ -169,8 +189,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Category: Universidades (Academia) -->
-            <div>
+
+            <!-- Categoria: Universidades & Academia -->
+            <div class="partner-category-block" data-category-section="Universidades & Academia">
                 <div class="flex items-center gap-3 mb-8 border-b border-outline-variant pb-4">
                     <span class="material-symbols-outlined text-secondary"
                         style="font-variation-settings: 'FILL' 1;">school</span>
@@ -296,6 +317,33 @@
                 </div>
             </div>
 
+            <!-- Categoria: Governo & Instituições Públicas -->
+            <div class="partner-category-block hidden" data-category-section="Governo & Instituições Públicas" id="block-governo">
+                <div class="flex items-center gap-3 mb-8 border-b border-outline-variant pb-4">
+                    <span class="material-symbols-outlined text-secondary"
+                        style="font-variation-settings: 'FILL' 1;">account_balance</span>
+                    <h2 class="font-headline-md text-headline-md text-primary">Governo & Instituições Públicas</h2>
+                </div>
+                <div id="dynamic-governo-partners" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter reveal-stagger-parent">
+                    <!-- Dynamic Government Partners Injected Here -->
+                </div>
+            </div>
+
+            <!-- Categoria: Sustentabilidade & Ambiente -->
+            <div class="partner-category-block hidden" data-category-section="Sustentabilidade & Ambiente" id="block-sustentabilidade">
+                <div class="flex items-center gap-3 mb-8 border-b border-outline-variant pb-4">
+                    <span class="material-symbols-outlined text-secondary"
+                        style="font-variation-settings: 'FILL' 1;">eco</span>
+                    <h2 class="font-headline-md text-headline-md text-primary">Sustentabilidade & Ambiente</h2>
+                </div>
+                <div id="dynamic-sustainability-partners" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter reveal-stagger-parent">
+                    <!-- Dynamic Sustainability Partners Injected Here -->
+                </div>
+            </div>
+
+            <!-- Contentor para Categorias Customizadas Criadas no Backoffice -->
+            <div id="dynamic-custom-categories" class="flex flex-col gap-14"></div>
+
             <!-- Category: Sustainability Feature -->
             <div class="partners-feature reveal-up bg-tertiary rounded-[25px] overflow-hidden shadow-sm flex flex-col md:flex-row relative">
                 <div class="absolute inset-0 w-full h-full opacity-10 pointer-events-none"
@@ -392,7 +440,7 @@
 
     <footer class="site-footer footer-modern">
         <section class="footer-updates" aria-labelledby="footer-atualidade"><div class="footer-container footer-updates-grid"><div class="footer-updates-intro"><p>Mantenha-se informado</p><h2 id="footer-atualidade">Atualidade</h2><div class="footer-actions"><a href="#">Ver not&iacute;cias</a><a href="#">Subscrever newsletter <span aria-hidden="true">&#8594;</span></a></div></div><div class="footer-news-list"><a href="#"><strong>Novas rotas para a Economia Azul</strong><span>Atualidade | Em breve</span></a><a href="#"><strong>Forma&ccedil;&atilde;o mar&iacute;tima com impacto</strong><span>Academia | Em breve</span></a><a href="#"><strong>Parcerias que movem o setor azul</strong><span>Parceiros | Em breve</span></a></div></div></section>
-        <section class="footer-main"><div class="footer-container footer-main-grid"><div><h3>BLUE HORIZON</h3><p>Conhecimento que navega o futuro.</p><p>Luanda, Angola</p></div><nav aria-label="Links úteis"><h3>Links úteis</h3><a href="/">In&iacute;cio</a><a href="/academia">Academia</a><a href="/consultoria">Consultoria</a><a href="/parceiros">Parceiros</a></nav><div><h3>Acompanhe-nos</h3><div class="footer-social footer-social-modern"><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a><a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a><a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></div></div></div><div class="footer-container footer-copyright">&copy; <span id="ano-footer"></span> BLUE HORIZON, LDA. Todos os direitos reservados.</div></section>
+        <section class="footer-main"><div class="footer-container footer-main-grid"><div><h3>BLUE HORIZON</h3><p>Conhecimento que navega o futuro.</p><p>Luanda, Angola</p></div><nav aria-label="Links úteis"><h3>Links úteis</h3><a href="/">In&iacute;cio</a><a href="/academia">Academia</a><a href="/consultoria">Consultoria</a><a href="/parceiros">Parceiros</a><a href="/galeria">Galeria</a></nav><div><h3>Acompanhe-nos</h3><div class="footer-social footer-social-modern"><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a><a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a><a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></div></div></div><div class="footer-container footer-copyright">&copy; <span id="ano-footer"></span> BLUE HORIZON, LDA. Todos os direitos reservados.</div></section>
     </footer>
     <script src="/js/main.js"></script>
     <script src="/js/scroll-effects.js"></script>

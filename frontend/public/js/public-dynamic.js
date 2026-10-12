@@ -229,52 +229,195 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
-  const fetchAcademicPartners = async () => {
+  const fetchAllPartners = async () => {
     try {
-      const container = document.getElementById('dynamic-academic-partners');
-      if (!container) return;
+      const containerAcademic = document.getElementById('dynamic-academic-partners');
+      const containerIndustry = document.getElementById('dynamic-industry-partners');
+      const tabsContainer = document.getElementById('partnerCategoryTabs');
+      if (!containerAcademic && !containerIndustry && !tabsContainer) return;
 
       const res = await fetch('http://localhost:3333/parceiros-institucionais');
-      if (res.ok) {
-        const parceiros = await res.json();
-        const activePartners = parceiros.filter(p => p.ativo && (p.categoria === 'Universidades & Academia' || !p.categoria));
+      if (!res.ok) return;
 
-        if (activePartners.length > 0) {
-          container.innerHTML = '';
-          activePartners.forEach(partner => {
-            let imgStyle = '';
-            if (partner.imagemUrl) {
-              const src = partner.imagemUrl.startsWith('http') || partner.imagemUrl.startsWith('/assets') 
-                ? partner.imagemUrl 
-                : `http://localhost:3333${partner.imagemUrl}`;
-              imgStyle = `style="background-image: url('${src}')"`;
-            }
+      const parceiros = await res.json();
+      const activePartners = parceiros.filter(p => p.ativo);
 
-            const tagsArray = (partner.tags || '')
-              .split(',')
-              .map(t => t.trim())
-              .filter(Boolean);
+      // Agrupamento por Categoria
+      const grouped = {};
+      activePartners.forEach(p => {
+        const cat = (p.categoria || 'Universidades & Academia').trim();
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(p);
+      });
 
-            const tagsHtml = tagsArray.map(tag => `
-              <span class="bg-tertiary/10 text-tertiary font-label-sm text-label-sm px-2 py-0.5 rounded-[25px]">${tag}</span>
-            `).join('');
+      // Função de apoio para renderizar cartão estilo Universidade
+      const renderAcademicCard = (partner) => {
+        let imgStyle = '';
+        if (partner.imagemUrl) {
+          const src = partner.imagemUrl.startsWith('http') || partner.imagemUrl.startsWith('/assets') 
+            ? partner.imagemUrl 
+            : `http://localhost:3333${partner.imagemUrl}`;
+          imgStyle = `style="background-image: url('${src}')"`;
+        }
 
-            container.innerHTML += `
-              <div class="bg-surface-container-lowest border border-outline-variant rounded-[25px] p-6 flex gap-6 hover:shadow-sm transition-shadow reveal-stagger-child">
-                <div class="hidden sm:block w-32 h-32 rounded-[25px] bg-surface-container overflow-hidden flex-shrink-0 border border-outline-variant">
-                  <div class="bg-cover bg-center w-full h-full grayscale opacity-80 mix-blend-multiply" ${imgStyle}></div>
+        const tagsArray = (partner.tags || '')
+          .split(',')
+          .map(t => t.trim())
+          .filter(Boolean);
+
+        const tagsHtml = tagsArray.map(tag => `
+          <span class="bg-tertiary/10 text-tertiary font-label-sm text-label-sm px-2 py-0.5 rounded-[25px]">${tag}</span>
+        `).join('');
+
+        return `
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-[25px] p-6 flex gap-6 hover:shadow-sm transition-shadow reveal-stagger-child">
+            <div class="hidden sm:block w-32 h-32 rounded-[25px] bg-surface-container overflow-hidden flex-shrink-0 border border-outline-variant">
+              <div class="bg-cover bg-center w-full h-full grayscale opacity-80 mix-blend-multiply" ${imgStyle}></div>
+            </div>
+            <div class="flex flex-col justify-center">
+              ${tagsHtml ? `<div class="flex flex-wrap gap-2 mb-2">${tagsHtml}</div>` : ''}
+              <h3 class="font-headline-md text-headline-md text-primary mb-2">${partner.nome}</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant">${partner.descricao}</p>
+            </div>
+          </div>
+        `;
+      };
+
+      // Função de apoio para renderizar cartão estilo Indústria / Geral
+      const renderIndustryCard = (partner, defaultIcon = 'handshake') => {
+        let imgHtml = `
+          <div class="w-16 h-16 bg-surface-container rounded-[25px] flex items-center justify-center border border-outline-variant overflow-hidden">
+            <span class="material-symbols-outlined text-3xl text-primary">${defaultIcon}</span>
+          </div>
+        `;
+        if (partner.imagemUrl) {
+          const src = partner.imagemUrl.startsWith('http') || partner.imagemUrl.startsWith('/assets') 
+            ? partner.imagemUrl 
+            : `http://localhost:3333${partner.imagemUrl}`;
+          imgHtml = `
+            <div class="w-16 h-16 bg-surface-container rounded-[25px] flex items-center justify-center border border-outline-variant overflow-hidden p-1">
+              <img src="${src}" alt="${partner.nome}" class="w-full h-full object-contain">
+            </div>
+          `;
+        }
+
+        const tagsArray = (partner.tags || '')
+          .split(',')
+          .map(t => t.trim())
+          .filter(Boolean);
+
+        const tagText = tagsArray[0] || partner.categoria || 'Parceria';
+
+        return `
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-[25px] p-6 flex flex-col h-full hover:border-secondary transition-colors duration-300 relative overflow-hidden group reveal-stagger-child">
+            <div class="absolute top-0 left-0 w-full h-1 bg-secondary transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-start mb-4">
+                ${imgHtml}
+                <span class="bg-surface-container px-2 py-1 rounded-[25px] font-label-sm text-label-sm text-on-surface-variant border border-outline-variant">${tagText}</span>
+              </div>
+              <h3 class="font-headline-md text-headline-md text-primary mb-2">${partner.nome}</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-6">${partner.descricao}</p>
+            </div>
+            <div class="pt-4 border-t border-outline-variant mt-auto">
+              <a href="#seja-parceiro" onclick="abrirModalParceiro()" class="w-full bg-surface hover:bg-surface-container border border-outline text-on-surface-variant font-button text-button py-2 rounded-[25px] transition-colors flex justify-center items-center gap-2">
+                Saber Mais <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        `;
+      };
+
+      // 1. Universidades & Academia
+      if (containerAcademic && grouped['Universidades & Academia'] && grouped['Universidades & Academia'].length > 0) {
+        containerAcademic.innerHTML = grouped['Universidades & Academia'].map(renderAcademicCard).join('');
+      }
+
+      // 2. Indústria & Certificação
+      if (containerIndustry && grouped['Indústria & Certificação'] && grouped['Indústria & Certificação'].length > 0) {
+        containerIndustry.innerHTML = grouped['Indústria & Certificação'].map(p => renderIndustryCard(p, 'precision_manufacturing')).join('');
+      }
+
+      // 3. Governo & Instituições Públicas
+      const blockGov = document.getElementById('block-governo');
+      const containerGov = document.getElementById('dynamic-governo-partners');
+      if (grouped['Governo & Instituições Públicas'] && grouped['Governo & Instituições Públicas'].length > 0) {
+        if (blockGov) blockGov.classList.remove('hidden');
+        if (containerGov) {
+          containerGov.innerHTML = grouped['Governo & Instituições Públicas'].map(p => renderIndustryCard(p, 'account_balance')).join('');
+        }
+      }
+
+      // 4. Sustentabilidade & Ambiente
+      const blockSust = document.getElementById('block-sustentabilidade');
+      const containerSust = document.getElementById('dynamic-sustainability-partners');
+      if (grouped['Sustentabilidade & Ambiente'] && grouped['Sustentabilidade & Ambiente'].length > 0) {
+        if (blockSust) blockSust.classList.remove('hidden');
+        if (containerSust) {
+          containerSust.innerHTML = grouped['Sustentabilidade & Ambiente'].map(p => renderIndustryCard(p, 'eco')).join('');
+        }
+      }
+
+      // 5. Outras Categorias Customizadas criadas no Backoffice
+      const customContainer = document.getElementById('dynamic-custom-categories');
+      if (customContainer) {
+        const knownCategories = ['Universidades & Academia', 'Indústria & Certificação', 'Governo & Instituições Públicas', 'Sustentabilidade & Ambiente'];
+        Object.keys(grouped).forEach(catName => {
+          if (!knownCategories.includes(catName) && grouped[catName].length > 0) {
+            const sectionHtml = `
+              <div class="partner-category-block" data-category-section="${catName}">
+                <div class="flex items-center gap-3 mb-8 border-b border-outline-variant pb-4">
+                  <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">domain</span>
+                  <h2 class="font-headline-md text-headline-md text-primary">${catName}</h2>
                 </div>
-                <div class="flex flex-col justify-center">
-                  ${tagsHtml ? `<div class="flex flex-wrap gap-2 mb-2">${tagsHtml}</div>` : ''}
-                  <h3 class="font-headline-md text-headline-md text-primary mb-2">${partner.nome}</h3>
-                  <p class="font-body-md text-body-md text-on-surface-variant">${partner.descricao}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter reveal-stagger-parent">
+                  ${grouped[catName].map(p => renderIndustryCard(p, 'domain')).join('')}
                 </div>
               </div>
             `;
-          });
-          if (window.observeScrollElements) window.observeScrollElements();
-        }
+            customContainer.innerHTML += sectionHtml;
+          }
+        });
       }
+
+      // 6. Configurar Filtros Interativos por Categoria (Tabs)
+      if (tabsContainer) {
+        const filterBtns = tabsContainer.querySelectorAll('.partner-filter-btn');
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const selectedCat = btn.getAttribute('data-category');
+
+            // Atualiza botões
+            filterBtns.forEach(b => {
+              b.classList.remove('bg-primary', 'text-on-primary', 'border-primary', 'shadow-sm');
+              b.classList.add('bg-surface', 'text-on-surface-variant', 'border-outline-variant');
+            });
+            btn.classList.remove('bg-surface', 'text-on-surface-variant', 'border-outline-variant');
+            btn.classList.add('bg-primary', 'text-on-primary', 'border-primary', 'shadow-sm');
+
+            // Filtra os blocos de categoria na página
+            const categoryBlocks = document.querySelectorAll('.partner-category-block');
+            categoryBlocks.forEach(block => {
+              const blockCat = block.getAttribute('data-category-section');
+              if (selectedCat === 'all' || blockCat === selectedCat) {
+                // Não exibir blocos que estejam vazios por padrão (ex: governo se não tiver parceiros)
+                if ((block.id === 'block-governo' && (!grouped['Governo & Instituições Públicas'] || grouped['Governo & Instituições Públicas'].length === 0)) ||
+                    (block.id === 'block-sustentabilidade' && (!grouped['Sustentabilidade & Ambiente'] || grouped['Sustentabilidade & Ambiente'].length === 0))) {
+                  block.classList.add('hidden');
+                } else {
+                  block.classList.remove('hidden');
+                }
+              } else {
+                block.classList.add('hidden');
+              }
+            });
+
+            if (window.observeScrollElements) window.observeScrollElements();
+          });
+        });
+      }
+
+      if (window.observeScrollElements) window.observeScrollElements();
     } catch (e) {
       console.error('Erro ao carregar parceiros institucionais:', e);
     }
@@ -283,6 +426,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   await fetchBanners();
   await fetchServicos();
   await fetchCursos();
-  await fetchAcademicPartners();
+  await fetchAllPartners();
 });
 

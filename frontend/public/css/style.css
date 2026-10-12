@@ -1019,6 +1019,83 @@ section {
   left: -9rem;
 }
 
+/* Barra de categorias da página de parceiros. */
+.page-parceiros .partners-directory {
+  width: min(1180px, calc(100% - 3rem));
+  margin: -2.4rem auto 0;
+  padding-inline: 0 !important;
+  gap: 4.5rem;
+}
+
+.partner-filter-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem !important;
+  padding: 0.7rem !important;
+  overflow-x: auto;
+  border: 1px solid rgba(0, 30, 64, 0.1) !important;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 1rem 2.5rem rgba(0, 30, 64, 0.14);
+  scrollbar-width: none;
+}
+
+.partner-filter-bar::-webkit-scrollbar { display: none; }
+
+.partner-filter-btn {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.7rem;
+  padding: 0.55rem 1rem !important;
+  border: 1px solid #d7e0e8 !important;
+  border-radius: 999px !important;
+  color: #18334f !important;
+  background: #f8fafc !important;
+  font-family: var(--sans);
+  white-space: nowrap;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease, box-shadow 200ms ease !important;
+}
+
+.partner-filter-btn:hover,
+.partner-filter-btn:focus-visible {
+  border-color: #72c8eb !important;
+  color: var(--navy) !important;
+  background: #e8f5fb !important;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.partner-filter-btn.is-active,
+.partner-filter-btn[data-active="true"],
+.partner-filter-btn.bg-primary {
+  color: #fff !important;
+  border-color: var(--navy) !important;
+  background: var(--navy) !important;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 30, 64, 0.2) !important;
+}
+
+@media (max-width: 820px) {
+  .page-parceiros .partners-directory {
+    width: min(100% - 2.5rem, 1180px);
+    margin-top: -1.5rem;
+    gap: 3rem;
+  }
+
+  .partner-filter-bar { border-radius: 1rem; }
+}
+
+@media (max-width: 560px) {
+  .partner-filter-btn {
+    min-height: 2.5rem;
+    padding-inline: 0.85rem !important;
+    font-size: 0.72rem !important;
+  }
+}
+
 .page-academia article,
 .page-consultoria article,
 .page-parceiros .partners-directory>div>div[class*="bg-surface"] {
