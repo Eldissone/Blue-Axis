@@ -1,18 +1,7 @@
-:root {
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    --color-primary: #002B49;
-    --color-primary-light: #0A3D62;
-    --color-accent: #00A896;
-    --color-gold: #D4AF37;
-    --color-surface-card: rgba(255, 255, 255, 0.85);
-    --color-glass: rgba(255, 255, 255, 0.65);
-}
-
 body {
-    font-family: var(--font-sans);
-    background-color: #F8FAFC;
-    color: #1E293B;
+    font-family: var(--sans);
+    background-color: var(--paper);
+    color: var(--ink);
     overflow-x: hidden;
 }
 
@@ -22,7 +11,7 @@ body {
 }
 
 .font-editorial {
-    font-family: var(--font-display);
+    font-family: var(--serif);
 }
 
 /* Hero Banner */
@@ -142,13 +131,13 @@ body {
 
 .gallery-cta-btn-primary {
     background-color: #ffffff !important;
-    color: var(--color-primary) !important;
+    color: var(--ink) !important;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     display: inline-block;
 }
 
 .gallery-cta-btn-primary:hover {
-    background-color: var(--color-primary) !important;
+    background-color: var(--ink) !important;
     color: #ffffff !important;
     border: 1px solid #ffffff;
     transform: translateY(-2px);
