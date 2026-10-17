@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (panelId === 'cursos') carregarCursos();
     if (panelId === 'parceiros-institucionais') carregarParceirosInstitucionais();
     if (panelId === 'newsletter') carregarNewsletter();
+    if (panelId === 'publicacoes') carregarPublicacoes();
   }
 
   function setButtonLoading(form, isLoading) {
@@ -294,6 +295,85 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.appendChild(tr);
       });
     });
+  }
+
+  // 8. PUBLICAÇÕES
+  let publicacoesData = [];
+  function carregarPublicacoes() {
+    fetchData('/backoffice/publicacoes', 'tabelaPublicacoes', (dados, tbody) => {
+      publicacoesData = dados || [];
+      tbody.innerHTML = '';
+      if (!dados || dados.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-8 text-center text-gray-400">Nenhuma publicação registada ainda.</td></tr>';
+        return;
+      }
+      dados.forEach(item => {
+        let imgTag = '<span class="text-xs text-gray-400">S/ Capa</span>';
+        if (item.imagemCapaUrl) {
+          const src = item.imagemCapaUrl.startsWith('http') ? item.imagemCapaUrl : `http://localhost:3333${item.imagemCapaUrl}`;
+          imgTag = `<img src="${src}" class="h-12 w-12 object-cover rounded-xl shadow-sm border border-gray-200">`;
+        }
+
+        let statusClass = 'bg-gray-100 text-gray-800';
+        if (item.status === 'PUBLICADO') statusClass = 'bg-green-100 text-green-800';
+        else if (item.status === 'RASCUNHO') statusClass = 'bg-amber-100 text-amber-800';
+        else if (item.status === 'AGENDADO') statusClass = 'bg-blue-100 text-blue-800';
+
+        const docsCount = item.documentos ? item.documentos.length : 0;
+        const vistas = item._count?.visualizacoes ?? 0;
+        const downloads = item._count?.downloads ?? 0;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="flex items-center gap-3">
+              ${imgTag}
+              <div>
+                <div class="text-sm font-bold text-gray-900 max-w-xs truncate" title="${item.titulo}">${item.titulo}</div>
+                <div class="text-xs text-gray-500">${item.autor ? `Por ${item.autor} · ` : ''}${new Date(item.atualizadoEm || item.criadoEm).toLocaleDateString('pt-BR')}</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">${item.categoria}</span>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="px-2.5 py-1 inline-flex text-xs font-semibold rounded-full ${statusClass}">${item.status}</span>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-600">
+            <div>👁️ ${vistas} views</div>
+            <div>📥 ${downloads} downloads (${docsCount} pdf)</div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
+            <span class="text-blue-600 hover:text-blue-900 cursor-pointer font-bold" onclick="editarPublicacao(${item.id})">Editar</span>
+            ${item.status === 'PUBLICADO' ? `<a href="/noticias/${item.slug}" target="_blank" class="text-emerald-600 hover:text-emerald-900 font-bold">Ver</a>` : ''}
+            <span class="text-red-600 hover:text-red-900 cursor-pointer font-bold" onclick="deletarPublicacao(${item.id})">Excluir</span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    });
+
+    carregarAnalyticsPublicacoes();
+  }
+
+  async function carregarAnalyticsPublicacoes() {
+    try {
+      const res = await fetch('http://localhost:3333/backoffice/publicacoes-analytics', { headers: headerComum });
+      if (res.ok) {
+        const data = await res.json();
+        const elTotal = document.getElementById('metricPublicacoes');
+        const elVis = document.getElementById('metricVisualizacoes');
+        const elDown = document.getElementById('metricDownloads');
+        const elTaxa = document.getElementById('metricTaxaDownload');
+        if (elTotal) elTotal.textContent = data.totalPublicacoes ?? 0;
+        if (elVis) elVis.textContent = data.visualizacoes ?? 0;
+        if (elDown) elDown.textContent = data.downloads ?? 0;
+        if (elTaxa) elTaxa.textContent = `${data.taxaDownload ?? 0}%`;
+      }
+    } catch (err) {
+      console.error('Erro ao buscar métricas de publicações', err);
+    }
   }
 
   // --- ACTIONS ---
@@ -651,6 +731,150 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Erro: ' + err.message);
     } finally {
       setButtonLoading(document.getElementById('formParceiroInstitucional'), false);
+    }
+  });
+
+  // --- PUBLICAÇÕES MODAL HANDLERS ---
+  window.criarPublicacao = function() {
+    document.getElementById('modalPublicacaoTitulo').textContent = 'Nova Publicação';
+    document.getElementById('publicacaoId').value = '';
+    document.getElementById('formPublicacao').reset();
+    document.getElementById('publicacaoStatus').value = 'PUBLICADO';
+    const previewContainer = document.getElementById('publicacaoPreviewContainer');
+    if (previewContainer) previewContainer.classList.add('hidden');
+    const preview = document.getElementById('publicacaoPreview');
+    if (preview) preview.src = '';
+    const docsInfo = document.getElementById('publicacaoDocsAtuais');
+    if (docsInfo) docsInfo.innerHTML = '';
+    document.getElementById('modalPublicacao').classList.remove('hidden');
+  };
+
+  window.editarPublicacao = function(id) {
+    const pub = publicacoesData.find(p => p.id === id);
+    if (!pub) return;
+    document.getElementById('modalPublicacaoTitulo').textContent = 'Editar Publicação';
+    document.getElementById('publicacaoId').value = pub.id;
+    document.getElementById('publicacaoTitulo').value = pub.titulo || '';
+    document.getElementById('publicacaoCategoria').value = pub.categoria || 'Notícias';
+    document.getElementById('publicacaoAutor').value = pub.autor || '';
+    document.getElementById('publicacaoStatus').value = pub.status || 'RASCUNHO';
+    document.getElementById('publicacaoResumo').value = pub.resumo || '';
+    document.getElementById('publicacaoConteudo').value = pub.conteudo || '';
+    document.getElementById('publicacaoTags').value = pub.tags || '';
+
+    const previewContainer = document.getElementById('publicacaoPreviewContainer');
+    const preview = document.getElementById('publicacaoPreview');
+    if (pub.imagemCapaUrl && preview && previewContainer) {
+      const src = pub.imagemCapaUrl.startsWith('http') ? pub.imagemCapaUrl : `http://localhost:3333${pub.imagemCapaUrl}`;
+      preview.src = src;
+      previewContainer.classList.remove('hidden');
+    } else if (previewContainer) {
+      previewContainer.classList.add('hidden');
+    }
+
+    const docsInfo = document.getElementById('publicacaoDocsAtuais');
+    if (docsInfo) {
+      if (pub.documentos && pub.documentos.length > 0) {
+        docsInfo.innerHTML = `<div class="mt-1 text-xs text-gray-600 font-medium">Documentos anexados: ${pub.documentos.map(d => `<span class="bg-gray-100 px-2 py-0.5 rounded text-gray-700 mr-1">${d.nomeArquivo}</span>`).join('')}</div>`;
+      } else {
+        docsInfo.innerHTML = '';
+      }
+    }
+
+    document.getElementById('modalPublicacao').classList.remove('hidden');
+  };
+
+  window.fecharModalPublicacao = function() {
+    document.getElementById('modalPublicacao').classList.add('hidden');
+    document.getElementById('formPublicacao').reset();
+    const previewContainer = document.getElementById('publicacaoPreviewContainer');
+    if (previewContainer) previewContainer.classList.add('hidden');
+    const preview = document.getElementById('publicacaoPreview');
+    if (preview) preview.src = '';
+    const docsInfo = document.getElementById('publicacaoDocsAtuais');
+    if (docsInfo) docsInfo.innerHTML = '';
+  };
+
+  window.deletarPublicacao = async function(id) {
+    if (!confirm('Tem a certeza que deseja excluir esta publicação? Esta ação não pode ser desfeita.')) return;
+    try {
+      const res = await fetch(`http://localhost:3333/backoffice/publicacoes/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        alert('Publicação excluída com sucesso!');
+        carregarPublicacoes();
+      } else {
+        const err = await res.json().catch(() => ({}));
+        alert(err.mensagem || 'Erro ao excluir publicação.');
+      }
+    } catch (e) {
+      alert('Erro: ' + e.message);
+    }
+  };
+
+  document.getElementById('formPublicacao').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('publicacaoId').value;
+    const formData = new FormData();
+    formData.append('titulo', document.getElementById('publicacaoTitulo').value);
+    formData.append('categoria', document.getElementById('publicacaoCategoria').value);
+    formData.append('autor', document.getElementById('publicacaoAutor').value);
+    formData.append('status', document.getElementById('publicacaoStatus').value);
+    formData.append('resumo', document.getElementById('publicacaoResumo').value);
+    formData.append('conteudo', document.getElementById('publicacaoConteudo').value);
+    formData.append('tags', document.getElementById('publicacaoTags').value);
+
+    const fileInput = document.getElementById('publicacaoImagem');
+    if (fileInput.files[0]) {
+      formData.append('imagemCapa', fileInput.files[0]);
+    }
+
+    let url = 'http://localhost:3333/backoffice/publicacoes';
+    let method = 'POST';
+    if (id) {
+      url = `${url}/${id}`;
+      method = 'PUT';
+    }
+
+    setButtonLoading(document.getElementById('formPublicacao'), true);
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.mensagem || 'Erro ao guardar publicação.');
+      }
+
+      const publicacaoSalva = await res.json();
+      const pubId = id || publicacaoSalva.id;
+
+      const docInput = document.getElementById('publicacaoDocumento');
+      if (docInput && docInput.files[0] && pubId) {
+        const docFormData = new FormData();
+        docFormData.append('documento', docInput.files[0]);
+        const docRes = await fetch(`http://localhost:3333/backoffice/publicacoes/${pubId}/documentos`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: docFormData
+        });
+        if (!docRes.ok) {
+          console.warn('Erro ao anexar documento PDF à publicação');
+        }
+      }
+
+      alert(`Publicação ${id ? 'atualizada' : 'criada'} com sucesso!`);
+      fecharModalPublicacao();
+      carregarPublicacoes();
+    } catch (err) {
+      alert('Erro: ' + err.message);
+    } finally {
+      setButtonLoading(document.getElementById('formPublicacao'), false);
     }
   });
 

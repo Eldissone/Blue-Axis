@@ -31,6 +31,11 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({ storage: storage })
+const uploadPdf = multer({
+  storage,
+  limits: { fileSize: 20 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => cb(null, file.mimetype === 'application/pdf'),
+});
 
 // --- NOVOS MÓDULOS ---
 import { PrismaInscricaoCursoRepository } from '../../adapters/repositories/prisma-inscricaoCurso.repository.js';
@@ -86,6 +91,8 @@ import { AtualizarParceiroInstitucionalUseCase } from '../../use-cases/backoffic
 import { DeletarParceiroInstitucionalUseCase } from '../../use-cases/backoffice/deletar-parceiroInstitucional.use-case.js';
 import { ListarParceiroInstitucionalAtivosUseCase } from '../../use-cases/publico/listar-parceiroInstitucional-ativos.use-case.js';
 import { ParceiroInstitucionalController } from '../../adapters/controllers/parceiroInstitucional.controller.js';
+import { PrismaPublicacaoRepository } from '../../adapters/repositories/prisma-publicacao.repository.js';
+import { PublicacaoController } from '../../adapters/controllers/publicacao.controller.js';
 
 export const routes = Router();
 
@@ -101,6 +108,7 @@ const repoServico = new PrismaServicoRepository();
 const repoNewsletter = new PrismaNewsletterRepository();
 const repoCurso = new PrismaCursoRepository();
 const repoParceiroInstitucional = new PrismaParceiroInstitucionalRepository();
+const repoPublicacao = new PrismaPublicacaoRepository();
 
 // 2. Controladores
 const criarUsuarioController = new CriarUsuarioController(new CriarUsuarioUseCase(usuarioRepository));
@@ -123,6 +131,7 @@ const parceiroInstitucionalController = new ParceiroInstitucionalController(
   new DeletarParceiroInstitucionalUseCase(repoParceiroInstitucional),
   new ListarParceiroInstitucionalAtivosUseCase(repoParceiroInstitucional)
 );
+const publicacaoController = new PublicacaoController(repoPublicacao);
 
 routes.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -148,6 +157,9 @@ routes.get('/banners', (req, res, next) => bannerController.listar(req, res, nex
 routes.get('/servicos', (req, res, next) => servicoController.listar(req, res, next));
 routes.get('/cursos', (req, res, next) => cursoController.listarAtivos(req, res, next));
 routes.get('/parceiros-institucionais', (req, res, next) => parceiroInstitucionalController.listarAtivos(req, res, next));
+routes.get('/publicacoes', (req, res, next) => publicacaoController.listarPublicas(req, res, next));
+routes.get('/publicacoes/:slug', (req, res, next) => publicacaoController.detalhePublico(req, res, next));
+routes.get('/publicacoes/:slug/documentos/:documentoId/download', (req, res, next) => publicacaoController.downloadPublico(req, res, next));
 
 
 // --- ROTAS DE BACKOFFICE (Protegidas) ---
@@ -180,4 +192,12 @@ routes.get('/backoffice/parceiros-institucionais', (req, res, next) => parceiroI
 routes.post('/backoffice/parceiros-institucionais', upload.single('imagem'), (req, res, next) => parceiroInstitucionalController.criar(req, res, next));
 routes.put('/backoffice/parceiros-institucionais/:id', upload.single('imagem'), (req, res, next) => parceiroInstitucionalController.atualizar(req, res, next));
 routes.delete('/backoffice/parceiros-institucionais/:id', (req, res, next) => parceiroInstitucionalController.deletar(req, res, next));
+
+// Publicações editoriais e documentos técnicos
+routes.get('/backoffice/publicacoes', (req, res, next) => publicacaoController.listarAdmin(req, res, next));
+routes.post('/backoffice/publicacoes', upload.single('imagemCapa'), (req, res, next) => publicacaoController.criar(req, res, next));
+routes.put('/backoffice/publicacoes/:id', upload.single('imagemCapa'), (req, res, next) => publicacaoController.atualizar(req, res, next));
+routes.post('/backoffice/publicacoes/:id/documentos', uploadPdf.single('documento'), (req, res, next) => publicacaoController.adicionarDocumento(req, res, next));
+routes.get('/backoffice/publicacoes-analytics', (req, res, next) => publicacaoController.analytics(req, res, next));
+routes.delete('/backoffice/publicacoes/:id', (req, res, next) => publicacaoController.deletar(req, res, next));
 

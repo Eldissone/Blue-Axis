@@ -163,3 +163,73 @@ model ParceiroInstitucional {
   @@map("parceiros_institucionais")
 }
 
+model Publicacao {
+  id             Int                   @id @default(autoincrement())
+  titulo         String
+  slug           String                @unique
+  resumo         String
+  conteudo       String
+  imagemCapaUrl  String?
+  categoria      String
+  autor          String?
+  tags           String?
+  status         String                @default("RASCUNHO") // RASCUNHO, AGENDADO, PUBLICADO, ARQUIVADO
+  publicadoEm    DateTime?
+  agendadoPara   DateTime?
+  seoTitulo      String?
+  seoDescricao   String?
+  criadoEm       DateTime              @default(now())
+  atualizadoEm   DateTime              @updatedAt
+  documentos     DocumentoPublicacao[]
+  visualizacoes  VisualizacaoPublicacao[]
+  downloads      DownloadPublicacao[]
+
+  @@index([status, publicadoEm])
+  @@index([categoria])
+  @@map("publicacoes")
+}
+
+model DocumentoPublicacao {
+  id            Int        @id @default(autoincrement())
+  publicacaoId  Int
+  nomeArquivo   String
+  arquivoUrl    String
+  mimeType      String
+  tamanhoBytes  Int
+  versao        Int        @default(1)
+  criadoEm      DateTime   @default(now())
+  atualizadoEm  DateTime   @updatedAt
+  publicacao    Publicacao @relation(fields: [publicacaoId], references: [id], onDelete: Cascade)
+  downloads     DownloadPublicacao[]
+
+  @@index([publicacaoId])
+  @@map("documentos_publicacoes")
+}
+
+model VisualizacaoPublicacao {
+  id            Int        @id @default(autoincrement())
+  publicacaoId  Int
+  visitanteHash String
+  origem        String?
+  criadoEm      DateTime   @default(now())
+  publicacao    Publicacao @relation(fields: [publicacaoId], references: [id], onDelete: Cascade)
+
+  @@index([publicacaoId, criadoEm])
+  @@index([visitanteHash, criadoEm])
+  @@map("visualizacoes_publicacoes")
+}
+
+model DownloadPublicacao {
+  id            Int                  @id @default(autoincrement())
+  publicacaoId  Int
+  documentoId   Int
+  visitanteHash String
+  criadoEm      DateTime             @default(now())
+  publicacao    Publicacao           @relation(fields: [publicacaoId], references: [id], onDelete: Cascade)
+  documento     DocumentoPublicacao  @relation(fields: [documentoId], references: [id], onDelete: Cascade)
+
+  @@index([publicacaoId, criadoEm])
+  @@index([documentoId])
+  @@map("downloads_publicacoes")
+}
+

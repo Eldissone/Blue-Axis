@@ -40,12 +40,25 @@
     .btn-sair:hover {
       opacity: 0.9;
     }
+
+    .site-header {
+      position: relative !important;
+      z-index: 20 !important;
+      border-radius: 0 !important;
+      background: white !important;
+      box-shadow: none !important;
+    }
+
+    /* Modais devem sempre ficar no topo absoluto */
+    [id^="modal"] {
+      z-index: 9999 !important;
+    }
   </style>
 </head>
 
 <body class="min-h-screen flex flex-col">
 
-  <header class="site-header" style="position: relative; border-bottom: 1px solid #e2e8f0; background: white;">
+  <header class="site-header" style="position: relative; border-bottom: 1px solid #e2e8f0; background: white; border-radius: 0; z-index: 20;">
     <div class="container header-inner flex items-center justify-between">
       <a href="/" aria-label="BLUE HORIZON — início" class="brand flex items-center gap-3">
         <img class="brand-logo h-10" src="/assets/logo/LOGO%20BLUE%20HORIZON%202.png" alt="BLUE HORIZON" />
@@ -107,6 +120,10 @@
         <a href="#" onclick="showPanel('newsletter')"
           class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
           <span class="material-symbols-outlined">mail</span> Newsletter
+        </a>
+        <a href="#" onclick="showPanel('publicacoes')"
+          class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-primary font-medium rounded-xl transition-colors">
+          <span class="material-symbols-outlined">newspaper</span> Publicações
         </a>
       </nav>
     </aside>
@@ -308,13 +325,27 @@
             </table>
           </div>
         </div>
+
+        <!-- Publicações Panel -->
+        <div id="panel-publicacoes" class="panel hidden space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white border border-gray-200 rounded-2xl p-5"><p class="text-xs font-bold text-gray-500 uppercase">Publicações</p><p id="metricPublicacoes" class="text-3xl font-bold text-primary mt-2">—</p></div>
+            <div class="bg-white border border-gray-200 rounded-2xl p-5"><p class="text-xs font-bold text-gray-500 uppercase">Visualizações</p><p id="metricVisualizacoes" class="text-3xl font-bold text-primary mt-2">—</p></div>
+            <div class="bg-white border border-gray-200 rounded-2xl p-5"><p class="text-xs font-bold text-gray-500 uppercase">Downloads PDF</p><p id="metricDownloads" class="text-3xl font-bold text-primary mt-2">—</p></div>
+            <div class="bg-white border border-gray-200 rounded-2xl p-5"><p class="text-xs font-bold text-gray-500 uppercase">Taxa de download</p><p id="metricTaxaDownload" class="text-3xl font-bold text-primary mt-2">—</p></div>
+          </div>
+          <div class="bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex items-center justify-between"><h1 class="text-xl font-bold text-primary flex items-center gap-2"><span class="material-symbols-outlined">newspaper</span> Gestão de Publicações</h1><button onclick="criarPublicacao()" class="bg-primary text-white px-4 py-2 rounded-[25px] font-bold text-sm hover:bg-blue-800">Nova Publicação</button></div>
+            <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="bg-white"><tr><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Título</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Categoria</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Estado</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Métricas</th><th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Ações</th></tr></thead><tbody id="tabelaPublicacoes" class="bg-white divide-y divide-gray-100"></tbody></table></div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
 
   <!-- Modal Banner -->
-  <div id="modalBanner" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl w-full max-w-md p-6">
+  <div id="modalBanner" style="z-index: 9999;" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl w-full max-w-md p-6 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold text-primary">Novo Banner</h2>
         <button onclick="fecharModalBanner()" class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">close</span></button>
@@ -353,8 +384,8 @@
   </div>
 
   <!-- Modal Servico -->
-  <div id="modalServico" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl w-full max-w-md p-6">
+  <div id="modalServico" style="z-index: 9999;" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl w-full max-w-md p-6 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold text-primary">Novo Serviço</h2>
         <button onclick="fecharModalServico()" class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">close</span></button>
@@ -403,7 +434,7 @@
   </div>
 
   <!-- Modal Curso -->
-  <div id="modalCurso" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div id="modalCurso" style="z-index: 9999;" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl w-full max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold text-primary">Novo Curso</h2>
@@ -479,7 +510,7 @@
   </div>
 
   <!-- Modal Parceiro Institucional -->
-  <div id="modalParceiroInstitucional" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div id="modalParceiroInstitucional" style="z-index: 9999;" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl w-full max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
         <h2 id="modalParceiroInstitucionalTitulo" class="text-xl font-bold text-primary">Novo Parceiro Institucional</h2>
@@ -535,6 +566,23 @@
     </div>
   </div>
 
+  <!-- Modal Publicação -->
+  <div id="modalPublicacao" style="z-index: 9999;" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl w-full max-w-3xl p-6 my-auto max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-5"><h2 id="modalPublicacaoTitulo" class="text-xl font-bold text-primary">Nova Publicação</h2><button onclick="fecharModalPublicacao()" class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">close</span></button></div>
+      <form id="formPublicacao" class="space-y-4">
+        <input type="hidden" id="publicacaoId">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="block text-sm font-semibold text-gray-700 mb-1">Título *</label><input id="publicacaoTitulo" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-primary"></div><div><label class="block text-sm font-semibold text-gray-700 mb-1">Categoria *</label><select id="publicacaoCategoria" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl"><option>Notícias</option><option>Projetos</option><option>Artigos</option><option>Estudos de Caso</option><option>Relatórios</option></select></div></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="block text-sm font-semibold text-gray-700 mb-1">Autor</label><input id="publicacaoAutor" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl"></div><div><label class="block text-sm font-semibold text-gray-700 mb-1">Estado</label><select id="publicacaoStatus" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl"><option value="RASCUNHO">Rascunho</option><option value="PUBLICADO">Publicado</option><option value="AGENDADO">Agendado</option><option value="ARQUIVADO">Arquivado</option></select></div></div>
+        <div><label class="block text-sm font-semibold text-gray-700 mb-1">Resumo *</label><textarea id="publicacaoResumo" required rows="2" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl"></textarea></div>
+        <div><label class="block text-sm font-semibold text-gray-700 mb-1">Conteúdo *</label><textarea id="publicacaoConteudo" required rows="7" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl"></textarea></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="block text-sm font-semibold text-gray-700 mb-1">Tags</label><input id="publicacaoTags" placeholder="Ex.: marítimo, formação" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl"></div><div><label class="block text-sm font-semibold text-gray-700 mb-1">Imagem de capa</label><input id="publicacaoImagem" type="file" accept="image/*" class="w-full text-sm" onchange="previewImage(event, 'publicacaoPreview')"><div class="mt-2 hidden" id="publicacaoPreviewContainer"><img id="publicacaoPreview" class="w-full h-32 object-cover rounded-xl border border-gray-200" src="" alt="Preview"></div></div></div>
+        <div id="publicacaoDocumentoGrupo"><label class="block text-sm font-semibold text-gray-700 mb-1">Documento PDF</label><input id="publicacaoDocumento" type="file" accept="application/pdf" class="w-full text-sm"><p class="mt-1 text-xs text-gray-500">O PDF é anexado após guardar a publicação.</p><div id="publicacaoDocsAtuais" class="mt-1"></div></div>
+        <div class="pt-3 flex justify-end gap-2"><button type="button" onclick="fecharModalPublicacao()" class="px-4 py-2 rounded-xl text-gray-600 hover:bg-gray-100 font-bold">Cancelar</button><button type="submit" class="bg-primary text-white px-6 py-2 rounded-xl font-bold hover:bg-blue-800">Guardar publicação</button></div>
+      </form>
+    </div>
+  </div>
+
   <script>
     function previewImage(event, previewId) {
       const input = event.target;
@@ -554,7 +602,7 @@
       }
     }
   </script>
-  <script src=".././js/backoffice-dashboard.js"></script>
+  <script src="/js/backoffice-dashboard.js"></script>
 </body>
 
 </html>
