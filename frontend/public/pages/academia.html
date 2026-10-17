@@ -138,8 +138,8 @@
         <!-- Corsos Grid -->
         <section class="academia-courses reveal-up mx-auto px-margin-mobile md:px-margin-desktop">
             <div class="text-center services-heading  mb-12">
-                <p>Carreiras Azuis</p>
-                <h2 class="servicos-titulo">Nossos Cursos</h2>
+                <p>Cursos</p>
+                <h2 class="servicos-titulo">Nosso Catálogo de Formação</h2>
             </div>
             <div id="cursosContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                 <!-- Courses will be loaded dynamically here -->
@@ -149,8 +149,8 @@
         <!-- Serviços Grid -->
         <section class="academia-services reveal-up mx-auto px-margin-mobile md:px-margin-desktop mt-24">
             <div class="text-center services-heading  mb-12">
-                <p>O que fazemos</p>
-                <h2 class="servicos-titulo">Nossos Serviços de Formação</h2>
+                <p>Carreiras Azuis</p>
+                <h2 class="servicos-titulo">Nossos Cursos</h2>
             </div>
 
             <div id="dynamic-services"
@@ -161,8 +161,8 @@
     </main>
 
     <!-- Modal Inscrição -->
-    <div id="modalInscricao" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-[25px] w-full max-w-lg p-8 relative shadow-xl transform transition-all">
+    <div id="modalInscricao" style="z-index: 9999;" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-[25px] w-full max-w-lg p-8 relative shadow-xl transform transition-all my-auto max-h-[90vh] overflow-y-auto">
             <button onclick="fecharModalInscricao()"
                 class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition">
                 <span class="material-symbols-outlined">close</span>
@@ -247,7 +247,21 @@
         function abrirModalInscricao(cursoOpcional) {
             document.getElementById('modalInscricao').classList.remove('hidden');
             if (cursoOpcional) {
-                document.getElementById('acadCurso').value = cursoOpcional;
+                const select = document.getElementById('acadCurso');
+                if (select) {
+                    let exists = false;
+                    for (let i = 0; i < select.options.length; i++) {
+                        if (select.options[i].value === cursoOpcional || select.options[i].text === cursoOpcional) {
+                            select.selectedIndex = i;
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (!exists) {
+                        const newOption = new Option(cursoOpcional, cursoOpcional, true, true);
+                        select.add(newOption);
+                    }
+                }
             }
         }
         function fecharModalInscricao() {

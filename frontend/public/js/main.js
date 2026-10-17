@@ -116,7 +116,7 @@ window.initCarousel = function() {
             if (reduceMotion.matches || window.heroAutoplayId) return;
             window.heroAutoplayId = window.setInterval(() => {
                 showSlide((activeIndex + 1) % slides.length);
-            }, 6500);
+            }, 2500);
         };
 
         dots.forEach((dot, index) => {

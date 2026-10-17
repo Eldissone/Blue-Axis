@@ -117,9 +117,40 @@ document.addEventListener('DOMContentLoaded', async () => {
               grouped[area].push(s);
             });
 
+            // Extrai o número da área (romano ou árabe) para ordenação crescente
+            const parseAreaNumber = (name) => {
+              if (!name) return 9999;
+              const romanMatch = name.match(/(?:Área|Area)\s+([IVXLCDM]+)(?:\b|\s|[–\-])/i);
+              if (romanMatch) {
+                const roman = romanMatch[1].toUpperCase();
+                const romanMap = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+                let val = 0;
+                for (let i = 0; i < roman.length; i++) {
+                  const curr = romanMap[roman[i]] || 0;
+                  const next = romanMap[roman[i + 1]] || 0;
+                  val += (curr < next) ? -curr : curr;
+                }
+                if (val > 0) return val;
+              }
+              const numMatch = name.match(/(?:Área|Area)\s*(\d+)/i);
+              if (numMatch) return parseInt(numMatch[1], 10);
+              const anyNum = name.match(/\d+/);
+              if (anyNum) return parseInt(anyNum[0], 10);
+              return 9000;
+            };
+
+            const sortedAreaEntries = Object.entries(grouped).sort(([areaA], [areaB]) => {
+              const numA = parseAreaNumber(areaA);
+              const numB = parseAreaNumber(areaB);
+              if (numA !== numB) return numA - numB;
+              return areaA.localeCompare(areaB, 'pt');
+            });
+
             const icons = ['support_agent', 'trending_up', 'school', 'handshake'];
 
-            for (const [area, srvs] of Object.entries(grouped)) {
+            for (const [area, srvs] of sortedAreaEntries) {
+              srvs.sort((a, b) => (a.ordem || a.id || 0) - (b.ordem || b.id || 0));
+
               const shouldUseCarousel = srvs.length > 4;
               const cardsContainerOpen = shouldUseCarousel
                 ? `
@@ -142,6 +173,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const hasImage = !!servico.iconeUrl;
                 const cardClass = hasImage ? 'service-card-image' : 'service-card-solid';
                 const imageHtml = hasImage ? `<img src="http://localhost:3333${servico.iconeUrl}" alt="${servico.titulo}" />` : '';
+                const tituloEscapado = (servico.titulo || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
                 
                 areaHtml += `
                   <article class="service-card ${cardClass} reveal-stagger-child">
@@ -150,7 +182,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                       <span class="service-card-icon material-symbols-outlined" aria-hidden="true">${icon}</span>
                       <h3>${servico.titulo}</h3>
                       <p>${servico.descricao || 'Serviço oferecido pela Blue Horizon.'}</p>
-                      <a href="./pages/contacto.html">Saber mais</a>
+                      <a href="javascript:void(0)" onclick="if(typeof abrirModalInscricao === 'function'){ abrirModalInscricao('${tituloEscapado}'); } else { window.location.href = '/academia'; }" role="button">Inscrição para o curso</a>
                     </div>
                   </article>
                 `;
