@@ -595,14 +595,14 @@ section {
 .services-showcase {
   position: relative;
   overflow: hidden;
-  padding: clamp(5rem, 10vw, 9rem) 1.5rem;
+  padding: clamp(4rem, 10vw, 9rem) 1.5rem;
   background: #fff;
 }
 
 .services-showcase::after {
   position: absolute;
   top: -20rem;
-  right: -14rem;
+  right: -4rem;
   width: 36rem;
   aspect-ratio: 1;
   border: 5rem solid color-mix(in srgb, var(--cyan), transparent 16%);
